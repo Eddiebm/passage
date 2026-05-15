@@ -17,9 +17,9 @@ export function OfferingAppearancePreview() {
         Choose how it looks
       </h2>
       <p className="text-sm leading-relaxed text-[var(--passage-muted)]">
-        Every memorial can use a different visual style — calm programme, night vigil, kente restraint, and
-        dozens more. Each swatch is a distinct phone preview; open the full preview or see it on a live
-        example memorial.
+        Every programme memorial can use a different visual style — calm programme, night vigil, kente
+        restraint, and dozens more. Each card is a full poster-scale phone preview; open the design lab
+        preview or see it on a live example memorial with programme layout (not notice-only).
       </p>
       <AppearancePreviewGrid themes={themes} />
       <p className="text-sm">
