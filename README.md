@@ -17,22 +17,22 @@ Open [http://localhost:3000](http://localhost:3000). Visit the seeded example me
 
 ### GitHub
 
-1. Create the repository `eddiebm/passage` on GitHub (empty, no README) if it does not exist yet.
+1. Create the repository **passage** under your GitHub user (this org resolves as `https://github.com/Eddiebm/passage`; `eddiebm` and `Eddiebm` are the same account) if it does not exist yet.
 2. From this project directory, commit and push:
 
 ```bash
 git add -A
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/eddiebm/passage.git   # skip if origin already set
+git remote add origin https://github.com/Eddiebm/passage.git   # skip if origin already set
 git push -u origin main
 ```
 
-Use SSH instead of HTTPS if that is your usual setup, for example `git@github.com:eddiebm/passage.git`.
+Use SSH instead of HTTPS if that is your usual setup, for example `git@github.com:Eddiebm/passage.git`.
 
 ### Vercel
 
-1. In the Vercel dashboard: **Add New… → Project → Import** the `eddiebm/passage` Git repository.
+1. In the Vercel dashboard: **Add New… → Project → Import** the `Eddiebm/passage` Git repository.
 2. **Framework preset:** Next.js (App Router). **Root Directory:** `.` (repository root).
 3. **Build Command:** `npm run build` (default). **Output:** leave the default for Next.js (no static `output` override required).
 4. **Install Command:** default (`npm install` / detected from lockfile).
@@ -67,6 +67,13 @@ Sync env vars to a local `.env` after linking:
 ```bash
 vercel link
 vercel env pull .env.local
+```
+
+Non-interactive CLI (hobby/team scope) example:
+
+```bash
+vercel link --yes --project passage --scope eddiebms-projects
+vercel env pull .env.local --scope eddiebms-projects
 ```
 
 ## Data layer (Supabase vs local dev)
