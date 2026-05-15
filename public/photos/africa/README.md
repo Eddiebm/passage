@@ -1,41 +1,59 @@
 # Africa portrait library
 
-Dignified portrait photographs for Passage theme preview mockups and design-lab showcases.
-All images sourced from [Unsplash](https://unsplash.com) under the [Unsplash License](https://unsplash.com/license).
+Dignified **African** portraits for Passage theme previews. Passage sells to African families — every customer-facing preview must clearly represent African people.
 
-## Regions represented
+## Sourcing policy
 
-| File | Region / context |
-|------|------------------|
-| `ghana-accra-elder-man.jpg` | ghana, west, accra — LinkedIn Sales Navigator / Unsplash |
-| `nigeria-lagos-woman.jpg` | nigeria, west, lagos — Aiony Haust / Unsplash |
-| `senegal-dakar-elder.jpg` | senegal, west, dakar — Christopher Campbell / Unsplash |
-| `mali-bamako-man.jpg` | mali, west, bamako, sahel — Dotun Sangoleye / Unsplash (elder with head scarf) |
-| `ivory-coast-abidjan-woman.jpg` | ivory, cote, abidjan, west — Christina @ wocintechchat.com / Unsplash |
-| `cameroon-yaounde-elder.jpg` | cameroon, central, yaounde — Aiony Haust / Unsplash |
-| `drc-kinshasa-woman.jpg` | congo, kinshasa, drc, central — Alexandra Gorn / Unsplash |
-| `kenya-nairobi-elder-woman.jpg` | kenya, nairobi, east — Christina @ wocintechchat.com / Unsplash |
-| `ethiopia-addis-elder-man.jpg` | ethiopia, addis, horn, east — Christina @ wocintechchat.com / Unsplash |
-| `tanzania-dar-woman.jpg` | tanzania, dar, east — Charles / Unsplash |
-| `somalia-mogadishu-man.jpg` | somalia, mogadishu, horn — Suraj B / Unsplash |
-| `egypt-cairo-elder.jpg` | egypt, cairo, north — Alexandra Gorn / Unsplash |
-| `morocco-fez-woman.jpg` | morocco, fez, north, maghreb — Aiony Haust / Unsplash |
-| `south-africa-cape-elder.jpg` | south-africa, cape, ubuntu, southern — LinkedIn Sales Navigator / Unsplash |
-| `zimbabwe-harare-elder.jpg` | zimbabwe, harare, southern — Jasper Garr / Unsplash |
-| `botswana-gaborone-woman.jpg` | botswana, southern, sand — Brooke Cagle / Unsplash |
-| `madagascar-antananarivo-elder.jpg` | madagascar, island, rain — Aiony Haust / Unsplash |
-| `mauritius-port-louis-woman.jpg` | mauritius, island, azure, seychelles — Christina @ wocintechchat.com / Unsplash |
-| `rwanda-kigali-man.jpg` | rwanda, kigali, east — Christina @ wocintechchat.com / Unsplash |
-| `uganda-kampala-elder.jpg` | uganda, kampala, east — Brooke Cagle / Unsplash |
-| `namibia-windhoek-woman.jpg` | namibia, windhoek, southern — Brooke Cagle / Unsplash |
-| `angola-luanda-man.jpg` | angola, amber, southern — Suraj B / Unsplash |
-| `liberia-monrovia-elder.jpg` | liberia, monrovia, west — Aiony Haust / Unsplash |
-| `sierra-leone-freetown-woman.jpg` | sierra-leone, freetown, west — Aiony Haust / Unsplash |
-| `pan-african-elder-man.jpg` | pan-african, continental, ancestral, baobab, savanna — LinkedIn Sales Navigator / Unsplash |
+1. **African context required** — description must reference Africa or an African country/community (`src/lib/portrait-policy.ts`).
+2. **Reject generic global stock** — no LinkedIn/corporate headshots or unrelated Western portrait stock.
+3. **One unique photo per file** — no duplicate Unsplash IDs across regions.
+4. **License** — [Unsplash License](https://unsplash.com/license).
 
-## Usage
+## Regions (40 portraits)
 
-- `src/lib/theme-preview-image.ts` maps each `visual_theme` id to a portrait.
-- `scripts/generate-theme-complete-previews.mjs` composites these into `/public/theme-previews/{id}.jpg`.
+| File | Tags | Credit — context |
+|------|------|------------------|
+| `ghana-accra-elder-man.jpg` | ghana, west, accra | David Geneugelijk — Shepherd in Accra, Ghana |
+| `ghana-accra-elder-woman.jpg` | ghana, west, accra | Barnabas Lartey-Odoi Tetteh — Egg seller, Accra, Ghana |
+| `ghana-fashion-elder.jpg` | ghana, west | Barnabas Lartey-Odoi Tetteh — Fashion Africa, Ghana portrait |
+| `nigeria-lagos-woman.jpg` | nigeria, west, lagos | Belinda Amoah — Black African woman portrait |
+| `nigeria-lagos-elder-man.jpg` | nigeria, west, yoruba | Tolu Akinyemi — Yoruba man, Nigeria |
+| `nigeria-tribal-marks-elder.jpg` | nigeria, west, ila | OverlyOlu — ILA tribal marks, Nigerian elder |
+| `senegal-dakar-elder.jpg` | senegal, west, dakar, goree | Vince Gx — Woman in Gorée, Dakar, Senegal |
+| `mali-bamako-man.jpg` | mali, west, sahel | Dotun Sangoleye — Elder, West Africa |
+| `ivory-coast-abidjan-woman.jpg` | ivory, cote, abidjan | Oluwagbenga Fashola — African beauty portrait |
+| `cameroon-yaounde-elder.jpg` | cameroon, central | Sumeet Ahire — Elderly African man, traditional attire |
+| `drc-kinshasa-woman.jpg` | congo, kinshasa, drc | Blake Cheek — Portrait in Africa, 2024 |
+| `kenya-nairobi-elder-woman.jpg` | kenya, nairobi, kisumu | Blake Cheek — Widow in Kisumu, Kenya |
+| `kenya-nairobi-young-woman.jpg` | kenya, nairobi | Blake Cheek — Portrait in Nairobi, Kenya |
+| `ethiopia-addis-elder-man.jpg` | ethiopia, addis, horn | Daniele Levis Pelusi — Ethiopia portrait |
+| `ethiopia-lalibela-priest.jpg` | ethiopia, lalibela | BLOG REGION — Orthodox priest near Lalibela, Ethiopia |
+| `tanzania-dar-woman.jpg` | tanzania, bagamoyo | Paul Abrahams — African woman in Bagamoyo, Tanzania |
+| `somalia-mogadishu-woman.jpg` | somalia, mogadishu | Abdulkadir Hirabe — Mogadishu, Somalia |
+| `somalia-mogadishu-man.jpg` | somalia, mogadishu | Ismail Salad Osman — Somalia, Horn of Africa portrait |
+| `egypt-cairo-elder.jpg` | egypt, cairo, nile | Unsplash — South Sudanese woman, North Africa |
+| `morocco-fez-woman.jpg` | morocco, fez, maghreb | Unsplash — Moroccan girl, Marrakech, Africa |
+| `tunisia-gabes-elder.jpg` | tunisia, maghreb | Unsplash — Old man in Gabès, Tunisia |
+| `south-africa-cape-elder.jpg` | south-africa, cape, ubuntu | Asher Pardey — South African man, Lesedi |
+| `south-africa-storyteller.jpg` | south-africa | Maatla Seetelo — African storyteller portrait |
+| `zimbabwe-harare-elder.jpg` | zimbabwe, harare | Ben Masora — Zimbabwean woman portrait, Africa |
+| `botswana-gaborone-woman.jpg` | botswana | Thatselby — African portrait |
+| `namibia-windhoek-woman.jpg` | namibia, himba | Elin Tabitha — Himba girl, Namibia, Africa |
+| `angola-luanda-man.jpg` | angola | Alberto Charamba — Worker portrait, Angola |
+| `madagascar-antananarivo-elder.jpg` | madagascar | Elle Leontiev — Malagasy woman, Madagascar |
+| `mauritius-port-louis-woman.jpg` | mauritius, island | Daren Inshape — Woman on beach, Mauritius |
+| `rwanda-kigali-man.jpg` | rwanda, kigali | Its Adonis — Faces of Rwanda portrait |
+| `rwanda-kigali-woman.jpg` | rwanda, kigali | Its Adonis — Faces of Rwanda portrait |
+| `uganda-kampala-elder.jpg` | uganda, kampala | Lisa Marie Theck — African woman portrait, Uganda |
+| `uganda-kampala-girl.jpg` | uganda, kampala | Lisa Marie Theck — Ugandan girl, traditional dress, Africa |
+| `liberia-monrovia-elder.jpg` | liberia, monrovia | Bunting Kargbo — Black African girl, West Africa |
+| `sierra-leone-freetown-woman.jpg` | sierra-leone, freetown | Random Institute — African dancer, West Africa |
+| `mozambique-maputo-man.jpg` | mozambique | Sergio Martins — Mozambique portrait |
+| `zambia-lusaka-woman.jpg` | zambia | Unsplash — Zambian woman portrait, Africa |
+| `zambia-chief-elder.jpg` | zambia, lunda | Sikwe Scarter — Senior Chief Musele, Zambia |
+| `pan-african-elder-man.jpg` | pan-african, continental | Kyle Petzer — African elder portrait |
+| `pan-african-elder-woman.jpg` | pan-african, ancestral | Ali Drabo — Beautiful African woman portrait |
 
-Regenerate portraits: `node scripts/download-africa-photos.mjs`
+```bash
+npm run theme-previews:all
+```

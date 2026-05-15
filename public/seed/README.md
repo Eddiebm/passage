@@ -22,6 +22,8 @@ Placeholders use distinct silhouettes (broader shoulders / uncovered head for th
 
 These are **dignified generated placeholders** (warm tones, soft silhouettes) so demos work offline and on Vercel without Unsplash or Blob. To replace with licensed photography, drop new files at the same paths and update `src/lib/seed-memorial.ts` if filenames change.
 
+**Portrait policy:** customer-facing preview imagery must use African portraits only — see `src/lib/portrait-policy.ts` and `public/photos/africa/README.md`. Seed silhouettes are intentional African-presenting demo placeholders; theme mockups use `public/photos/africa/`.
+
 Regenerate placeholders:
 
 ```bash
