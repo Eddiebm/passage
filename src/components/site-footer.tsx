@@ -35,7 +35,7 @@ export function SiteFooter({ className = '', showExamples = false }: SiteFooterP
         {showExamples && (
           <>
             <span aria-hidden>·</span>
-            <Link href="/memorial/bannerman-samuel-2026" className="passage-text-link">
+            <Link href="/memorial/samuel-mensah-2026" className="passage-text-link">
               Examples
             </Link>
             <span aria-hidden>·</span>

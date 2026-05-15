@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000). Two example memorials seed 
 
 | Example | URL |
 |---------|-----|
-| Ghanaian Christian (full) | [http://localhost:3000/memorial/bannerman-samuel-2026](http://localhost:3000/memorial/bannerman-samuel-2026) |
+| Ghanaian Christian (full) | [http://localhost:3000/memorial/samuel-mensah-2026](http://localhost:3000/memorial/samuel-mensah-2026) |
 | Ghanaian Muslim (programme) | [http://localhost:3000/memorial/ghana-muslim-example-2026](http://localhost:3000/memorial/ghana-muslim-example-2026) |
 
 **Example coordinator PIN (seed only):** `123456` — use on either memorial’s `/edit` path to load the coordinator view (pending tributes, submit for review, photos, etc.).
@@ -64,7 +64,7 @@ Coordinator-authenticated uploads (`POST /api/memorials/[slug]/images`) store by
 
 If neither applies (for example production without Blob), uploads return **503** with an explanatory error; memorials can still use pasted **image URLs** on `photo_url` / `gallery_urls`, or paths under **`/seed/`** for built-in demo content.
 
-**Example memorial photos:** committed JPEGs in `public/seed/` (`bannerman-*.jpg`, `muslim-*.jpg`). Open Graph and Twitter cards resolve these to absolute URLs via the site origin (`pickMemorialOgImageUrl` in `src/lib/memorial-share.ts`).
+**Example memorial photos:** committed JPEGs in `public/seed/` (`mensah-*.jpg`, `muslim-*.jpg`). Open Graph and Twitter cards resolve these to absolute URLs via the site origin (`pickMemorialOgImageUrl` in `src/lib/memorial-share.ts`).
 
 **Limits:** server validates **JPEG / PNG / WebP** by magic bytes and enforces **8MB** max on the **original upload** (before resize). Uploaded photos are resized server-side (max width **1920px**, WebP quality ~85; PNG kept only when transparency is detected). Very small serverless body limits on some hosts may require raising platform limits separately.
 
@@ -159,7 +159,7 @@ Do not commit secrets; use `.env.local` (gitignored).
    |-----|--------|
    | `/` | Marketing home loads |
    | `/create` | Intake wizard loads |
-   | `/memorial/bannerman-samuel-2026` | Seeded Christian example (after first hit) |
+   | `/memorial/samuel-mensah-2026` | Seeded Christian example (after first hit) |
    | `/memorial/ghana-muslim-example-2026` | Seeded Ghana Muslim programme example |
    | `/privacy` | Privacy policy |
    | `/design-lab` | All 73 memorial visual themes |

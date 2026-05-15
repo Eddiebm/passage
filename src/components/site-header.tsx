@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { SiteHeaderOfferingLinks } from '@/components/site-header-offering-links'
 import type { ServiceTierMode } from '@/lib/service-tier-copy'
 
-const EXAMPLE_MEMORIAL_HREF = '/memorial/bannerman-samuel-2026'
+const EXAMPLE_MEMORIAL_HREF = '/memorial/samuel-mensah-2026'
 
 type SiteHeaderProps = {
   /** Public memorial: family name only, no site nav clutter. */

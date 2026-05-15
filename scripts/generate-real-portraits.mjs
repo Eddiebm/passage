@@ -67,9 +67,9 @@ for (const item of AFRICA_CROPS) {
 }
 
 for (const job of [
-  { seed: 'bannerman-primary.jpg', out: 'portrait-man-warm-1.jpg', crop: { left: 0.15, top: 0.05, width: 0.7, height: 0.55, warmth: 1.12 } },
-  { seed: 'bannerman-primary.jpg', out: 'portrait-man-warm-2.jpg', crop: { left: 0.25, top: 0.12, width: 0.5, height: 0.45, warmth: 1.08 } },
-  { seed: 'bannerman-3.jpg', out: 'portrait-man-green.jpg', crop: { left: 0.1, top: 0.08, width: 0.8, height: 0.5, warmth: 0.95 } },
+  { seed: 'mensah-primary.jpg', out: 'portrait-man-warm-1.jpg', crop: { left: 0.15, top: 0.05, width: 0.7, height: 0.55, warmth: 1.12 } },
+  { seed: 'mensah-primary.jpg', out: 'portrait-man-warm-2.jpg', crop: { left: 0.25, top: 0.12, width: 0.5, height: 0.45, warmth: 1.08 } },
+  { seed: 'mensah-3.jpg', out: 'portrait-man-green.jpg', crop: { left: 0.1, top: 0.08, width: 0.8, height: 0.5, warmth: 0.95 } },
   { seed: 'muslim-primary.jpg', out: 'portrait-woman-soft-1.jpg', crop: { left: 0.18, top: 0.06, width: 0.64, height: 0.52, warmth: 1.06 } },
   { seed: 'muslim-primary.jpg', out: 'portrait-woman-soft-2.jpg', crop: { left: 0.3, top: 0.1, width: 0.4, height: 0.42, warmth: 1.02 } },
   { seed: 'muslim-3.jpg', out: 'portrait-woman-green.jpg', crop: { left: 0.12, top: 0.1, width: 0.76, height: 0.48, warmth: 0.98 } },

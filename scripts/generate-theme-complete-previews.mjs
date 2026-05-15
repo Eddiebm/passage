@@ -18,12 +18,7 @@ const THEMES_FILE = path.join(ROOT, 'src', 'lib', 'visual-themes.ts')
 const W = 400
 const H = 711
 
-const SAMPLE = {
-  name: 'Kwame Mensah Bannerman',
-  dates: '12 March 1942 · 3 May 2026',
-  line: 'Of blessed memory · Bannerman family',
-  snippet: 'It is with profound sadness that the family announces the passing of our beloved father.',
-}
+import { THEME_PREVIEW_JPG_COPY as SAMPLE } from './lib/example-memorial-names.mjs'
 
 const REGION_HINTS = [
   { tokens: ['ghana', 'accra', 'kente', 'cape-coast', 'ashanti'], file: 'ghana-accra-elder-man.jpg' },

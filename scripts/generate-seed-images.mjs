@@ -1,7 +1,7 @@
 /**
  * Generates dignified sample memorial photos under public/seed/.
- * Male-presenting silhouettes: bannerman-* (Samuel Bannerman example).
- * Female-presenting silhouettes: muslim-* (Hajia Aminata programme example).
+ * Male-presenting silhouettes: mensah-* (Samuel example).
+ * Female-presenting silhouettes: muslim-* (Fatima programme example).
  * Run: node scripts/generate-seed-images.mjs
  */
 import fs from 'node:fs/promises'
@@ -107,7 +107,7 @@ const H = 1500
 
 const jobs = [
   {
-    file: 'bannerman-primary.jpg',
+    file: 'mensah-primary.jpg',
     svg: portraitSvgMale({
       w: W,
       h: H,
@@ -119,7 +119,7 @@ const jobs = [
     }),
   },
   {
-    file: 'bannerman-1.jpg',
+    file: 'mensah-1.jpg',
     svg: sceneSvg({
       w: W,
       h: H,
@@ -130,7 +130,7 @@ const jobs = [
     }),
   },
   {
-    file: 'bannerman-2.jpg',
+    file: 'mensah-2.jpg',
     svg: sceneSvg({
       w: W,
       h: H,
@@ -141,7 +141,7 @@ const jobs = [
     }),
   },
   {
-    file: 'bannerman-3.jpg',
+    file: 'mensah-3.jpg',
     svg: portraitSvgMale({
       w: W,
       h: H,
@@ -153,7 +153,7 @@ const jobs = [
     }),
   },
   {
-    file: 'bannerman-4.jpg',
+    file: 'mensah-4.jpg',
     svg: sceneSvg({
       w: W,
       h: H,

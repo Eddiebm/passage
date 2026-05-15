@@ -1,5 +1,7 @@
+import { EXAMPLE_NAMES } from '@/lib/example-memorial-names'
 import {
-  BANNERMAN_SEED_PHOTO,
+  CHRISTIAN_EXAMPLE_SEED_PHOTO,
+  CHRISTIAN_EXAMPLE_SLUG,
   EXAMPLE_MEMORIAL_SLUGS,
   GHANA_MUSLIM_SEED_PHOTO,
 } from '@/lib/seed-memorial'
@@ -12,16 +14,16 @@ import { isVisualTheme, VISUAL_THEME_IDS } from '@/lib/visual-themes'
  */
 export const THEME_EXAMPLE_SLUGS = EXAMPLE_MEMORIAL_SLUGS
 
-export const THEME_EXAMPLE_MALE_SLUG = 'bannerman-samuel-2026' as const
+export const THEME_EXAMPLE_MALE_SLUG = CHRISTIAN_EXAMPLE_SLUG
 export const THEME_EXAMPLE_FEMALE_SLUG = 'ghana-muslim-example-2026' as const
 
 const EXAMPLE_DISPLAY_NAMES: Record<(typeof THEME_EXAMPLE_SLUGS)[number], string> = {
-  [THEME_EXAMPLE_MALE_SLUG]: 'Samuel Kwesi Bannerman',
-  [THEME_EXAMPLE_FEMALE_SLUG]: 'Hajia Aminata Mensah',
+  [THEME_EXAMPLE_MALE_SLUG]: EXAMPLE_NAMES.male.display,
+  [THEME_EXAMPLE_FEMALE_SLUG]: EXAMPLE_NAMES.female.display,
 }
 
 const EXAMPLE_PHOTOS: Record<(typeof THEME_EXAMPLE_SLUGS)[number], string> = {
-  [THEME_EXAMPLE_MALE_SLUG]: BANNERMAN_SEED_PHOTO,
+  [THEME_EXAMPLE_MALE_SLUG]: CHRISTIAN_EXAMPLE_SEED_PHOTO,
   [THEME_EXAMPLE_FEMALE_SLUG]: GHANA_MUSLIM_SEED_PHOTO,
 }
 

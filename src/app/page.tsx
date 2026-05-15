@@ -24,7 +24,7 @@ export default function HomePage() {
               Create a memorial →
             </Link>
             <Link
-              href="/memorial/bannerman-samuel-2026"
+              href="/memorial/samuel-mensah-2026"
               className="text-base text-[var(--passage-muted)] hover:text-[var(--passage-text)]"
             >
               See an example

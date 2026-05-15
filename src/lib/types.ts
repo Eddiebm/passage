@@ -160,8 +160,8 @@ export interface Memorial {
   // Deceased
   deceased_name: string
   deceased_title?: string         // traditional/professional title
-  deceased_family_house?: string  // e.g. "Bannerman family of Kanlow"
-  deceased_community?: string     // e.g. "Ngleshie Alata Jamestown"
+  deceased_family_house?: string  // e.g. "The family"
+  deceased_community?: string     // e.g. "Accra"
   date_of_birth?: string          // ISO date string
   date_of_passing: string         // ISO date string
   place_of_passing?: string

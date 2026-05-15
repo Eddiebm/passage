@@ -18,6 +18,7 @@ import { getDb, hasDatabaseEnv } from '@/lib/db'
 import { hydrateMemorial, memorialForPublicAudience } from '@/lib/memorial-hydrate'
 import { applyPledgeFulfillment, resolvePledgeIdForPayment } from '@/lib/memorial-pledge-match'
 import {
+  CHRISTIAN_EXAMPLE_SLUG,
   EXAMPLE_MEMORIAL_SLUGS,
   getExampleMemorialBlob,
   getGhanaMuslimExampleMemorialBlob,
@@ -128,7 +129,7 @@ async function readFromPostgres(slug: string): Promise<StoredMemorialBlob | null
 
 /** Built-in demo memorials — served when Postgres is missing or unreachable. */
 export function getBuiltInSeedBlob(slug: string): StoredMemorialBlob | null {
-  if (slug === 'bannerman-samuel-2026') return getExampleMemorialBlob()
+  if (slug === CHRISTIAN_EXAMPLE_SLUG) return getExampleMemorialBlob()
   if (slug === 'ghana-muslim-example-2026') return getGhanaMuslimExampleMemorialBlob()
   return null
 }
@@ -266,7 +267,7 @@ export async function updatePinRecoveryRateWindow(
 
 export async function ensureExampleMemorialSeeded(): Promise<void> {
   const seeds: { slug: (typeof EXAMPLE_MEMORIAL_SLUGS)[number]; blob: () => StoredMemorialBlob }[] = [
-    { slug: 'bannerman-samuel-2026', blob: getExampleMemorialBlob },
+    { slug: CHRISTIAN_EXAMPLE_SLUG, blob: getExampleMemorialBlob },
     { slug: 'ghana-muslim-example-2026', blob: getGhanaMuslimExampleMemorialBlob },
   ]
   for (const { slug, blob } of seeds) {

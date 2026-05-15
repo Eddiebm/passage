@@ -1,5 +1,10 @@
+import { EXAMPLE_NAMES } from '@/lib/example-memorial-names'
 import type { MemorialMode } from '@/lib/types'
-import { BANNERMAN_SEED_PHOTO, GHANA_MUSLIM_SEED_PHOTO } from '@/lib/seed-memorial'
+import {
+  CHRISTIAN_EXAMPLE_SEED_PHOTO,
+  CHRISTIAN_EXAMPLE_SLUG,
+  GHANA_MUSLIM_SEED_PHOTO,
+} from '@/lib/seed-memorial'
 import type { ServiceTierMode } from '@/lib/service-tier-copy'
 import { exampleMemorialPreviewHref, isExampleMemorialSlug } from '@/lib/memorial-preview-mode'
 
@@ -20,10 +25,10 @@ export const SERVICE_TIER_EXAMPLES: Record<ServiceTierMode, ServiceTierExamples>
   notice: {
     examples: [
       {
-        slug: 'bannerman-samuel-2026',
-        deceasedName: 'Samuel Kwesi Bannerman',
+        slug: CHRISTIAN_EXAMPLE_SLUG,
+        deceasedName: EXAMPLE_NAMES.male.display,
         summary: 'A calm notice with announcement, portrait, contacts, and print sheet.',
-        photoUrl: BANNERMAN_SEED_PHOTO,
+        photoUrl: CHRISTIAN_EXAMPLE_SEED_PHOTO,
         previewMode: 'notice',
       },
     ],
@@ -32,7 +37,7 @@ export const SERVICE_TIER_EXAMPLES: Record<ServiceTierMode, ServiceTierExamples>
     examples: [
       {
         slug: 'ghana-muslim-example-2026',
-        deceasedName: 'Hajia Aminata Mensah',
+        deceasedName: EXAMPLE_NAMES.female.display,
         summary: 'Funeral programme with Janazah details, readings, and photo gallery.',
         photoUrl: GHANA_MUSLIM_SEED_PHOTO,
       },
@@ -41,10 +46,10 @@ export const SERVICE_TIER_EXAMPLES: Record<ServiceTierMode, ServiceTierExamples>
   full: {
     examples: [
       {
-        slug: 'bannerman-samuel-2026',
-        deceasedName: 'Samuel Kwesi Bannerman',
+        slug: CHRISTIAN_EXAMPLE_SLUG,
+        deceasedName: EXAMPLE_NAMES.male.display,
         summary: 'Full coordination — programme, pledges, tasks, stakeholders, and closure.',
-        photoUrl: BANNERMAN_SEED_PHOTO,
+        photoUrl: CHRISTIAN_EXAMPLE_SEED_PHOTO,
       },
     ],
   },
