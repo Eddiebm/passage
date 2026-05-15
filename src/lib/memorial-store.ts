@@ -189,7 +189,11 @@ async function readPersistedBlob(slug: string): Promise<StoredMemorialBlob | nul
   return null
 }
 
-/** Backfill sample photos on example memorials saved before seed images shipped. */
+function isLegacySilhouetteSeedUrl(url: string): boolean {
+  return url.startsWith('/seed/')
+}
+
+/** Backfill sample photos on example memorials saved before real africa portraits shipped. */
 function mergeExampleSeedImages(
   slug: string,
   persisted: StoredMemorialBlob,
@@ -197,9 +201,12 @@ function mergeExampleSeedImages(
   const builtIn = getBuiltInSeedBlob(slug)
   if (!builtIn) return persisted
   const m = persisted.memorial
-  const needsPhoto = !m.photo_url?.trim()
+  const needsPhoto =
+    !m.photo_url?.trim() || isLegacySilhouetteSeedUrl(m.photo_url)
   const galleryCount = m.gallery_urls?.filter((u) => u?.trim()).length ?? 0
-  const needsGallery = galleryCount < 3
+  const needsGallery =
+    galleryCount < 3 ||
+    (m.gallery_urls ?? []).some((u) => u?.trim() && isLegacySilhouetteSeedUrl(u))
   if (!needsPhoto && !needsGallery) return persisted
   return {
     ...persisted,

@@ -13,7 +13,7 @@ export function OfferingExampleCard({ example }: { example: TierExampleMemorial 
           src={example.photoUrl}
           alt={`${example.deceasedName} — memorial example`}
           fill
-          className="object-cover object-top"
+          className="object-cover object-[center_25%]"
           sizes="(max-width: 640px) 100vw, 320px"
         />
       </div>

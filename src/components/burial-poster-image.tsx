@@ -34,7 +34,7 @@ export function BurialPosterImage({
             alt={alt}
             width={BURIAL_POSTER_WIDTH}
             height={BURIAL_POSTER_HEIGHT}
-            className="h-full w-full object-cover object-top"
+            className="h-full w-full object-contain object-center"
             sizes={compact ? '180px' : '(max-width: 768px) 90vw, 320px'}
             priority={priority}
             unoptimized

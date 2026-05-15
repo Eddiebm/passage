@@ -1591,12 +1591,12 @@ export function EditPortal({ slug }: { slug: string }) {
               {(data.gallery_urls?.length ?? 0) > 0 && (
                 <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {(data.gallery_urls ?? []).map((url) => (
-                    <li key={url} className="relative aspect-square overflow-hidden rounded-lg border border-[#3D2B1F]/10">
+                    <li key={url} className="relative aspect-[3/4] overflow-hidden rounded-lg border border-[#3D2B1F]/10">
                       <Image
                         src={url}
                         alt=""
                         fill
-                        className="object-cover"
+                        className="object-cover object-center"
                         sizes="(max-width:640px) 50vw, 33vw"
                         unoptimized
                         loading="lazy"

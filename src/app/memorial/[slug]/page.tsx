@@ -163,7 +163,7 @@ export default async function MemorialPage({
                 src={data.photo_url}
                 alt={data.deceased_name}
                 fill
-                className="object-cover"
+                className="object-cover object-[center_25%]"
                 sizes="(max-width: 640px) 100vw, 176px"
                 unoptimized
               />
@@ -351,13 +351,13 @@ export default async function MemorialPage({
               {galleryOnly.map((url) => (
                 <div
                   key={url}
-                  className="relative aspect-[4/3] overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--passage-rule)_10%,transparent)] bg-[#3D2B1F]/5"
+                  className="relative aspect-[3/4] overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--passage-rule)_10%,transparent)] bg-[color-mix(in_srgb,var(--passage-rule)_8%,transparent)]"
                 >
                   <Image
                     src={url}
                     alt={`${data.deceased_name} — memorial photograph`}
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
                     sizes="(max-width: 640px) 50vw, 33vw"
                     unoptimized
                     loading="lazy"

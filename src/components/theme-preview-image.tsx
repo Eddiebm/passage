@@ -54,13 +54,15 @@ export function ThemePreviewImage({
       <div
         className={`overflow-hidden ${isFlagship ? 'rounded-xl' : 'rounded-[20px] border border-[#1a1a1a]/12 bg-[#1a1a1a] p-1 shadow-md'}`}
       >
-        <div className={`${aspect} overflow-hidden ${isFlagship ? '' : 'rounded-[15px]'}`}>
+        <div
+          className={`${aspect} overflow-hidden bg-[#F5F3F0] ${isFlagship ? 'bg-[#F4F0E8]' : ''} ${isFlagship ? '' : 'rounded-[15px]'}`}
+        >
           <Image
             src={src}
             alt={alt}
             width={width}
             height={height}
-            className={`h-full w-full ${isFlagship ? 'object-contain object-center' : 'object-cover object-top'}`}
+            className={`h-full w-full ${isFlagship ? 'object-contain object-center' : 'object-contain object-center'}`}
             sizes={large ? '(max-width: 768px) 100vw, 480px' : '200px'}
             priority={priority}
             unoptimized

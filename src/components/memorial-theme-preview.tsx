@@ -37,7 +37,7 @@ function PreviewHero({
             src={photoSrc}
             alt={sample.deceasedName}
             fill
-            className="object-cover"
+            className="object-cover object-[center_25%]"
             sizes={compact ? '200px' : '(max-width: 640px) 100vw, 280px'}
             unoptimized
           />

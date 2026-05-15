@@ -18,20 +18,20 @@ export const EXAMPLE_MEMORIAL_SLUGS = [
   'ghana-muslim-example-2026',
 ] as const
 
-/** Committed under `public/seed/` — work offline and in production without Blob. */
-export const CHRISTIAN_EXAMPLE_SEED_PHOTO = '/seed/mensah-primary.jpg'
+/** Real portraits under `public/photos/africa/` (see scripts/download-africa-photos.mjs). */
+export const CHRISTIAN_EXAMPLE_SEED_PHOTO = '/photos/africa/ghana-accra-elder-man.jpg'
 export const CHRISTIAN_EXAMPLE_SEED_GALLERY = [
-  '/seed/mensah-1.jpg',
-  '/seed/mensah-2.jpg',
-  '/seed/mensah-3.jpg',
-  '/seed/mensah-4.jpg',
+  '/photos/africa/mali-bamako-man.jpg',
+  '/photos/africa/ethiopia-addis-elder-man.jpg',
+  '/photos/africa/angola-luanda-man.jpg',
+  '/photos/africa/rwanda-kigali-man.jpg',
 ] as const
 
-export const GHANA_MUSLIM_SEED_PHOTO = '/seed/muslim-primary.jpg'
+export const GHANA_MUSLIM_SEED_PHOTO = '/photos/africa/nigeria-lagos-woman.jpg'
 export const GHANA_MUSLIM_SEED_GALLERY = [
-  '/seed/muslim-1.jpg',
-  '/seed/muslim-2.jpg',
-  '/seed/muslim-3.jpg',
+  '/photos/africa/morocco-fez-woman.jpg',
+  '/photos/africa/ivory-coast-abidjan-woman.jpg',
+  '/photos/africa/kenya-nairobi-elder-woman.jpg',
 ] as const
 
 const SLUG = EXAMPLE_MEMORIAL_SLUGS[0]
