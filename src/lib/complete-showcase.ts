@@ -31,10 +31,10 @@ const COMPLETE_THEME_SLUG: Record<(typeof COMPLETE_THEME_IDS)[number], typeof TH
 }
 
 const SHOWCASE_IMAGE_BY_THEME: Record<(typeof COMPLETE_THEME_IDS)[number], string> = {
-  programme: '/showcase/complete-programme.png',
-  monument: '/showcase/complete-monument.png',
-  kente: '/showcase/complete-kente.png',
-  night: '/showcase/complete-night.png',
+  programme: '/showcase/complete-programme.jpg',
+  monument: '/showcase/complete-monument.jpg',
+  kente: '/showcase/complete-kente.jpg',
+  night: '/showcase/complete-night.jpg',
 }
 
 export const COMPLETE_SHOWCASE_ENTRIES: CompleteShowcaseEntry[] = COMPLETE_THEME_IDS.map((id) => {

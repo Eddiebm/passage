@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { ThemePreviewImage } from '@/components/theme-preview-image'
 import {
   getThemesForOfferingPreview,
   VISUAL_THEME_COUNT,
@@ -41,7 +41,7 @@ function AppearancePreviewGrid({ themes }: { themes: VisualThemeMeta[] }) {
             key={theme.id}
             className="overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] bg-[var(--passage-card-bg)] shadow-sm"
           >
-            <MemorialThemePreview themeId={themeId} compact />
+            <ThemePreviewImage themeId={themeId} />
             <div className="border-t border-[color-mix(in_srgb,var(--passage-rule)_15%,transparent)] px-3 py-2">
               <p className="text-sm font-medium text-[var(--passage-heading)]">{theme.label}</p>
               <p className="mt-1 text-[10px] text-[var(--passage-muted)]">{themeExampleLabel(themeId)}</p>

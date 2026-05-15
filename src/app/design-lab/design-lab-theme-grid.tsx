@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { ThemePreviewImage } from '@/components/theme-preview-image'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import {
@@ -122,7 +122,7 @@ export function DesignLabThemeGrid() {
             >
               <Link href={detailHref} className="group flex flex-1 flex-col">
                 <div className="flex flex-1 items-center justify-center bg-[#F5F3F0] py-3">
-                  <MemorialThemePreview themeId={themeId} compact />
+                  <ThemePreviewImage themeId={themeId} />
                 </div>
               </Link>
               <ThemeCardFooter

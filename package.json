@@ -7,7 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "smoke:pilot": "bash scripts/smoke-pilot.sh"
+    "photos:africa": "node scripts/download-africa-photos.mjs",
+    "theme-previews": "node scripts/generate-theme-complete-previews.mjs",
+    "theme-previews:all": "npm run photos:africa && npm run theme-previews",
+    "smoke:pilot": "bash scripts/smoke-pilot.sh",
+    "generate:portraits": "node scripts/generate-real-portraits.mjs",
+    "generate:theme-previews": "node scripts/generate-theme-complete-previews.mjs",
+    "generate:theme-assets": "npm run generate:portraits && npm run generate:theme-previews"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

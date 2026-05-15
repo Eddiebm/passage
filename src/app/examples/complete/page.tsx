@@ -25,8 +25,8 @@ export default function CompleteShowcasePage() {
           Four complete looks
         </h1>
         <p className="mt-3 max-w-xl text-base leading-relaxed text-[#1A1A1A]/70">
-          Each card opens a real memorial page — portrait, biography, and gallery — with a different visual
-          theme applied for preview. Nothing here is a generated mockup.
+          Each card shows a full phone preview with real portrait photography and opens a live memorial
+          page with that theme applied.
         </p>
         <p className="mt-4 text-sm text-[#1A1A1A]/60">
           Not sure which palette fits?{' '}

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { ThemePreviewImage } from '@/components/theme-preview-image'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import { getVisualThemeMeta, isVisualTheme, VISUAL_THEME_REGISTRY } from '@/lib/visual-themes'
@@ -83,7 +83,9 @@ export default async function DesignLabThemePage({
           </div>
         </div>
       </div>
-      <MemorialThemePreview themeId={theme} />
+      <div className="flex justify-center bg-[#F5F3F0] px-4 py-10">
+        <ThemePreviewImage themeId={theme} large priority />
+      </div>
     </div>
   )
 }

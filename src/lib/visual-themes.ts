@@ -775,6 +775,11 @@ export function themeStorageKey(slug: string): string {
   return `passage-theme-${slug}`
 }
 
+/** Pre-rendered full phone memorial preview (public/theme-previews). */
+export function themePreviewImageUrl(themeId: string): string {
+  return `/theme-previews/${themeId}.jpg`
+}
+
 /** Curated themes for offering/start-page appearance previews (diverse groups). */
 const OFFERING_PREVIEW_THEME_IDS: VisualTheme[] = [
   'programme',

@@ -10,7 +10,7 @@ import {
   type VisualThemeGroup,
   type VisualThemeMeta,
 } from '@/lib/visual-themes'
-import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { ThemePreviewImage } from '@/components/theme-preview-image'
 
 function themeMatchesQuery(theme: VisualThemeMeta, query: string): boolean {
   const q = query.trim().toLowerCase()
@@ -119,7 +119,7 @@ function ThemeGroupSection({
               }`}
               aria-pressed={selected}
             >
-              <MemorialThemePreview themeId={theme.id as VisualTheme} compact />
+              <ThemePreviewImage themeId={theme.id as VisualTheme} />
               <div className="border-t border-[#3D2B1F]/10 bg-white px-3 py-2">
                 <p className="text-sm font-medium text-[#1A1A1A]">{theme.label}</p>
                 <p className="mt-0.5 text-[11px] leading-snug text-[#1A1A1A]/60">

@@ -1,5 +1,4 @@
-import { BANNERMAN_SEED_PHOTO, GHANA_MUSLIM_SEED_PHOTO } from '@/lib/seed-memorial'
-import { exampleSlugForTheme } from '@/lib/theme-example-memorials'
+import { getAfricaPhotoForThemeId } from '@/lib/theme-preview-image'
 
 /** Fixed copy for design-lab and theme picker previews. */
 export const SHOWCASE_SAMPLE = {
@@ -13,13 +12,12 @@ export const SHOWCASE_SAMPLE = {
     'It is with profound sadness that the family announces the passing of our beloved father and grandfather.',
 } as const
 
-/** Rotate male / female seed portraits by theme index for variety. */
+/** Portrait from Africa library by theme index (legacy helper). */
 export function getShowcasePhotoForThemeIndex(themeIndex: number): string {
-  return themeIndex % 2 === 0 ? BANNERMAN_SEED_PHOTO : GHANA_MUSLIM_SEED_PHOTO
+  return getAfricaPhotoForThemeId(`theme-index-${themeIndex}`)
 }
 
-/** Stable male/female portrait from theme id hash (matches live example memorial pairing). */
+/** Stable regional / hashed portrait from public/photos/africa/. */
 export function getShowcasePhotoForThemeId(themeId: string): string {
-  const slug = exampleSlugForTheme(themeId)
-  return slug === 'ghana-muslim-example-2026' ? GHANA_MUSLIM_SEED_PHOTO : BANNERMAN_SEED_PHOTO
+  return getAfricaPhotoForThemeId(themeId)
 }
