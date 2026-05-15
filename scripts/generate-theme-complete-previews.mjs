@@ -36,9 +36,12 @@ const REGION_HINTS = [
   { tokens: ['kenya', 'nairobi'], file: 'kenya-nairobi-elder-woman.jpg' },
   { tokens: ['ethiopia', 'addis'], file: 'ethiopia-addis-elder-man.jpg' },
   { tokens: ['tanzania', 'dar-teal', 'dar-es'], file: 'tanzania-dar-woman.jpg' },
-  { tokens: ['somalia', 'mogadishu'], file: 'somalia-mogadishu-man.jpg' },
+  { tokens: ['somalia', 'mogadishu', 'somali'], file: 'somalia-mogadishu-man.jpg' },
   { tokens: ['egypt', 'cairo', 'nile'], file: 'egypt-cairo-elder.jpg' },
-  { tokens: ['morocco', 'fez', 'tunis', 'sahara'], file: 'morocco-fez-woman.jpg' },
+  { tokens: ['morocco', 'fez', 'marrakech', 'sahara'], file: 'morocco-fez-woman.jpg' },
+  { tokens: ['tunisia', 'gabes'], file: 'tunisia-gabes-elder.jpg' },
+  { tokens: ['mozambique'], file: 'mozambique-maputo-man.jpg' },
+  { tokens: ['zambia', 'copper'], file: 'zambia-lusaka-woman.jpg' },
   { tokens: ['south-africa', 'ubuntu', 'cape-winds'], file: 'south-africa-cape-elder.jpg' },
   { tokens: ['zimbabwe', 'harare', 'stone'], file: 'zimbabwe-harare-elder.jpg' },
   { tokens: ['botswana', 'sand', 'windhoek'], file: 'botswana-gaborone-woman.jpg' },
@@ -55,40 +58,44 @@ const REGION_HINTS = [
 
 const LAYOUTS = {
   programme: {
-    bg: '#F7F4EF',
-    heroBg: '#EDE8DF',
-    text: '#2A1F18',
+    bg: '#F4F0E8',
+    heroBg: '#3D2B1F',
+    text: '#1A1A1A',
     muted: '#5C4A3D',
     accent: '#6B1F2A',
-    rule: '#C9A962',
+    rule: '#6B1F2A',
     band: null,
+    heroText: '#F4F0E8',
   },
   monument: {
-    bg: '#F5F5F3',
-    heroBg: '#E8E8E6',
-    text: '#1A1A1A',
-    muted: '#4A4A48',
-    accent: '#2A2A28',
-    rule: '#8A8A88',
+    bg: '#F7F7F5',
+    heroBg: '#F7F7F5',
+    text: '#2C2C2C',
+    muted: '#5C5C5C',
+    accent: '#2C2C2C',
+    rule: '#D8D8D4',
     band: null,
+    heroText: '#2C2C2C',
   },
   kente: {
-    bg: '#FBF7EE',
-    heroBg: '#F3EBD8',
-    text: '#1A1408',
-    muted: '#4A3D28',
-    accent: '#B8860B',
-    rule: '#C9A02C',
-    band: '#6B1F2A,#C9A02C,#1B5E20,#1A1A1A',
+    bg: '#FAF6EE',
+    heroBg: '#3D2B1F',
+    text: '#1F1C18',
+    muted: '#5A5348',
+    accent: '#C9A02C',
+    rule: '#3D2B1F',
+    band: '#6B1F2A,#C9A02C,#1A5C38,#1A1A1A,#C9A02C',
+    heroText: '#FAF6EE',
   },
   night: {
-    bg: '#1C1814',
-    heroBg: '#2A241E',
-    text: '#F5F0E8',
-    muted: '#C4B8A8',
-    accent: '#E8C878',
-    rule: '#8A7048',
+    bg: '#121110',
+    heroBg: '#1A1917',
+    text: '#EDE9E3',
+    muted: '#A8A29A',
+    accent: '#C9A02C',
+    rule: '#EDE9E3',
     band: null,
+    heroText: '#EDE9E3',
   },
 }
 
@@ -122,6 +129,7 @@ function resolvePortrait(themeId, available) {
 
 function resolveLayout(themeId, group) {
   const id = themeId.toLowerCase()
+  if (id in LAYOUTS) return id
   if (group === 'dark' || id.includes('night') || id.includes('candle') || id.includes('burgundy-mass')) {
     return 'night'
   }
@@ -145,13 +153,13 @@ function escapeXml(s) {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
 }
 
-function kenteBand(y, colors) {
+function kenteBand(y, colors, height = 8) {
   const cols = colors.split(',')
   const w = W / cols.length
   return cols
     .map(
       (c, i) =>
-        `<rect x="${i * w}" y="${y}" width="${w}" height="6" fill="${c}"/>`,
+        `<rect x="${i * w}" y="${y}" width="${w}" height="${height}" fill="${c}"/>`,
     )
     .join('')
 }
@@ -159,22 +167,28 @@ function kenteBand(y, colors) {
 function layoutSvg(layoutKey, themeLabel) {
   const L = LAYOUTS[layoutKey]
   const heroH = Math.round(H * 0.42)
-  const bandTop = L.band ? kenteBand(0, L.band) : ''
-  const bandBottom = L.band ? kenteBand(H - 6, L.band) : ''
+  const bandH = 8
+  const bandTop = L.band ? kenteBand(0, L.band, bandH) : ''
+  const bandBottom = L.band ? kenteBand(H - bandH, L.band, bandH) : ''
+  const heroY = L.band ? bandH + 6 : 8
+  const heroText = L.heroText ?? L.text
+  const ruleW = layoutKey === 'programme' ? 3 : layoutKey === 'monument' ? 1 : 2
+  const bodyPad = layoutKey === 'monument' ? 28 : 16
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg">
   <rect width="${W}" height="${H}" fill="${L.bg}"/>
   ${bandTop}
-  <rect x="8" y="${L.band ? 14 : 8}" width="${W - 16}" height="${heroH}" rx="8" fill="${L.heroBg}"/>
-  <rect x="0" y="${heroH + 20}" width="${W}" height="2" fill="${L.rule}" opacity="0.55"/>
-  <text x="${W / 2}" y="${heroH + 44}" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-weight="600" fill="${L.text}">${escapeXml(SAMPLE.name)}</text>
-  <text x="${W / 2}" y="${heroH + 62}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="${L.muted}">${escapeXml(SAMPLE.dates)}</text>
-  <text x="${W / 2}" y="${heroH + 78}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="${L.muted}">${escapeXml(SAMPLE.line)}</text>
-  <line x1="40" y1="${heroH + 90}" x2="${W - 40}" y2="${heroH + 90}" stroke="${L.accent}" stroke-width="1" opacity="0.35"/>
-  <text x="16" y="${heroH + 108}" font-family="system-ui, sans-serif" font-size="7" fill="${L.muted}" letter-spacing="0.12em">SAMPLE ANNOUNCEMENT</text>
-  <text x="16" y="${heroH + 128}" font-family="system-ui, sans-serif" font-size="9" fill="${L.text}" opacity="0.88">
-    <tspan x="16" dy="0">${escapeXml(SAMPLE.snippet.slice(0, 52))}</tspan>
-    <tspan x="16" dy="14">${escapeXml(SAMPLE.snippet.slice(52, 104))}…</tspan>
+  <rect x="8" y="${heroY}" width="${W - 16}" height="${heroH}" rx="${layoutKey === 'monument' ? 0 : 8}" fill="${L.heroBg}"/>
+  <text x="${W / 2}" y="${heroY + heroH - 28}" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="600" fill="${heroText}">${escapeXml(SAMPLE.name.split(' ').slice(0, 2).join(' '))}</text>
+  <text x="${W / 2}" y="${heroY + heroH - 12}" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="600" fill="${heroText}">${escapeXml(SAMPLE.name.split(' ').slice(2).join(' ') || '')}</text>
+  <rect x="0" y="${heroY + heroH + 14}" width="${W}" height="${ruleW}" fill="${L.rule}" opacity="${layoutKey === 'night' ? 0.25 : 0.7}"/>
+  <text x="${W / 2}" y="${heroY + heroH + 36}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="${L.muted}">${escapeXml(SAMPLE.dates)}</text>
+  <text x="${W / 2}" y="${heroY + heroH + 52}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="${L.muted}">${escapeXml(SAMPLE.line)}</text>
+  <line x1="${bodyPad}" y1="${heroY + heroH + 64}" x2="${W - bodyPad}" y2="${heroY + heroH + 64}" stroke="${L.accent}" stroke-width="1" opacity="0.45"/>
+  <text x="${bodyPad}" y="${heroY + heroH + 82}" font-family="system-ui, sans-serif" font-size="7" fill="${L.muted}" letter-spacing="0.12em">SAMPLE ANNOUNCEMENT</text>
+  <text x="${bodyPad}" y="${heroY + heroH + 100}" font-family="system-ui, sans-serif" font-size="9" fill="${L.text}" opacity="0.9">
+    <tspan x="${bodyPad}" dy="0">${escapeXml(SAMPLE.snippet.slice(0, 52))}</tspan>
+    <tspan x="${bodyPad}" dy="14">${escapeXml(SAMPLE.snippet.slice(52, 104))}…</tspan>
   </text>
   <text x="${W / 2}" y="${H - 18}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="7" fill="${L.muted}" opacity="0.65">${escapeXml(themeLabel)}</text>
   ${bandBottom}
@@ -197,7 +211,7 @@ async function buildPreview({ themeId, themeLabel, group }, portraitFile, availa
   const frameSvg = layoutSvg(layoutKey, themeLabel)
   const frameBuf = await sharp(Buffer.from(frameSvg)).png().toBuffer()
 
-  const photoY = pad + (layoutKey === 'kente' ? 6 : 0)
+  const photoY = pad + (layoutKey === 'kente' ? 14 : 0)
   const out = await sharp(frameBuf)
     .composite([{ input: photo, left: pad, top: photoY }])
     .jpeg({ quality: 86, mozjpeg: true })

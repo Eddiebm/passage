@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ThemePreviewImage } from '@/components/theme-preview-image'
+import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { MemorialThemeShell } from '@/components/memorial-theme-shell'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import { getVisualThemeMeta, isVisualTheme, VISUAL_THEME_REGISTRY } from '@/lib/visual-themes'
@@ -29,28 +30,28 @@ export async function generateMetadata({
 
 export default async function DesignLabThemePage({
   params,
-  searchParams,
 }: {
   params: Promise<{ themeId: string }>
-  searchParams: Promise<{ theme?: string }>
 }) {
   const { themeId } = await params
-  const query = await searchParams
-  const resolvedId = (query.theme && isVisualTheme(query.theme) ? query.theme : themeId) as string
 
-  if (!isVisualTheme(resolvedId)) notFound()
+  if (!isVisualTheme(themeId)) notFound()
 
-  const meta = getVisualThemeMeta(resolvedId)
+  const meta = getVisualThemeMeta(themeId)
   if (!meta) notFound()
 
-  const theme = resolvedId as VisualTheme
+  const theme = themeId as VisualTheme
   const liveHref = themeExampleHref(theme)
   const createHref = completeShowcaseCreateHref(theme)
 
   return (
-    <div className="min-h-screen" data-theme={theme}>
+    <MemorialThemeShell
+      slug="design-lab"
+      coordinatorTheme={theme}
+      templateClass="passage-template-programme"
+    >
       <div className="sticky top-0 z-10 border-b border-[color-mix(in_srgb,var(--passage-rule)_20%,transparent)] bg-[var(--passage-bg)]/95 px-4 py-3 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-4xl flex-wrap items-center justify-between gap-3 text-sm">
+        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 text-sm">
           <div>
             <Link
               href="/design-lab"
@@ -72,7 +73,7 @@ export default async function DesignLabThemePage({
               rel="noopener noreferrer"
               className="inline-flex min-h-[36px] items-center rounded-md border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-bg)] px-3 py-1.5 text-xs font-medium text-[var(--passage-link)] hover:underline"
             >
-              View full example
+              View on live example memorial
             </Link>
             <Link
               href={createHref}
@@ -83,9 +84,7 @@ export default async function DesignLabThemePage({
           </div>
         </div>
       </div>
-      <div className="flex justify-center bg-[#F5F3F0] px-4 py-10">
-        <ThemePreviewImage themeId={theme} large priority />
-      </div>
-    </div>
+      <MemorialThemePreview themeId={theme} embedded />
+    </MemorialThemeShell>
   )
 }

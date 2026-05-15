@@ -231,7 +231,7 @@ function ThemeCardFooter({
       <p className="mt-2 text-[11px] text-[#6B1F2A]/80">{themeExampleLabel(theme.id)}</p>
       <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
         <Link href={detailHref} className="text-[#6B1F2A] underline-offset-2 hover:underline">
-          Larger preview
+          Full preview
         </Link>
         <Link
           href={liveHref}
@@ -239,7 +239,7 @@ function ThemeCardFooter({
           rel="noopener noreferrer"
           className="text-[#6B1F2A] underline-offset-2 hover:underline"
         >
-          View full example
+          View on example memorial
         </Link>
         <Link href={createHref} className="text-[#1A1A1A]/70 underline-offset-2 hover:underline">
           Use this style

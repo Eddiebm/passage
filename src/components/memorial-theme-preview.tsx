@@ -10,7 +10,7 @@ function PreviewHero({ compact, photoSrc }: { compact: boolean; photoSrc: string
         className={
           compact
             ? 'flex min-h-[200px] flex-col'
-            : 'mx-auto flex min-w-0 flex-col gap-8 py-12 sm:max-w-5xl sm:flex-row sm:items-center'
+            : 'mx-auto flex min-w-0 flex-col gap-8 px-4 py-12 sm:max-w-5xl sm:flex-row sm:items-center'
         }
       >
         <div
@@ -104,20 +104,28 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
 export function MemorialThemePreview({
   themeId,
   compact = false,
+  embedded = false,
   className = '',
 }: {
   themeId: VisualTheme
   compact?: boolean
+  /** When true, parent MemorialThemeShell supplies data-theme and root styles. */
+  embedded?: boolean
   className?: string
 }) {
   const meta = getVisualThemeMeta(themeId)
   const photoSrc = getShowcasePhotoForThemeId(themeId)
+  const rootProps = embedded ? {} : ({ 'data-theme': themeId } as const)
 
   if (compact) {
     return (
       <div
-        className={`passage-memorial-root overflow-hidden bg-[var(--passage-bg)] ${className}`}
-        data-theme={themeId}
+        className={
+          embedded
+            ? `overflow-hidden bg-[var(--passage-bg)] ${className}`
+            : `passage-memorial-root overflow-hidden bg-[var(--passage-bg)] ${className}`
+        }
+        {...rootProps}
       >
         <div className="flex justify-center p-3">
           <PhoneFrame>
@@ -131,13 +139,19 @@ export function MemorialThemePreview({
 
   return (
     <div
-      className={`passage-memorial-root overflow-x-hidden bg-[var(--passage-bg)] ${className}`}
-      data-theme={themeId}
+      className={
+        embedded
+          ? `overflow-x-hidden bg-[var(--passage-bg)] ${className}`
+          : `passage-memorial-root overflow-x-hidden bg-[var(--passage-bg)] ${className}`
+      }
+      {...rootProps}
     >
-      <div className="mx-auto min-h-[70vh] max-w-5xl px-4 py-8 sm:px-6">
-        <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[var(--passage-muted)]">
-          {meta?.label ?? themeId}
-        </p>
+      <div className="mx-auto min-h-[min(100vh,900px)] max-w-5xl px-4 py-8 sm:px-6">
+        {!embedded && (
+          <p className="mb-4 text-xs uppercase tracking-[0.2em] text-[var(--passage-muted)]">
+            {meta?.label ?? themeId}
+          </p>
+        )}
         <PreviewHero compact={false} photoSrc={photoSrc} />
         <PreviewAnnouncement compact={false} />
       </div>

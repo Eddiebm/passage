@@ -101,6 +101,8 @@ export type ThemePreviewLayout = 'programme' | 'monument' | 'kente' | 'night'
 /** Map theme group + id to one of four complete phone layout templates. */
 export function getThemePreviewLayout(themeId: string, group?: VisualThemeGroup): ThemePreviewLayout {
   const id = themeId.toLowerCase()
+  const flagship: ThemePreviewLayout[] = ['programme', 'monument', 'kente', 'night']
+  if (flagship.includes(id as ThemePreviewLayout)) return id as ThemePreviewLayout
   if (group === 'dark' || id.includes('night') || id.includes('candle') || id.includes('burgundy-mass')) {
     return 'night'
   }

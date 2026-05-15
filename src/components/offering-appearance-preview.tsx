@@ -18,7 +18,8 @@ export function OfferingAppearancePreview() {
       </h2>
       <p className="text-sm leading-relaxed text-[var(--passage-muted)]">
         Every memorial can use a different visual style — calm programme, night vigil, kente restraint, and
-        dozens more. Complete phone previews below; each links to a live example memorial.
+        dozens more. Each swatch is a distinct phone preview; open the full preview or see it on a live
+        example memorial.
       </p>
       <AppearancePreviewGrid themes={themes} />
       <p className="text-sm">
@@ -35,24 +36,35 @@ function AppearancePreviewGrid({ themes }: { themes: VisualThemeMeta[] }) {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {themes.map((theme) => {
         const themeId = theme.id as VisualTheme
+        const detailHref = `/design-lab/${themeId}`
         const liveHref = themeExampleHref(themeId)
         return (
           <article
             key={theme.id}
             className="overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] bg-[var(--passage-card-bg)] shadow-sm"
           >
-            <ThemePreviewImage themeId={themeId} />
+            <Link href={detailHref} className="block">
+              <ThemePreviewImage themeId={themeId} />
+            </Link>
             <div className="border-t border-[color-mix(in_srgb,var(--passage-rule)_15%,transparent)] px-3 py-2">
               <p className="text-sm font-medium text-[var(--passage-heading)]">{theme.label}</p>
               <p className="mt-1 text-[10px] text-[var(--passage-muted)]">{themeExampleLabel(themeId)}</p>
-              <Link
-                href={liveHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 inline-block text-sm font-medium text-[var(--passage-accent)] underline-offset-2 hover:underline"
-              >
-                View full example
-              </Link>
+              <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm font-medium">
+                <Link
+                  href={detailHref}
+                  className="text-[var(--passage-accent)] underline-offset-2 hover:underline"
+                >
+                  Full preview
+                </Link>
+                <Link
+                  href={liveHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[var(--passage-accent)] underline-offset-2 hover:underline"
+                >
+                  View on example memorial
+                </Link>
+              </div>
             </div>
           </article>
         )
