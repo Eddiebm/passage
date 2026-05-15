@@ -23,6 +23,7 @@ import {
   pickMemorialOgImageUrl,
 } from '@/lib/memorial-share'
 import { resolveExamplePreviewMode } from '@/lib/memorial-preview-mode'
+import { isThemeExampleSlug, parseVisualThemeQueryParam } from '@/lib/theme-example-memorials'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialClientSections } from './sections'
@@ -91,7 +92,12 @@ export default async function MemorialPage({
   searchParams,
 }: {
   params: Promise<{ slug: string }>
-  searchParams: Promise<{ memorial_mode?: string; preview?: string }>
+  searchParams: Promise<{
+    memorial_mode?: string
+    preview?: string
+    visual_theme?: string
+    appearance?: string
+  }>
 }) {
   const { slug } = await params
   const sp = await searchParams
@@ -127,7 +133,10 @@ export default async function MemorialPage({
     .reduce((sum, p) => sum + (p.amount_minor ?? 0), 0)
 
   const templateClass = memorialTemplateClass(data.output_template)
-  const coordinatorTheme = normalizeVisualTheme(data.visual_theme)
+  const themeFromQuery = isThemeExampleSlug(slug)
+    ? parseVisualThemeQueryParam(sp.visual_theme, sp.appearance)
+    : null
+  const coordinatorTheme = normalizeVisualTheme(themeFromQuery ?? data.visual_theme)
 
   return (
     <MemorialThemeShell slug={slug} coordinatorTheme={coordinatorTheme} templateClass={templateClass}>
@@ -203,7 +212,6 @@ export default async function MemorialPage({
           pageUrl={pageUrl}
           announcementPlainText={announcementPlain}
           whatsappHref={whatsappHref}
-          emailSubject={`${data.deceased_name} — memorial`}
         />
         <p className="text-center text-xs text-[var(--passage-muted)] sm:text-left">
           <Link

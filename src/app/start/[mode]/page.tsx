@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { CompleteShowcasePromo } from '@/components/complete-showcase-promo'
 import { OfferingAppearancePreview } from '@/components/offering-appearance-preview'
 import { OfferingExampleCard } from '@/components/offering-example-card'
 import { OfferingFeatureChecklist } from '@/components/offering-feature-checklist'
@@ -60,7 +61,7 @@ export default async function OfferingStartPage({ params }: PageProps) {
             <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
               {examples.map((example) => (
                 <OfferingExampleCard
-                  key={`${example.slug}-${example.previewMode ?? 'live'}-${example.eyebrow ?? 'primary'}`}
+                  key={`${example.slug}-${example.previewMode ?? 'live'}`}
                   example={example}
                 />
               ))}
@@ -69,6 +70,7 @@ export default async function OfferingStartPage({ params }: PageProps) {
           </div>
         </section>
 
+        <CompleteShowcasePromo className="mt-10" />
         <OfferingAppearancePreview />
 
         <div className="mt-10 flex flex-col gap-4 border-t border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] pt-8 sm:flex-row sm:items-center">

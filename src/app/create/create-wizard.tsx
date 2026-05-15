@@ -12,6 +12,7 @@ import type {
   SurvivingFamilyMember,
 } from '@/lib/types'
 import type { VisualTheme } from '@/lib/types'
+import { isVisualTheme } from '@/lib/visual-themes'
 import { VisualThemePicker } from '@/components/visual-theme-picker'
 import type { Tradition } from '@/lib/types'
 import { SiteHeader } from '@/components/site-header'
@@ -75,12 +76,15 @@ const emptyEvent = {
   sort_order: 0,
 }
 
-function initialCreateForm(preselectedMode: MemorialMode | null): CreateMemorialForm {
+function initialCreateForm(
+  preselectedMode: MemorialMode | null,
+  preselectedTheme: VisualTheme | null,
+): CreateMemorialForm {
   const tier = tierDefaults(preselectedMode ?? 'notice')
   return {
     memorial_mode: tier.memorial_mode,
     output_template: tier.output_template,
-    visual_theme: tier.visual_theme,
+    visual_theme: preselectedTheme ?? tier.visual_theme,
     tradition: 'ghana-christian',
     deceased_name: '',
     deceased_title: '',
@@ -109,6 +113,9 @@ export function CreateWizard() {
   const searchParams = useSearchParams()
   const modeFromUrl = searchParams.get('mode')
   const preselectedFromUrl = isServiceTierMode(modeFromUrl) ? modeFromUrl : null
+  const themeFromUrl = searchParams.get('visual_theme')
+  const preselectedThemeFromUrl =
+    themeFromUrl && isVisualTheme(themeFromUrl) ? (themeFromUrl as VisualTheme) : null
 
   const [step, setStep] = useState(0)
   const [saving, setSaving] = useState(false)
@@ -118,7 +125,9 @@ export function CreateWizard() {
     edit_url: string
   } | null>(null)
 
-  const [form, setForm] = useState<CreateMemorialForm>(() => initialCreateForm(preselectedFromUrl))
+  const [form, setForm] = useState<CreateMemorialForm>(() =>
+    initialCreateForm(preselectedFromUrl, preselectedThemeFromUrl),
+  )
 
   const [primaryFile, setPrimaryFile] = useState<File | null>(null)
   const [galleryFiles, setGalleryFiles] = useState<File[]>([])
@@ -301,9 +310,6 @@ export function CreateWizard() {
     } as Memorial
     const shareAnnouncement = buildMemorialShareAnnouncement(shareStub, sharePageUrl)
     const shareWhatsappHref = memorialWhatsAppWebShareUrl(shareAnnouncement)
-    const shareEmailSubject = form.deceased_name.trim()
-      ? `${form.deceased_name.trim()} — memorial`
-      : 'Memorial on Passage'
 
     return (
       <div className="min-h-full bg-[#1A1A1A] text-[#FAFAF8]">
@@ -323,11 +329,9 @@ export function CreateWizard() {
             </p>
           )}
           <MemorialSharePanel
-            variant="compact"
             pageUrl={sharePageUrl}
             announcementPlainText={shareAnnouncement}
             whatsappHref={shareWhatsappHref}
-            emailSubject={shareEmailSubject}
           />
           <div className="flex flex-col gap-3 text-sm">
             <Link className="text-[#C9A02C] underline" href={result.memorial_url}>

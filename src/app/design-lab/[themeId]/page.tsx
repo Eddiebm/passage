@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import { getVisualThemeMeta, isVisualTheme, VISUAL_THEME_REGISTRY } from '@/lib/visual-themes'
 import type { VisualTheme } from '@/lib/visual-themes'
 
@@ -57,12 +58,30 @@ export default async function DesignLabThemePage({
             <p className="mt-1 font-medium text-[var(--passage-text)]">{meta.label}</p>
             <p className="text-xs text-[var(--passage-muted)]">{meta.description}</p>
           </div>
-          <p className="text-[10px] uppercase tracking-wider text-[var(--passage-muted)]">
-            {meta.group} · {meta.id}
-          </p>
+          <div className="flex flex-wrap items-center gap-3">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--passage-muted)]">
+              {meta.group} · {meta.id}
+            </p>
+            <Link
+              href={themeExampleHref(theme)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-[36px] items-center rounded-md border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-bg)] px-3 py-1.5 text-xs font-medium text-[var(--passage-link)] hover:underline"
+            >
+              View full example
+            </Link>
+          </div>
+          <p className="mt-1 text-[10px] text-[var(--passage-muted)]">{themeExampleLabel(theme)}</p>
         </div>
       </div>
       <MemorialThemePreview themeId={theme} />
+      <p className="mx-auto max-w-4xl px-4 py-6 text-center text-sm text-[var(--passage-muted)]">
+        Swatch only —{' '}
+        <Link href={themeExampleHref(theme)} target="_blank" rel="noopener noreferrer" className="font-medium text-[var(--passage-link)] underline-offset-2 hover:underline">
+          open the live example memorial
+        </Link>{' '}
+        to see this theme with real photos and copy.
+      </p>
     </div>
   )
 }
