@@ -68,11 +68,6 @@ function memorialFileStoreRoot(): string {
   return path.join(process.cwd(), '.passage-dev', 'memorials')
 }
 
-function exampleBlobForSlug(slug: string): StoredMemorialBlob | null {
-  if (slug === EXAMPLE_MEMORIAL_SLUGS[0]) return getExampleMemorialBlob()
-  if (slug === EXAMPLE_MEMORIAL_SLUGS[1]) return getGhanaMuslimExampleMemorialBlob()
-  return null
-}
 
 async function getFileStore(): Promise<{
   read: (slug: string) => Promise<StoredMemorialBlob | null>
@@ -131,6 +126,18 @@ async function readFromPostgres(slug: string): Promise<StoredMemorialBlob | null
   return parseStoredBlob(row.blob)
 }
 
+/** Built-in demo memorials — served when Postgres is missing or unreachable. */
+export function getBuiltInSeedBlob(slug: string): StoredMemorialBlob | null {
+  if (slug === 'bannerman-samuel-2026') return getExampleMemorialBlob()
+  if (slug === 'ghana-muslim-example-2026') return getGhanaMuslimExampleMemorialBlob()
+  return null
+}
+
+async function readFromFileStore(slug: string): Promise<StoredMemorialBlob | null> {
+  const fs = await getFileStore()
+  return fs.read(slug)
+}
+
 async function writeToPostgres(blob: StoredMemorialBlob): Promise<void> {
   const sql = getDb()
   const m = blob.memorial
@@ -154,12 +161,22 @@ async function writeToPostgres(blob: StoredMemorialBlob): Promise<void> {
 
 async function readBlob(slug: string): Promise<StoredMemorialBlob | null> {
   if (hasDatabaseEnv()) {
-    const s = await readFromPostgres(slug)
-    if (s) return s
-    return null
+    try {
+      const fromDb = await readFromPostgres(slug)
+      if (fromDb) return fromDb
+    } catch (err) {
+      console.error('[passage] Postgres read failed; trying fallbacks', { slug, err })
+    }
   }
-  const fs = await getFileStore()
-  return fs.read(slug)
+
+  try {
+    const fromFile = await readFromFileStore(slug)
+    if (fromFile) return fromFile
+  } catch (err) {
+    console.error('[passage] File store read failed; trying built-in seeds', { slug, err })
+  }
+
+  return getBuiltInSeedBlob(slug)
 }
 
 async function writeBlob(blob: StoredMemorialBlob): Promise<void> {
@@ -201,21 +218,27 @@ export async function ensureExampleMemorialSeeded(): Promise<void> {
     { slug: 'ghana-muslim-example-2026', blob: getGhanaMuslimExampleMemorialBlob },
   ]
   for (const { slug, blob } of seeds) {
-    const existing = await readBlob(slug)
-    if (existing) continue
     try {
-      await writeBlob(blob())
-    } catch {
-      // Read-only or ephemeral FS: example slugs still resolve via exampleBlobForSlug().
+      const existing = await readBlob(slug)
+      if (existing) continue
+      if (!hasDatabaseEnv()) {
+        await writeBlob(blob())
+        continue
+      }
+      try {
+        await writeBlob(blob())
+      } catch (err) {
+        console.error('[passage] Example memorial seed write failed (Postgres)', { slug, err })
+      }
+    } catch (err) {
+      console.error('[passage] Example memorial seed check failed', { slug, err })
     }
   }
 }
 
 export async function getMemorialBlob(slug: string): Promise<StoredMemorialBlob | null> {
   await ensureExampleMemorialSeeded()
-  const stored = await readBlob(slug)
-  if (stored) return stored
-  return exampleBlobForSlug(slug)
+  return readBlob(slug)
 }
 
 /** Read persisted memorial JSON without seeding the example memorial (webhooks, idempotency). */
@@ -315,16 +338,23 @@ export async function getMemorialWithDetails(
 export async function listMemorialsByStatus(status: MemorialStatus): Promise<Memorial[]> {
   await ensureExampleMemorialSeeded()
   if (hasDatabaseEnv()) {
-    const sql = getDb()
-    const rows = await sql`
-      SELECT blob FROM memorials WHERE status = ${status}
-    `
-    const out: Memorial[] = []
-    for (const row of rows as { blob: unknown }[]) {
-      const blob = parseStoredBlob(row.blob)
-      if (blob) out.push(hydrateMemorial(blob.memorial))
+    try {
+      const sql = getDb()
+      const rows = await sql`
+        SELECT blob FROM memorials WHERE status = ${status}
+      `
+      const out: Memorial[] = []
+      for (const row of rows as { blob: unknown }[]) {
+        const blob = parseStoredBlob(row.blob)
+        if (blob) out.push(hydrateMemorial(blob.memorial))
+      }
+      return out
+    } catch (err) {
+      console.error('[passage] Postgres listMemorialsByStatus failed; using file/seed fallbacks', {
+        status,
+        err,
+      })
     }
-    return out
   }
   const fs = await getFileStore()
   const slugs = await fs.listSlugs()
