@@ -1,3 +1,4 @@
+import path from 'node:path'
 import type {
   Contribution,
   Memorial,
@@ -59,14 +60,27 @@ function toDetails(
   }
 }
 
+function memorialFileStoreRoot(): string {
+  // Vercel serverless has a read-only project filesystem; use /tmp for JSON blobs.
+  if (process.env.VERCEL) {
+    return path.join('/tmp', 'passage-dev', 'memorials')
+  }
+  return path.join(process.cwd(), '.passage-dev', 'memorials')
+}
+
+function exampleBlobForSlug(slug: string): StoredMemorialBlob | null {
+  if (slug === EXAMPLE_MEMORIAL_SLUGS[0]) return getExampleMemorialBlob()
+  if (slug === EXAMPLE_MEMORIAL_SLUGS[1]) return getGhanaMuslimExampleMemorialBlob()
+  return null
+}
+
 async function getFileStore(): Promise<{
   read: (slug: string) => Promise<StoredMemorialBlob | null>
   write: (slug: string, blob: StoredMemorialBlob) => Promise<void>
   listSlugs: () => Promise<string[]>
 }> {
   const { mkdir, readFile, writeFile, readdir } = await import('node:fs/promises')
-  const path = await import('node:path')
-  const root = path.join(process.cwd(), '.passage-dev', 'memorials')
+  const root = memorialFileStoreRoot()
 
   async function ensureDir() {
     await mkdir(root, { recursive: true })
@@ -189,13 +203,19 @@ export async function ensureExampleMemorialSeeded(): Promise<void> {
   for (const { slug, blob } of seeds) {
     const existing = await readBlob(slug)
     if (existing) continue
-    await writeBlob(blob())
+    try {
+      await writeBlob(blob())
+    } catch {
+      // Read-only or ephemeral FS: example slugs still resolve via exampleBlobForSlug().
+    }
   }
 }
 
 export async function getMemorialBlob(slug: string): Promise<StoredMemorialBlob | null> {
   await ensureExampleMemorialSeeded()
-  return readBlob(slug)
+  const stored = await readBlob(slug)
+  if (stored) return stored
+  return exampleBlobForSlug(slug)
 }
 
 /** Read persisted memorial JSON without seeding the example memorial (webhooks, idempotency). */

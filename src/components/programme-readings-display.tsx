@@ -157,7 +157,7 @@ export function ProgrammeReadingsList({
                 : 'text-sm font-medium text-[#3D2B1F]'
             }
           >
-            {reading.title.trim() || `Reading ${index + 1}`}
+            {reading.title?.trim() || `Reading ${index + 1}`}
           </p>
           <ReadingBody reading={reading} variant={variant} />
         </li>
