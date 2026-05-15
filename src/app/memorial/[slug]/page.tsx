@@ -126,7 +126,7 @@ export default async function MemorialPage({
 
   return (
     <MemorialThemeShell slug={slug} coordinatorTheme={coordinatorTheme} templateClass={templateClass}>
-      <SiteHeader />
+      <SiteHeader variant="minimal" memorialName={data.deceased_name} />
       {isClosed && (
         <div className="border-b border-amber-200/40 bg-amber-950/90 px-4 py-3 text-center text-sm text-amber-50">
           <p className="font-medium">This memorial has been closed</p>

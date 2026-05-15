@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
+import { HelpServiceTierGuide } from '@/components/help-service-tier-guide'
 import { getPassageSupportContact, getPassageSupportEmail } from '@/lib/support-email'
 
 export const metadata: Metadata = {
@@ -8,9 +10,20 @@ export const metadata: Metadata = {
   description: 'How to run a funeral on Passage — coordinator guide.',
 }
 
-function GuideSection({ title, children }: { title: string; children: React.ReactNode }) {
+function GuideSection({
+  title,
+  id,
+  children,
+}: {
+  title: string
+  id?: string
+  children: React.ReactNode
+}) {
   return (
-    <section className="scroll-mt-20 border-b border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] pb-8">
+    <section
+      id={id}
+      className="scroll-mt-20 border-b border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] pb-8"
+    >
       <h2 className="passage-section-title border-0 pb-0">{title}</h2>
       <div className="mt-3 space-y-3 text-sm leading-relaxed text-[var(--passage-muted)]">{children}</div>
     </section>
@@ -52,11 +65,8 @@ export default function HelpPage() {
               </li>
             </ol>
           </GuideSection>
-          <GuideSection title="Modes: notice, programme, full">
-            <p>
-              <strong>Notice</strong> — essentials. <strong>Programme</strong> — order of service.{' '}
-              <strong>Full</strong> — tributes, fundraising, gallery, coordinator tools.
-            </p>
+          <GuideSection title="Service tiers">
+            <HelpServiceTierGuide />
           </GuideSection>
           <GuideSection title="Visual themes">
             <p>
@@ -82,7 +92,7 @@ export default function HelpPage() {
           <GuideSection title="Close the memorial">
             <p>Close when the funeral ends for a clear public state and final accounting.</p>
           </GuideSection>
-          <GuideSection title="Get help">
+          <GuideSection title="Get help" id="contact">
             <p>
               <Link href="/privacy" className="passage-text-link">
                 Privacy
@@ -105,9 +115,7 @@ export default function HelpPage() {
           </Link>
         </p>
       </main>
-      <footer className="border-t border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] py-6 text-center text-xs text-[var(--passage-muted)]">
-        Passage — coordinator help
-      </footer>
+      <SiteFooter showExamples />
     </div>
   )
 }

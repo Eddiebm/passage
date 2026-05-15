@@ -10,6 +10,9 @@ Powered by IdeaByLunch. Built for Ghana and Nigeria first, pan-African sub-conti
 ## The founder context
 The founder (Eddie) is Ghanaian. He has lived through exactly what this product solves — a WhatsApp group full of manually coordinated payment links, meeting invites sent across US/UK/Australia time zones, emotional appeals written by hand, and formal announcements that required someone who knew that "Weku Nukpa of the Bannerman family of Kanlow in Ngleshie Alata Jamestown" is not an optional detail. Build with that knowledge.
 
+## Navigation (coordinators in grief)
+Site navigation uses plain words for stressed, phone-first coordinators: few top-level choices (service tiers on home), header is logo + “What do you need?” + Get started; Help, Privacy, and Design lab live in the footer, not the header. Public memorial pages show the family name only — no full site nav.
+
 ## Core product principles
 1. **Family edits final** — Nothing ever publishes without the family seeing and approving it. Non-negotiable. The AI drafts. The family owns.
 2. **Meet people where they are** — Bot/intake in Pidgin English. Output (poster, memorial page) in formal English. Never cold, never corporate.

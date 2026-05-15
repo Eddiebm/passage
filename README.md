@@ -1,6 +1,8 @@
 # Passage
 
-Digital memorial infrastructure — programmes, family-edited announcements, tributes, and contributions (Paystack) for Ghana, Nigeria, and the diaspora. Each memorial can use one of **73 visual themes** (colour and typography) set in the create wizard or edit portal under **Appearance**. Browse them all at [`/design-lab`](http://localhost:3000/design-lab) (no login).
+Digital memorial infrastructure — programmes, family-edited announcements, tributes, and contributions (Paystack) for Ghana, Nigeria, and the diaspora.
+
+**Navigation:** plain language for grief-stricken coordinators (phone-first) — home offers three service tiers; header stays minimal; Help · Privacy · Contact sit in the footer. Choose a service tier on the home page (**Notice Only**, **Program / Brochure**, or **Full Coordination**) or at `/create?mode=notice|programme|full`. Each memorial can use one of **73 visual themes** (colour and typography) set in the create wizard or edit portal under **Appearance**. Browse them all at [`/design-lab`](http://localhost:3000/design-lab) (no login).
 
 ## Run locally
 

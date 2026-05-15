@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
+import { HomeServiceTierSection } from '@/components/home-service-tier-section'
 
 export default function HomePage() {
   return (
     <div className="flex min-h-full flex-col">
       <SiteHeader />
-      <main className="passage-memorial-main mx-auto flex w-full flex-1 flex-col justify-center gap-10 px-4 py-16">
+      <main className="passage-memorial-main mx-auto flex w-full flex-1 flex-col gap-14 px-4 py-16">
         <div className="space-y-5">
           <p className="text-xs uppercase tracking-[0.22em] text-[var(--passage-muted)]">Coordinator desk</p>
           <h1 className="font-[family-name:var(--passage-font-display)] text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
@@ -27,6 +29,7 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
+        <HomeServiceTierSection />
         <ul className="max-w-xl space-y-4 border-t border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] pt-8 text-sm leading-relaxed text-[var(--passage-muted)]">
           <li>
             <span className="text-[var(--passage-heading)]">Family edits final.</span> Nothing publishes without
@@ -41,18 +44,7 @@ export default function HomePage() {
           </li>
         </ul>
       </main>
-      <footer className="border-t border-[color-mix(in_srgb,var(--passage-rule)_20%,transparent)] py-6 text-center text-xs text-[var(--passage-muted)]">
-        <p>Passage — digital infrastructure for how African communities process death.</p>
-        <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-          <Link href="/help" className="passage-text-link">
-            Help
-          </Link>
-          <span aria-hidden>·</span>
-          <Link href="/privacy" className="passage-text-link">
-            Privacy
-          </Link>
-        </p>
-      </footer>
+      <SiteFooter showExamples />
     </div>
   )
 }

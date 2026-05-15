@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { TRADITION_PRESETS } from '@/lib/tradition-presets'
@@ -14,6 +15,13 @@ import type { VisualTheme } from '@/lib/types'
 import { VisualThemePicker } from '@/components/visual-theme-picker'
 import type { Tradition } from '@/lib/types'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
+import {
+  ServiceTierTabs,
+  isServiceTierMode,
+  tierDefaults,
+  tierLabel,
+} from '@/components/service-tier-tabs'
 import { MemorialImageFileInput } from '@/components/memorial-image-file-input'
 import {
   DeathCertificateScanPanel,
@@ -23,15 +31,16 @@ import { PosterScanPanel, type PosterScanApplyPayload } from '@/components/poste
 import { uploadMemorialImage, uploadMemorialImagesSequential } from '@/lib/memorial-image-client'
 import { validateMemorialImageFile } from '@/lib/memorial-image'
 import { GallerySizeWarning } from '@/components/gallery-size-warning'
+
 const STEPS = [
-  'How you\'ll use Passage',
-  'Tradition',
-  'Deceased',
-  'Family',
-  'Events',
-  'Fundraising',
-  'Coordinator',
-  'Review',
+  'What you need',
+  'Faith & tradition',
+  'Who passed away',
+  'Family & survivors',
+  'Services & meetings',
+  'Contributions (optional)',
+  'Your contact details',
+  'Check everything',
 ] as const
 
 const OUTPUT_TEMPLATE_CHOICES: { value: OutputTemplate; title: string; body: string }[] = [
@@ -52,24 +61,6 @@ const OUTPUT_TEMPLATE_CHOICES: { value: OutputTemplate; title: string; body: str
   },
 ]
 
-const MODE_CHOICES: { value: MemorialMode; title: string; body: string }[] = [
-  {
-    value: 'notice',
-    title: 'Notice only',
-    body: 'A calm, single-scroll announcement — share dates and words; keep vendor lists and programme detail tucked away in the family portal.',
-  },
-  {
-    value: 'programme',
-    title: 'Programme / brochure',
-    body: 'Adds remembrance readings and the public programme view — for families who want an order of service online without full coordination.',
-  },
-  {
-    value: 'full',
-    title: 'Full coordination',
-    body: 'Everything Passage offers on the public page — key contacts, gallery, programme, tributes, and closing meetings when you mark them public.',
-  },
-]
-
 const emptyMember: SurvivingFamilyMember = { title: '', name: '', note: '' }
 
 const emptyEvent = {
@@ -81,19 +72,12 @@ const emptyEvent = {
   sort_order: 0,
 }
 
-export function CreateWizard() {
-  const [step, setStep] = useState(0)
-  const [saving, setSaving] = useState(false)
-  const [result, setResult] = useState<{
-    coordinator_pin: string
-    memorial_url: string
-    edit_url: string
-  } | null>(null)
-
-  const [form, setForm] = useState<CreateMemorialForm>({
-    memorial_mode: 'notice',
-    output_template: 'notice',
-    visual_theme: 'programme',
+function initialCreateForm(preselectedMode: MemorialMode | null): CreateMemorialForm {
+  const tier = tierDefaults(preselectedMode ?? 'notice')
+  return {
+    memorial_mode: tier.memorial_mode,
+    output_template: tier.output_template,
+    visual_theme: tier.visual_theme,
     tradition: 'ghana-christian',
     deceased_name: '',
     deceased_title: '',
@@ -115,7 +99,23 @@ export function CreateWizard() {
     coordinator_whatsapp: '',
     coordinator_email: '',
     coordinator_recovery_email: '',
-  })
+  }
+}
+
+export function CreateWizard() {
+  const searchParams = useSearchParams()
+  const modeFromUrl = searchParams.get('mode')
+  const preselectedFromUrl = isServiceTierMode(modeFromUrl) ? modeFromUrl : null
+
+  const [step, setStep] = useState(0)
+  const [saving, setSaving] = useState(false)
+  const [result, setResult] = useState<{
+    coordinator_pin: string
+    memorial_url: string
+    edit_url: string
+  } | null>(null)
+
+  const [form, setForm] = useState<CreateMemorialForm>(() => initialCreateForm(preselectedFromUrl))
 
   const [primaryFile, setPrimaryFile] = useState<File | null>(null)
   const [galleryFiles, setGalleryFiles] = useState<File[]>([])
@@ -133,6 +133,16 @@ export function CreateWizard() {
       if (primaryPreviewUrl) URL.revokeObjectURL(primaryPreviewUrl)
     }
   }, [primaryPreviewUrl])
+
+  function selectServiceTier(mode: MemorialMode) {
+    const defaults = tierDefaults(mode)
+    setForm((f) => ({
+      ...f,
+      memorial_mode: defaults.memorial_mode,
+      output_template: defaults.output_template,
+      visual_theme: defaults.visual_theme,
+    }))
+  }
 
   const tradition = TRADITION_PRESETS[form.tradition]
 
@@ -281,12 +291,12 @@ export function CreateWizard() {
       <div className="min-h-full bg-[#1A1A1A] text-[#FAFAF8]">
         <SiteHeader />
         <div className="mx-auto max-w-xl space-y-6 px-4 py-16">
-          <h1 className="text-2xl font-semibold">Memorial draft created</h1>
+          <h1 className="text-2xl font-semibold">Your draft is saved</h1>
           <p className="text-sm text-[#FAFAF8]/80">
-            Save your coordinator PIN somewhere safe. It is not emailed in this MVP.
+            Write down your PIN somewhere safe. We do not email it in this version.
           </p>
           <div className="rounded-lg border border-[#C9A02C]/40 bg-[#3D2B1F]/40 p-4">
-            <p className="text-xs uppercase tracking-wider text-[#C9A02C]">Coordinator PIN</p>
+            <p className="text-xs uppercase tracking-wider text-[#C9A02C]">Your PIN</p>
             <p className="mt-2 text-3xl font-mono font-semibold tracking-widest">{result.coordinator_pin}</p>
           </div>
           {uploadNotice && (
@@ -296,10 +306,10 @@ export function CreateWizard() {
           )}
           <div className="flex flex-col gap-3 text-sm">
             <Link className="text-[#C9A02C] underline" href={result.memorial_url}>
-              View memorial draft
+              View the draft page
             </Link>
             <Link className="text-[#C9A02C] underline" href={result.edit_url}>
-              Open family edit portal
+              Edit as family
             </Link>
             <Link className="text-[#FAFAF8]/70 underline" href="/">
               Back home
@@ -315,32 +325,25 @@ export function CreateWizard() {
       <SiteHeader />
       <div className="mx-auto max-w-3xl px-4 py-10">
         <p className="text-xs uppercase tracking-[0.2em] text-[#C9A02C]">Step {step + 1} of {STEPS.length}</p>
-        <h1 className="mt-2 text-3xl font-semibold">Create a memorial</h1>
+        <h1 className="mt-2 text-3xl font-semibold">Publish a notice</h1>
         <p className="mt-2 text-sm text-[#1A1A1A]/70">{STEPS[step]}</p>
 
         <div className="mt-8 space-y-6">
           {step === 0 && (
             <div className="space-y-4">
               <p className="text-sm text-[#1A1A1A]/70">
-                Choose how much appears on the public memorial. You can change this later in the family edit portal.
+                Pick what family and friends will see on the page. You can change this later when you edit as family.
               </p>
-              <div className="grid gap-3">
-                {MODE_CHOICES.map((m) => (
-                  <button
-                    type="button"
-                    key={m.value}
-                    onClick={() => update('memorial_mode', m.value)}
-                    className={`min-h-[44px] rounded-lg border p-4 text-left text-sm transition ${
-                      form.memorial_mode === m.value
-                        ? 'border-[#C9A02C] bg-[#C9A02C]/10'
-                        : 'border-[#3D2B1F]/15 bg-white hover:border-[#C9A02C]/50'
-                    }`}
-                  >
-                    <p className="font-medium">{m.title}</p>
-                    <p className="mt-2 text-xs text-[#1A1A1A]/65 leading-relaxed">{m.body}</p>
-                  </button>
-                ))}
-              </div>
+              {preselectedFromUrl ? (
+                <p className="rounded-md border border-[#C9A02C]/35 bg-[#C9A02C]/8 px-3 py-2 text-sm text-[#1A1A1A]/80">
+                  You chose <strong>{tierLabel(preselectedFromUrl)}</strong> — confirm below or pick another tier.
+                </p>
+              ) : null}
+              <ServiceTierTabs
+                activeMode={form.memorial_mode ?? 'notice'}
+                onSelect={selectServiceTier}
+                highlightPreselected={Boolean(preselectedFromUrl)}
+              />
               <p className="text-sm font-medium text-[#1A1A1A]/80 pt-2">Visual theme</p>
               <VisualThemePicker
                 value={(form.visual_theme ?? 'programme') as VisualTheme}
@@ -658,7 +661,7 @@ export function CreateWizard() {
 
           {step === 6 && (
             <div className="space-y-4">
-              <Field label="Coordinator name" value={form.coordinator_name} onChange={(v) => update('coordinator_name', v)} />
+              <Field label="Your name" value={form.coordinator_name} onChange={(v) => update('coordinator_name', v)} />
               <Field label="WhatsApp (international format)" value={form.coordinator_whatsapp} onChange={(v) => update('coordinator_whatsapp', v)} />
               <Field label="Email" type="email" value={form.coordinator_email} onChange={(v) => update('coordinator_email', v)} />
               <Field
@@ -677,16 +680,16 @@ export function CreateWizard() {
             <div className="space-y-3 rounded-lg border border-[#3D2B1F]/15 bg-white p-4 text-sm leading-relaxed">
               <p>
                 <strong>Public format:</strong>{' '}
-                {MODE_CHOICES.find((m) => m.value === form.memorial_mode)?.title ?? form.memorial_mode}
+                {tierLabel(form.memorial_mode ?? 'notice')}
               </p>
               <p>
                 <strong>Tradition:</strong> {tradition.label}
               </p>
               <p>
-                <strong>Deceased:</strong> {form.deceased_name}
+                <strong>Who passed away:</strong> {form.deceased_name}
               </p>
               <p>
-                <strong>Coordinator:</strong> {form.coordinator_name} · {form.coordinator_email}
+                <strong>Your contact:</strong> {form.coordinator_name} · {form.coordinator_email}
               </p>
               <p className="text-[#1A1A1A]/70">
                 By continuing, you confirm the family will review all generated text and programme details
@@ -714,14 +717,22 @@ export function CreateWizard() {
         </p>
 
         <div className="mt-4 flex justify-between gap-4">
-          <button
-            type="button"
-            className="rounded-md border border-[#3D2B1F]/20 px-4 py-2 text-sm"
-            disabled={step === 0}
-            onClick={() => setStep((s) => Math.max(0, s - 1))}
-          >
-            Back
-          </button>
+          {step === 0 ? (
+            <Link
+              href="/"
+              className="inline-flex min-h-[44px] items-center rounded-md border border-[#3D2B1F]/20 px-4 py-2 text-sm"
+            >
+              Back
+            </Link>
+          ) : (
+            <button
+              type="button"
+              className="min-h-[44px] rounded-md border border-[#3D2B1F]/20 px-4 py-2 text-sm"
+              onClick={() => setStep((s) => Math.max(0, s - 1))}
+            >
+              Back
+            </button>
+          )}
           {step < STEPS.length - 1 ? (
             <button
               type="button"
@@ -738,11 +749,12 @@ export function CreateWizard() {
               className="rounded-md bg-[#C9A02C] px-4 py-2 text-sm font-medium text-[#1A1A1A] disabled:opacity-40"
               onClick={submit}
             >
-              {saving ? (uploadProgress || 'Creating…') : 'Create draft'}
+              {saving ? (uploadProgress || 'Saving…') : 'Save draft'}
             </button>
           )}
         </div>
       </div>
+      <SiteFooter />
     </div>
   )
 }

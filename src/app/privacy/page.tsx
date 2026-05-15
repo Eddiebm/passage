@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { SiteHeader } from '@/components/site-header'
+import { SiteFooter } from '@/components/site-footer'
 import { getPassageSupportContact, getPassageSupportEmail } from '@/lib/support-email'
 
 export const metadata: Metadata = {
@@ -53,9 +54,7 @@ export default function PrivacyPage() {
           <Link href="/" className="text-[#C9A02C] underline hover:text-[#d4ae3f]">Back to home</Link>
         </p>
       </main>
-      <footer className="border-t border-[#3D2B1F]/15 py-6 text-center text-xs text-[#1A1A1A]/50">
-        Passage — digital infrastructure for how African communities process death.
-      </footer>
+      <SiteFooter />
     </div>
   )
 }
