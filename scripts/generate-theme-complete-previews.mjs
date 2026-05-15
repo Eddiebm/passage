@@ -20,7 +20,8 @@ const W = 400
 const H = 711
 
 const REGION_HINTS = [
-  { tokens: ['ghana', 'accra', 'kente', 'cape-coast', 'ashanti'], file: 'ghana-accra-elder-man.jpg' },
+  { tokens: ['kente', 'adinkra', 'ashanti'], file: 'ghana-accra-elder-woman.jpg' },
+  { tokens: ['ghana', 'accra', 'cape-coast', 'volta'], file: 'ghana-fashion-elder.jpg' },
   { tokens: ['nigeria', 'lagos', 'abuja', 'yoruba'], file: 'nigeria-lagos-woman.jpg' },
   { tokens: ['senegal', 'dakar'], file: 'senegal-dakar-elder.jpg' },
   { tokens: ['mali', 'bamako'], file: 'mali-bamako-man.jpg' },

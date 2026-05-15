@@ -1,10 +1,5 @@
 import portraitNamesJson from '@/lib/africa-portrait-names.json'
 import {
-  GENERIC_FAMILY_LINE,
-  GENERIC_MEMORIAL_TITLE,
-  genericFirstNameForPortrait,
-} from '@/lib/example-memorial-names'
-import {
   AFRICA_PORTRAIT_FILES,
   getAfricaPhotoForThemeId,
   type AfricaPortraitFile,
@@ -32,25 +27,10 @@ const SNIPPET_BY_GENDER: Record<PortraitGender, string> = {
     'It is with profound sadness that the family announces the passing of our beloved mother and grandmother.',
 }
 
-const RAW_PORTRAIT_PROFILES = portraitNamesJson as Record<
+export const AFRICA_PORTRAIT_PROFILES = portraitNamesJson as Record<
   AfricaPortraitFile,
-  Pick<AfricaPortraitProfile, 'gender' | 'regionRationale'>
+  AfricaPortraitProfile
 >
-
-export const AFRICA_PORTRAIT_PROFILES = Object.fromEntries(
-  (Object.entries(RAW_PORTRAIT_PROFILES) as [AfricaPortraitFile, (typeof RAW_PORTRAIT_PROFILES)[AfricaPortraitFile]][]).map(
-    ([file, raw]) => [
-      file,
-      {
-        gender: raw.gender,
-        deceasedName: genericFirstNameForPortrait(file, raw.gender),
-        deceasedTitle: GENERIC_MEMORIAL_TITLE,
-        familyLine: GENERIC_FAMILY_LINE,
-        regionRationale: raw.regionRationale,
-      } satisfies AfricaPortraitProfile,
-    ],
-  ),
-) as Record<AfricaPortraitFile, AfricaPortraitProfile>
 
 export function isAfricaPortraitFile(file: string): file is AfricaPortraitFile {
   return (AFRICA_PORTRAIT_FILES as readonly string[]).includes(file)

@@ -1,3 +1,4 @@
+import { getShowcaseSampleForThemeId } from '@/lib/africa-portrait-names'
 import { EXAMPLE_NAMES } from '@/lib/example-memorial-names'
 import {
   CHRISTIAN_EXAMPLE_SEED_PHOTO,
@@ -27,17 +28,10 @@ const EXAMPLE_PHOTOS: Record<(typeof THEME_EXAMPLE_SLUGS)[number], string> = {
   [THEME_EXAMPLE_FEMALE_SLUG]: GHANA_MUSLIM_SEED_PHOTO,
 }
 
-function hashThemeId(themeId: string): number {
-  let h = 0
-  for (let i = 0; i < themeId.length; i++) {
-    h = (h * 31 + themeId.charCodeAt(i)) | 0
-  }
-  return Math.abs(h)
-}
-
-/** Pick male or female example slug from theme id (stable, alternates across registry). */
+/** Pick example slug from theme portrait gender (matches africa library assignment). */
 export function exampleSlugForTheme(themeId: string): (typeof THEME_EXAMPLE_SLUGS)[number] {
-  return hashThemeId(themeId) % 2 === 0 ? THEME_EXAMPLE_MALE_SLUG : THEME_EXAMPLE_FEMALE_SLUG
+  const sample = getShowcaseSampleForThemeId(themeId)
+  return sample.gender === 'female' ? THEME_EXAMPLE_FEMALE_SLUG : THEME_EXAMPLE_MALE_SLUG
 }
 
 export function isThemeExampleSlug(slug: string): slug is (typeof THEME_EXAMPLE_SLUGS)[number] {
@@ -61,8 +55,8 @@ export function themeExampleHref(themeId: VisualTheme | string): string {
 }
 
 export function themeExampleLabel(themeId: VisualTheme | string): string {
-  const slug = exampleSlugForTheme(themeId)
-  return `Example: ${EXAMPLE_DISPLAY_NAMES[slug]}`
+  const sample = getShowcaseSampleForThemeId(themeId)
+  return `Example: ${sample.deceasedName}`
 }
 
 /** Precomputed map for all registry themes (design lab, pickers). */

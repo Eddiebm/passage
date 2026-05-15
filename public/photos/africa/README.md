@@ -2,6 +2,10 @@
 
 Dignified **African** portraits for Passage theme previews. Passage sells to African families — every customer-facing preview must clearly represent African people.
 
+## Preview names
+
+Theme and design-lab copy is keyed by portrait filename in `src/lib/africa-portrait-names.json` (gender-matched, region-appropriate first names — Islamic names where the portrait reads Muslim-majority). Regenerate baked JPGs after edits: `npm run theme-previews`.
+
 ## Sourcing policy
 
 1. **African context required** — description must reference Africa or an African country/community (`src/lib/portrait-policy.ts`).
