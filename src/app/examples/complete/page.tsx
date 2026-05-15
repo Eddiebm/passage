@@ -33,7 +33,7 @@ export default function CompleteShowcasePage() {
           <Link href="/design-lab" className="font-medium text-[#6B1F2A] underline-offset-2 hover:underline">
             Browse all appearance styles ({VISUAL_THEME_COUNT})
           </Link>{' '}
-          for colour swatches, each with a link to the same live examples.
+          with complete phone previews on every card, plus links to live example memorials.
         </p>
 
         <ul className="mt-12 space-y-16">
@@ -89,8 +89,8 @@ export default function CompleteShowcasePage() {
         <section className="mt-16 border-t border-[#3D2B1F]/12 pt-10">
           <h2 className="text-sm font-medium text-[#3D2B1F]">All appearance styles ({VISUAL_THEME_COUNT})</h2>
           <p className="mt-2 text-sm leading-relaxed text-[#1A1A1A]/65">
-            The design lab lists every coordinator-selectable theme. Each swatch links to a real example
-            memorial with that theme applied.
+            The design lab lists every coordinator-selectable theme. Each card shows a full phone preview and
+            links to a real example memorial with that theme applied.
           </p>
           <Link
             href="/design-lab"

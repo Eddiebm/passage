@@ -1,4 +1,4 @@
-/* Africa extended batch — 25 themes (generated) */
+/* Africa extended batch — 27 themes (generated + kinshasa-river, malawi-lake) */
 
 html[data-theme='sahara-gold'], .passage-memorial-root[data-theme='sahara-gold'] {
   --background: #faf4e4;
@@ -648,4 +648,56 @@ html[data-theme='continental-dawn'], .passage-memorial-root[data-theme='continen
   --passage-radius: 2px;
   --passage-shadow: none;
   --passage-kente-band: linear-gradient(90deg, #8b2028 0%, #1a5c38 50%, #d4a830 100%);
+}
+
+html[data-theme='kinshasa-river'], .passage-memorial-root[data-theme='kinshasa-river'] {
+  --background: #f0f4f0;
+  --foreground: #1a2820;
+  --passage-bg: #f0f4f0;
+  --passage-surface: #f6faf6;
+  --passage-card-bg: #f6faf6;
+  --passage-text: #1a2820;
+  --passage-muted: #4a5c50;
+  --passage-heading: #1a4030;
+  --passage-accent: #3a7858;
+  --passage-rule: #3a785844;
+  --passage-link: #2a5840;
+  --passage-hero-bg: #1a4030;
+  --passage-hero-text: #f6faf6;
+  --passage-hero-muted: #a8d0b8;
+  --passage-header-bg: #1a4030;
+  --passage-header-text: #f6faf6;
+  --passage-header-link: #c8f0d8;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='malawi-lake'], .passage-memorial-root[data-theme='malawi-lake'] {
+  --background: #eef4f8;
+  --foreground: #1a2838;
+  --passage-bg: #eef4f8;
+  --passage-surface: #f4f8fc;
+  --passage-card-bg: #f4f8fc;
+  --passage-text: #1a2838;
+  --passage-muted: #4a5a68;
+  --passage-heading: #1a4858;
+  --passage-accent: #3a88b8;
+  --passage-rule: #3a88b844;
+  --passage-link: #2a6888;
+  --passage-hero-bg: #1a4858;
+  --passage-hero-text: #f4f8fc;
+  --passage-hero-muted: #a8d0e8;
+  --passage-header-bg: #1a4858;
+  --passage-header-text: #f4f8fc;
+  --passage-header-link: #d0f0ff;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
 }

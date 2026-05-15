@@ -44,8 +44,8 @@ export default function HomePage() {
             Browse every colour and typography option
           </p>
           <p className="mt-2 text-sm leading-relaxed text-[var(--passage-muted)]">
-            Regional palettes, cultural accents, light and dark variants — quick swatches in the design lab.
-            For full mobile layouts with photos, start with the four complete examples above.
+            {VISUAL_THEME_COUNT} complete appearance examples — each with a phone preview showing portrait,
+            name, dates, and announcement. Open any style for a larger preview or a live example memorial.
           </p>
           <p className="mt-3 text-sm font-medium text-[var(--passage-accent)]">Explore the design lab →</p>
         </Link>

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import {
   AFRICA_EXTENDED_THEME_COUNT,
@@ -113,20 +114,23 @@ export function DesignLabThemeGrid() {
         {visibleThemes.map((theme) => {
           const themeId = theme.id as VisualTheme
           const liveHref = themeExampleHref(themeId)
+          const detailHref = `/design-lab/${themeId}`
           return (
             <article
               key={theme.id}
-              className="flex flex-col overflow-hidden rounded-lg border border-[#3D2B1F]/12 bg-white shadow-sm"
+              className="flex min-h-[320px] flex-col overflow-hidden rounded-lg border border-[#3D2B1F]/12 bg-white shadow-sm"
             >
-              <Link
-                href={liveHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block"
-              >
-                <MemorialThemePreview themeId={themeId} compact />
+              <Link href={detailHref} className="group flex flex-1 flex-col">
+                <div className="flex flex-1 items-center justify-center bg-[#F5F3F0] py-3">
+                  <MemorialThemePreview themeId={themeId} compact />
+                </div>
               </Link>
-              <ThemeCardFooter theme={theme} liveHref={liveHref} />
+              <ThemeCardFooter
+                theme={theme}
+                detailHref={detailHref}
+                liveHref={liveHref}
+                createHref={completeShowcaseCreateHref(themeId)}
+              />
             </article>
           )
         })}
@@ -207,10 +211,14 @@ function PaginationBar({
 
 function ThemeCardFooter({
   theme,
+  detailHref,
   liveHref,
+  createHref,
 }: {
   theme: (typeof VISUAL_THEME_REGISTRY)[number]
+  detailHref: string
   liveHref: string
+  createHref: string
 }) {
   return (
     <div className="border-t border-[#3D2B1F]/10 px-4 py-3">
@@ -221,14 +229,22 @@ function ThemeCardFooter({
         {theme.batch === 'africa-extended' ? ' · new batch' : ''} · {theme.id}
       </p>
       <p className="mt-2 text-[11px] text-[#6B1F2A]/80">{themeExampleLabel(theme.id)}</p>
-      <Link
-        href={liveHref}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-2 inline-block text-sm font-medium text-[#6B1F2A] underline-offset-2 hover:underline"
-      >
-        View full example
-      </Link>
+      <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
+        <Link href={detailHref} className="text-[#6B1F2A] underline-offset-2 hover:underline">
+          Larger preview
+        </Link>
+        <Link
+          href={liveHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-[#6B1F2A] underline-offset-2 hover:underline"
+        >
+          View full example
+        </Link>
+        <Link href={createHref} className="text-[#1A1A1A]/70 underline-offset-2 hover:underline">
+          Use this style
+        </Link>
+      </div>
     </div>
   )
 }

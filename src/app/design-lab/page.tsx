@@ -21,8 +21,8 @@ export default function DesignLabPage() {
 
         <h2 className="mt-12 text-lg font-semibold">All appearance styles ({VISUAL_THEME_COUNT})</h2>
         <p className="mt-2 max-w-2xl text-sm text-[#1A1A1A]/70">
-          Colour and typography swatches on each card — open a real example memorial to see the theme on a full
-          page with portrait and gallery photos.
+          Each card shows a complete phone preview — portrait, name, dates, and sample announcement. Open a
+          larger preview or view the live example memorial with real photos.
         </p>
 
         <Suspense fallback={<p className="mt-8 text-sm text-[#1A1A1A]/60">Loading themes…</p>}>

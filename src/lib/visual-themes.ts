@@ -726,6 +726,22 @@ export const VISUAL_THEME_REGISTRY: VisualThemeMeta[] = [
     batch: 'africa-extended',
     fontPair: 'Libre Baskerville + DM Sans',
   },
+  {
+    id: 'kinshasa-river',
+    label: 'Kinshasa river',
+    description: 'Congo basin green and river clay — central African memorial calm.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'malawi-lake',
+    label: 'Malawi lake',
+    description: 'Lake Malawi blue on bright linen — warm highland remembrance.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
 ]
 
 export const VISUAL_THEME_IDS = VISUAL_THEME_REGISTRY.map((t) => t.id)

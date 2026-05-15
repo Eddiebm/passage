@@ -18,7 +18,7 @@ export function OfferingAppearancePreview() {
       </h2>
       <p className="text-sm leading-relaxed text-[var(--passage-muted)]">
         Every memorial can use a different visual style — calm programme, night vigil, kente restraint, and
-        dozens more. Swatches below; each opens a real example memorial in a new tab.
+        dozens more. Complete phone previews below; each links to a live example memorial.
       </p>
       <AppearancePreviewGrid themes={themes} />
       <p className="text-sm">

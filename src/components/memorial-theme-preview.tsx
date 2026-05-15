@@ -26,7 +26,7 @@ function PreviewHero({ compact, photoSrc }: { compact: boolean; photoSrc: string
             alt={SHOWCASE_SAMPLE.deceasedName}
             fill
             className="object-cover"
-            sizes={compact ? '180px' : '(max-width: 640px) 100vw, 280px'}
+            sizes={compact ? '200px' : '(max-width: 640px) 100vw, 280px'}
             unoptimized
           />
         </div>
@@ -91,9 +91,9 @@ function PreviewAnnouncement({ compact }: { compact: boolean }) {
 
 function PhoneFrame({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mx-auto w-full min-w-[180px] max-w-[180px]">
-      <div className="rounded-[18px] border border-[#1a1a1a]/12 bg-[#1a1a1a] p-1 shadow-md">
-        <div className="min-h-[280px] overflow-hidden rounded-[14px] bg-[var(--passage-bg)]">
+    <div className="mx-auto w-full min-w-[200px] max-w-[200px]">
+      <div className="rounded-[20px] border border-[#1a1a1a]/12 bg-[#1a1a1a] p-1 shadow-md">
+        <div className="aspect-[9/16] min-h-[300px] overflow-hidden rounded-[15px] bg-[var(--passage-bg)]">
           {children}
         </div>
       </div>
@@ -119,7 +119,7 @@ export function MemorialThemePreview({
         className={`passage-memorial-root overflow-hidden bg-[var(--passage-bg)] ${className}`}
         data-theme={themeId}
       >
-        <div className="flex justify-center p-2">
+        <div className="flex justify-center p-3">
           <PhoneFrame>
             <PreviewHero compact photoSrc={photoSrc} />
             <PreviewAnnouncement compact />
