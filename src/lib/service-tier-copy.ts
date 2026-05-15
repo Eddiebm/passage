@@ -5,6 +5,8 @@ export type ServiceTierMode = MemorialMode
 export type ServiceTierCopy = {
   mode: ServiceTierMode
   label: string
+  /** Shorter label for header nav on small screens. */
+  navLabel: string
   /** One line when this tier is collapsed. */
   tagline: string
   /** One sentence: what this path is for. */
@@ -24,6 +26,7 @@ export const SERVICE_TIER_COPY: Record<ServiceTierMode, ServiceTierCopy> = {
   notice: {
     mode: 'notice',
     label: 'Notice only',
+    navLabel: 'Notice only',
     tagline: 'Inform family and friends — one link and a print sheet.',
     description:
       'Share the death notice quickly on WhatsApp and print a simple sheet.',
@@ -38,6 +41,7 @@ export const SERVICE_TIER_COPY: Record<ServiceTierMode, ServiceTierCopy> = {
   programme: {
     mode: 'programme',
     label: 'Programme & brochure',
+    navLabel: 'Programme & brochure',
     tagline: 'Order of service online — readings, gallery, print programme.',
     description:
       'Publish the funeral programme with readings and photos — share one link and print a programme sheet.',
@@ -57,6 +61,7 @@ export const SERVICE_TIER_COPY: Record<ServiceTierMode, ServiceTierCopy> = {
   full: {
     mode: 'full',
     label: 'Full family coordination',
+    navLabel: 'Full coordination',
     tagline: 'Tasks, money, meetings, and document scans in one desk.',
     description:
       'Run the whole funeral from one place — tasks, pledges, payments, scans, and closure when it ends.',
