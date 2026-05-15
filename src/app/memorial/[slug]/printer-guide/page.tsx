@@ -47,7 +47,25 @@ export default async function MemorialPrinterGuidePage({
       </header>
 
       <section className="mb-6 space-y-3 text-sm leading-relaxed">
+        <h2 className="font-semibold text-[#3D2B1F]">Burial poster (portrait 9:16)</h2>
+        <ul className="list-disc space-y-1 pl-5 text-[#1A1A1A]/85">
+          <li>Digital share: 1080×1920 JPG — WhatsApp, social, phone screens.</li>
+          <li>Home print: A4 or photo paper in portrait; use the memorial poster page → Print → Save as PDF.</li>
+          <li>Print shops (Accra): Ring Road, Osu, and Tema have same-day poster/large-format print — bring PDF or JPG.</li>
+          <li>Bleed: ask for 3–5mm bleed if the shop mounts on board; safe area is inset from edges.</li>
+        </ul>
+        <p>
+          <Link href={`/memorial/${slug}/poster`} className="font-medium text-[#C9A02C] underline">
+            Open burial poster (personalized) →
+          </Link>
+        </p>
+      </section>
+
+      <section className="mb-6 space-y-3 text-sm leading-relaxed">
         <h2 className="font-semibold text-[#3D2B1F]">Programme sheet (A4)</h2>
+        <p className="text-xs text-[#1A1A1A]/65">
+          Text-heavy programme / death notice layout — separate from the portrait burial poster above.
+        </p>
         <ul className="list-disc space-y-1 pl-5 text-[#1A1A1A]/85">
           <li>Trim: A4 portrait (210 × 297mm).</li>
           <li>Export: open the programme print page → browser Print → Save as PDF.</li>

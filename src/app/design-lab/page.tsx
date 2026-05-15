@@ -21,9 +21,12 @@ export default function DesignLabPage() {
 
         <h2 className="mt-12 text-lg font-semibold">All appearance styles ({VISUAL_THEME_COUNT})</h2>
         <p className="mt-2 max-w-2xl text-sm text-[#1A1A1A]/70">
-          Each card shows a programme-scale memorial poster preview (portrait, announcement, programme styling)
-          — not the minimal death notice. Open the full preview or view the style on a live example memorial
-          with programme layout and real photos.
+          Each card shows a programme-scale thumbnail (400×711). For full 1080×1920 burial posters — download and
+          print — see{' '}
+          <a href="/posters" className="font-medium text-[#6B1F2A] underline-offset-2 hover:underline">
+            all burial posters
+          </a>
+          . Not the minimal death notice.
         </p>
 
         <Suspense fallback={<p className="mt-8 text-sm text-[#1A1A1A]/60">Loading themes…</p>}>

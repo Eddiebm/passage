@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "photos:africa": "node scripts/download-africa-photos.mjs",
+    "burial-posters": "node scripts/generate-burial-posters.mjs",
+    "burial-posters:2x": "node scripts/generate-burial-posters.mjs --2x",
     "theme-previews": "node scripts/generate-theme-complete-previews.mjs",
     "theme-previews:all": "npm run photos:africa && npm run theme-previews",
     "smoke:pilot": "bash scripts/smoke-pilot.sh",

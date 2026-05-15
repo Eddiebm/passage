@@ -1737,6 +1737,14 @@ export function EditPortal({ slug }: { slug: string }) {
                   Printer one-pager
                 </Link>
                 <Link
+                  href={`/memorial/${slug}/poster`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center rounded-md border border-[#6B1F2A]/30 bg-[#FAF6EE] px-3 py-2 text-sm font-medium text-[#6B1F2A]"
+                >
+                  Burial poster
+                </Link>
+                <Link
                   href={`/memorial/${slug}/print`}
                   target="_blank"
                   rel="noreferrer"

@@ -36,11 +36,15 @@ export default function CompleteShowcasePage() {
           ). For a short announcement-only sheet, start there instead.
         </p>
         <p className="mt-4 text-sm text-[#1A1A1A]/60">
-          Not sure which palette fits?{' '}
-          <Link href="/design-lab" className="font-medium text-[#6B1F2A] underline-offset-2 hover:underline">
-            Browse all appearance styles ({VISUAL_THEME_COUNT})
+          Need all {VISUAL_THEME_COUNT} burial poster styles?{' '}
+          <Link href="/posters" className="font-medium text-[#6B1F2A] underline-offset-2 hover:underline">
+            Browse burial posters
           </Link>{' '}
-          — each with a full phone preview and programme-scale layout shell.
+          — download JPGs or start a memorial with a style preselected.{' '}
+          <Link href="/design-lab" className="font-medium text-[#6B1F2A] underline-offset-2 hover:underline">
+            Design lab
+          </Link>{' '}
+          has smaller phone previews for every theme.
         </p>
 
         <ul className="mt-12 space-y-16">
@@ -98,16 +102,15 @@ export default function CompleteShowcasePage() {
         </ul>
 
         <section className="mt-16 border-t border-[#3D2B1F]/12 pt-10">
-          <h2 className="text-sm font-medium text-[#3D2B1F]">All appearance styles ({VISUAL_THEME_COUNT})</h2>
+          <h2 className="text-sm font-medium text-[#3D2B1F]">All {VISUAL_THEME_COUNT} burial posters</h2>
           <p className="mt-2 text-sm leading-relaxed text-[#1A1A1A]/65">
-            The design lab lists every coordinator-selectable theme with programme-scale phone previews — not
-            stripped notice cards.
+            Every visual theme has a full 1080×1920 burial poster — portrait, print-ready, with real photography.
           </p>
           <Link
-            href="/design-lab"
+            href="/posters"
             className="mt-4 inline-block text-sm font-medium text-[#6B1F2A] underline-offset-2 hover:underline"
           >
-            Open the design lab →
+            Browse all burial posters →
           </Link>
         </section>
 

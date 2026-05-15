@@ -25,6 +25,7 @@ import {
 import { resolveExamplePreviewMode } from '@/lib/memorial-preview-mode'
 import { isThemeExampleSlug, parseVisualThemeQueryParam } from '@/lib/theme-example-memorials'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
+import { burialPosterImageUrl } from '@/lib/burial-poster'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialClientSections } from './sections'
 
@@ -212,17 +213,28 @@ export default async function MemorialPage({
           pageUrl={pageUrl}
           announcementPlainText={announcementPlain}
           whatsappHref={whatsappHref}
+          burialPosterPageUrl={`/memorial/${slug}/poster`}
+          burialPosterDownloadUrl={burialPosterImageUrl(coordinatorTheme)}
         />
         <p className="text-center text-xs text-[var(--passage-muted)] sm:text-left">
+          <Link
+            href={`/memorial/${slug}/poster`}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline decoration-[var(--passage-rule)]/25 underline-offset-[3px]"
+          >
+            Burial poster
+          </Link>
+          {' · '}
           <Link
             href={`/memorial/${slug}/print`}
             target="_blank"
             rel="noreferrer"
             className="underline decoration-[var(--passage-rule)]/25 underline-offset-[3px] hover:text-[var(--passage-muted)]"
           >
-            Print version
-          </Link>{' '}
-          <span className="hidden sm:inline">— opens a printer-friendly page.</span>
+            Programme print sheet
+          </Link>
+          <span className="hidden sm:inline"> — A4 notice/programme, not the portrait burial poster.</span>
         </p>
 
         <section className="space-y-4">

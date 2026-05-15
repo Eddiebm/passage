@@ -271,11 +271,27 @@ WhatsApp scheduling is **not** implemented — use copy buttons; WABA documented
 - **Public display:** shown when `memorial_mode` is `programme` or `full`, **or** when `fundraising_active` is true — only rows with `visibility: public` (name + amount when set).
 - Edit portal: CRUD, mark fulfilled, copy pledge reminder text for WhatsApp.
 
+## Burial posters (100 styles)
+
+- **Browse:** `/posters` — grid of all visual themes with download (1080×1920 JPG) and “use on memorial”.
+- **Assets:** `public/burial-posters/{themeId}.jpg` (portrait 9:16, WhatsApp + print). Design-lab thumbnails stay at `public/theme-previews/` (400×711).
+- **Regenerate** (after Africa portraits or theme registry changes):
+
+```bash
+npm run photos:africa          # if portraits missing
+npm run burial-posters         # 1080×1920
+npm run burial-posters:2x      # optional 2160×3840 for print shops
+npm run theme-previews         # design-lab thumbnails only
+```
+
+- **Per memorial:** `/memorial/<slug>/poster` — personalized burial poster (print / Save as PDF) + themed JPG download; share panel on the public page.
+
 ## Outdoor / printer pack (MVP)
 
 - Edit portal **Hand to printer** — checklist plus links to:
-  - `/memorial/<slug>/printer-guide` — one-page brief for your print shop
-  - `/memorial/<slug>/print` — A4 programme sheet
+  - `/memorial/<slug>/printer-guide` — one-page brief for your print shop (includes burial poster sizes for Accra)
+  - `/memorial/<slug>/poster` — portrait burial poster (9:16)
+  - `/memorial/<slug>/print` — A4 programme sheet (not the burial poster)
   - `/memorial/<slug>/banner` — roll-up (**850×2000mm**), QR to memorial URL
   - `/memorial/<slug>/banner/wide` — wide vinyl (~3×6 ft / 915×1830mm aspect)
 
