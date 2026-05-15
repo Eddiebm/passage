@@ -51,7 +51,8 @@ const AFRICA_PHOTO_DIR = '/photos/africa'
 const THEME_PREVIEW_DIR = '/theme-previews'
 
 const REGION_HINTS: { tokens: string[]; file: AfricaPortraitFile }[] = [
-  { tokens: ['ghana', 'accra', 'kente', 'cape-coast', 'ashanti', 'volta'], file: 'ghana-accra-elder-man.jpg' },
+  { tokens: ['kente', 'adinkra', 'ashanti'], file: 'ghana-accra-elder-woman.jpg' },
+  { tokens: ['ghana', 'accra', 'cape-coast', 'volta'], file: 'ghana-fashion-elder.jpg' },
   { tokens: ['nigeria', 'lagos', 'abuja', 'yoruba', 'ibadan'], file: 'nigeria-lagos-woman.jpg' },
   { tokens: ['senegal', 'dakar', 'teranga'], file: 'senegal-dakar-elder.jpg' },
   { tokens: ['mali', 'bamako', 'mudcloth'], file: 'mali-bamako-man.jpg' },

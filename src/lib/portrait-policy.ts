@@ -7,6 +7,8 @@
 export const PORTRAIT_POLICY_SUMMARY =
   'Only African portrait assets for customer-facing previews, theme mockups, and marketing imagery.'
 
+/** Example deceased display names: generic first names only — see `example-memorial-names.ts`. */
+
 /** Allowed roots for automated portrait pipelines (see scripts/download-africa-photos.mjs). */
 export const ALLOWED_PORTRAIT_SOURCES = [
   '/photos/africa/',

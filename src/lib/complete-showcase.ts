@@ -1,7 +1,7 @@
+import { getShowcaseSampleForThemeId } from '@/lib/africa-portrait-names'
 import type { VisualTheme } from '@/lib/visual-themes'
 import { getVisualThemeMeta } from '@/lib/visual-themes'
 import {
-  exampleMemorialDisplayName,
   isThemeExampleSlug,
   THEME_EXAMPLE_FEMALE_SLUG,
   THEME_EXAMPLE_MALE_SLUG,
@@ -22,12 +22,12 @@ export type CompleteShowcaseEntry = {
 
 const COMPLETE_THEME_IDS = ['programme', 'monument', 'kente', 'night'] as const satisfies readonly VisualTheme[]
 
-/** Flagship complete examples — phone mockup PNGs + live memorial theme override. */
-const COMPLETE_THEME_SLUG: Record<(typeof COMPLETE_THEME_IDS)[number], typeof THEME_EXAMPLE_MALE_SLUG | typeof THEME_EXAMPLE_FEMALE_SLUG> = {
-  programme: THEME_EXAMPLE_MALE_SLUG,
-  monument: THEME_EXAMPLE_MALE_SLUG,
-  kente: THEME_EXAMPLE_FEMALE_SLUG,
-  night: THEME_EXAMPLE_MALE_SLUG,
+function exampleSlugForShowcaseTheme(
+  themeId: (typeof COMPLETE_THEME_IDS)[number],
+): typeof THEME_EXAMPLE_MALE_SLUG | typeof THEME_EXAMPLE_FEMALE_SLUG {
+  return getShowcaseSampleForThemeId(themeId).gender === 'female'
+    ? THEME_EXAMPLE_FEMALE_SLUG
+    : THEME_EXAMPLE_MALE_SLUG
 }
 
 const SHOWCASE_IMAGE_BY_THEME: Record<(typeof COMPLETE_THEME_IDS)[number], string> = {
@@ -39,13 +39,14 @@ const SHOWCASE_IMAGE_BY_THEME: Record<(typeof COMPLETE_THEME_IDS)[number], strin
 
 export const COMPLETE_SHOWCASE_ENTRIES: CompleteShowcaseEntry[] = COMPLETE_THEME_IDS.map((id) => {
   const meta = getVisualThemeMeta(id)!
-  const slug = COMPLETE_THEME_SLUG[id]
+  const sample = getShowcaseSampleForThemeId(id)
+  const slug = exampleSlugForShowcaseTheme(id)
   return {
     visualTheme: id,
     imageSrc: SHOWCASE_IMAGE_BY_THEME[id],
     label: meta.label,
     description: meta.description,
-    exampleLabel: `Example: ${exampleMemorialDisplayName(slug)}`,
+    exampleLabel: `Example: ${sample.deceasedName}`,
     liveHref: `/memorial/${slug}?visual_theme=${id}`,
   }
 })

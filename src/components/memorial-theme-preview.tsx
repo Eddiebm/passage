@@ -1,9 +1,21 @@
 import Image from 'next/image'
 import type { VisualTheme } from '@/lib/visual-themes'
 import { getVisualThemeMeta } from '@/lib/visual-themes'
-import { getShowcasePhotoForThemeId, SHOWCASE_SAMPLE } from '@/lib/showcase-sample'
+import {
+  getShowcasePhotoForThemeId,
+  getShowcaseSampleForThemeId,
+  type ShowcaseSample,
+} from '@/lib/showcase-sample'
 
-function PreviewHero({ compact, photoSrc }: { compact: boolean; photoSrc: string }) {
+function PreviewHero({
+  compact,
+  photoSrc,
+  sample,
+}: {
+  compact: boolean
+  photoSrc: string
+  sample: ShowcaseSample
+}) {
   return (
     <div className="passage-hero border-b border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] bg-[var(--passage-hero-bg)] text-[var(--passage-hero-text)]">
       <div
@@ -23,7 +35,7 @@ function PreviewHero({ compact, photoSrc }: { compact: boolean; photoSrc: string
         >
           <Image
             src={photoSrc}
-            alt={SHOWCASE_SAMPLE.deceasedName}
+            alt={sample.deceasedName}
             fill
             className="object-cover"
             sizes={compact ? '200px' : '(max-width: 640px) 100vw, 280px'}
@@ -43,20 +55,20 @@ function PreviewHero({ compact, photoSrc }: { compact: boolean; photoSrc: string
             }`}
             style={{ fontFamily: 'var(--passage-font-display)' }}
           >
-            {SHOWCASE_SAMPLE.deceasedName}
+            {sample.deceasedName}
           </h1>
           {!compact && (
-            <p className="text-sm text-[var(--passage-hero-muted)]">{SHOWCASE_SAMPLE.deceasedTitle}</p>
+            <p className="text-sm text-[var(--passage-hero-muted)]">{sample.deceasedTitle}</p>
           )}
           <p
             className={`text-[var(--passage-hero-muted)] ${
               compact ? 'text-[8px] leading-snug' : 'text-sm'
             }`}
           >
-            {compact ? SHOWCASE_SAMPLE.datesLine : SHOWCASE_SAMPLE.familyLine}
+            {compact ? sample.datesLine : sample.familyLine}
           </p>
           {!compact && (
-            <p className="text-sm text-[var(--passage-hero-muted)]">{SHOWCASE_SAMPLE.datesLine}</p>
+            <p className="text-sm text-[var(--passage-hero-muted)]">{sample.datesLine}</p>
           )}
         </div>
       </div>
@@ -64,7 +76,7 @@ function PreviewHero({ compact, photoSrc }: { compact: boolean; photoSrc: string
   )
 }
 
-function PreviewAnnouncement({ compact }: { compact: boolean }) {
+function PreviewAnnouncement({ compact, sample }: { compact: boolean; sample: ShowcaseSample }) {
   return (
     <div
       className={
@@ -83,7 +95,7 @@ function PreviewAnnouncement({ compact }: { compact: boolean }) {
           compact ? 'line-clamp-3 text-[9px] leading-snug' : 'mt-4 text-base'
         }`}
       >
-        {SHOWCASE_SAMPLE.announcementSnippet}
+        {sample.announcementSnippet}
       </p>
     </div>
   )
@@ -115,6 +127,7 @@ export function MemorialThemePreview({
 }) {
   const meta = getVisualThemeMeta(themeId)
   const photoSrc = getShowcasePhotoForThemeId(themeId)
+  const sample = getShowcaseSampleForThemeId(themeId)
   const rootProps = embedded ? {} : ({ 'data-theme': themeId } as const)
 
   if (compact) {
@@ -129,8 +142,8 @@ export function MemorialThemePreview({
       >
         <div className="flex justify-center p-3">
           <PhoneFrame>
-            <PreviewHero compact photoSrc={photoSrc} />
-            <PreviewAnnouncement compact />
+            <PreviewHero compact photoSrc={photoSrc} sample={sample} />
+            <PreviewAnnouncement compact sample={sample} />
           </PhoneFrame>
         </div>
       </div>
@@ -152,8 +165,8 @@ export function MemorialThemePreview({
             {meta?.label ?? themeId}
           </p>
         )}
-        <PreviewHero compact={false} photoSrc={photoSrc} />
-        <PreviewAnnouncement compact={false} />
+        <PreviewHero compact={false} photoSrc={photoSrc} sample={sample} />
+        <PreviewAnnouncement compact={false} sample={sample} />
       </div>
     </div>
   )

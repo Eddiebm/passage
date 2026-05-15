@@ -3,6 +3,40 @@
  * First names only (or Mr./Mrs. + first name in formal copy). No founder surnames.
  * Gender must match committed seed portraits (male → Samuel, female → Fatima).
  */
+/** Rotated by portrait file hash in design-lab / theme previews. */
+export const GENERIC_MALE_FIRST_NAMES = [
+  'Samuel',
+  'James',
+  'David',
+  'Michael',
+  'Ibrahim',
+  'Ahmed',
+] as const
+
+export const GENERIC_FEMALE_FIRST_NAMES = [
+  'Mary',
+  'Grace',
+  'Sarah',
+  'Amina',
+  'Fatima',
+  'Elizabeth',
+] as const
+
+export const GENERIC_FAMILY_LINE = 'The family' as const
+export const GENERIC_MEMORIAL_TITLE = 'Of blessed memory' as const
+
+export function genericFirstNameForPortrait(
+  portraitKey: string,
+  gender: 'male' | 'female',
+): string {
+  const pool = gender === 'male' ? GENERIC_MALE_FIRST_NAMES : GENERIC_FEMALE_FIRST_NAMES
+  let h = 0
+  for (let i = 0; i < portraitKey.length; i++) {
+    h = (h * 31 + portraitKey.charCodeAt(i)) | 0
+  }
+  return pool[Math.abs(h) % pool.length]!
+}
+
 export const EXAMPLE_NAMES = {
   male: {
     firstName: 'Samuel',

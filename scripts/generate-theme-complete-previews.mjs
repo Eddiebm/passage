@@ -6,6 +6,8 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
+import { showcaseCopyForPortrait } from './lib/showcase-copy.mjs'
+import { THEME_PREVIEW_JPG_COPY as SAMPLE } from './lib/example-memorial-names.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.join(__dirname, '..')
@@ -17,8 +19,6 @@ const THEMES_FILE = path.join(ROOT, 'src', 'lib', 'visual-themes.ts')
 
 const W = 400
 const H = 711
-
-import { THEME_PREVIEW_JPG_COPY as SAMPLE } from './lib/example-memorial-names.mjs'
 
 const REGION_HINTS = [
   { tokens: ['ghana', 'accra', 'kente', 'cape-coast', 'ashanti'], file: 'ghana-accra-elder-man.jpg' },
@@ -159,8 +159,12 @@ function kenteBand(y, colors, height = 8) {
     .join('')
 }
 
-function layoutSvg(layoutKey, themeLabel) {
+function layoutSvg(layoutKey, themeLabel, sample) {
   const L = LAYOUTS[layoutKey]
+  const name = sample.deceasedName
+  const dates = sample.datesShort ?? '12 March 1942 – 3 May 2026'
+  const line = `${sample.deceasedTitle} · ${sample.familyLine.split(' · ')[0] ?? sample.familyLine}`
+  const snippet = sample.announcementSnippet
   const heroH = Math.round(H * 0.42)
   const bandH = 8
   const bandTop = L.band ? kenteBand(0, L.band, bandH) : ''
@@ -174,25 +178,26 @@ function layoutSvg(layoutKey, themeLabel) {
   <rect width="${W}" height="${H}" fill="${L.bg}"/>
   ${bandTop}
   <rect x="8" y="${heroY}" width="${W - 16}" height="${heroH}" rx="${layoutKey === 'monument' ? 0 : 8}" fill="${L.heroBg}"/>
-  <text x="${W / 2}" y="${heroY + heroH - 28}" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="600" fill="${heroText}">${escapeXml(SAMPLE.name.split(' ').slice(0, 2).join(' '))}</text>
-  <text x="${W / 2}" y="${heroY + heroH - 12}" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="600" fill="${heroText}">${escapeXml(SAMPLE.name.split(' ').slice(2).join(' ') || '')}</text>
+  <text x="${W / 2}" y="${heroY + heroH - 28}" text-anchor="middle" font-family="Georgia, serif" font-size="12" font-weight="600" fill="${heroText}">${escapeXml(name.split(' ').slice(0, 2).join(' '))}</text>
+  <text x="${W / 2}" y="${heroY + heroH - 12}" text-anchor="middle" font-family="Georgia, serif" font-size="11" font-weight="600" fill="${heroText}">${escapeXml(name.split(' ').slice(2).join(' ') || '')}</text>
   <rect x="0" y="${heroY + heroH + 14}" width="${W}" height="${ruleW}" fill="${L.rule}" opacity="${layoutKey === 'night' ? 0.25 : 0.7}"/>
-  <text x="${W / 2}" y="${heroY + heroH + 36}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="${L.muted}">${escapeXml(SAMPLE.dates)}</text>
-  <text x="${W / 2}" y="${heroY + heroH + 52}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="${L.muted}">${escapeXml(SAMPLE.line)}</text>
+  <text x="${W / 2}" y="${heroY + heroH + 36}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="${L.muted}">${escapeXml(dates)}</text>
+  <text x="${W / 2}" y="${heroY + heroH + 52}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="8" fill="${L.muted}">${escapeXml(line)}</text>
   <line x1="${bodyPad}" y1="${heroY + heroH + 64}" x2="${W - bodyPad}" y2="${heroY + heroH + 64}" stroke="${L.accent}" stroke-width="1" opacity="0.45"/>
   <text x="${bodyPad}" y="${heroY + heroH + 82}" font-family="system-ui, sans-serif" font-size="7" fill="${L.muted}" letter-spacing="0.12em">SAMPLE ANNOUNCEMENT</text>
   <text x="${bodyPad}" y="${heroY + heroH + 100}" font-family="system-ui, sans-serif" font-size="9" fill="${L.text}" opacity="0.9">
-    <tspan x="${bodyPad}" dy="0">${escapeXml(SAMPLE.snippet.slice(0, 52))}</tspan>
-    <tspan x="${bodyPad}" dy="14">${escapeXml(SAMPLE.snippet.slice(52, 104))}…</tspan>
+    <tspan x="${bodyPad}" dy="0">${escapeXml(snippet.slice(0, 52))}</tspan>
+    <tspan x="${bodyPad}" dy="14">${escapeXml(snippet.slice(52, 104))}…</tspan>
   </text>
   <text x="${W / 2}" y="${H - 18}" text-anchor="middle" font-family="system-ui, sans-serif" font-size="7" fill="${L.muted}" opacity="0.65">${escapeXml(themeLabel)}</text>
   ${bandBottom}
 </svg>`
 }
 
-async function buildPreview({ themeId, themeLabel, group }, portraitFile, available) {
+async function buildPreview({ themeId, themeLabel, group }, _portraitFile, available) {
   const layoutKey = resolveLayout(themeId, group)
   const portrait = resolvePortrait(themeId, available)
+  const sample = showcaseCopyForPortrait(portrait)
   const portraitPath = path.join(AFRICA_DIR, portrait)
   const heroH = Math.round(H * 0.42)
   const pad = 8
@@ -203,7 +208,7 @@ async function buildPreview({ themeId, themeLabel, group }, portraitFile, availa
     .resize(photoW, photoH, { fit: 'cover', position: 'attention' })
     .toBuffer()
 
-  const frameSvg = layoutSvg(layoutKey, themeLabel)
+  const frameSvg = layoutSvg(layoutKey, themeLabel, sample)
   const frameBuf = await sharp(Buffer.from(frameSvg)).png().toBuffer()
 
   const photoY = pad + (layoutKey === 'kente' ? 14 : 0)
@@ -217,7 +222,7 @@ async function buildPreview({ themeId, themeLabel, group }, portraitFile, availa
   if (FLAGSHIP_THEMES.includes(themeId)) {
     await fs.writeFile(path.join(SHOWCASE_OUT, `complete-${themeId}.jpg`), out)
   }
-  return { themeId, layoutKey, portrait, bytes: out.length }
+  return { themeId, layoutKey, portrait, name: sample.deceasedName, bytes: out.length }
 }
 
 const themesSrc = await fs.readFile(THEMES_FILE, 'utf8')
