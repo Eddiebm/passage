@@ -17,9 +17,10 @@ The founder (Eddie) is Ghanaian. He has lived through exactly what this product 
 4. **Cultural precision** — Traditional titles, family houses, allied families, "Sunrise/Sunset" — these are not optional fields.
 
 ## Tech stack
-- Next.js 15 (App Router) on Vercel Edge where possible
+- Next.js 15+ (App Router) on Vercel Edge where possible
 - Upstash Redis (session state, caching)
-- Supabase (PostgreSQL + file storage for photos and generated posters)
+- **Neon Postgres** (optional hosted database via `DATABASE_URL` / `POSTGRES_URL`; local default is `.passage-dev/memorials/*.json`)
+- **Vercel Blob** (optional production image uploads via `BLOB_READ_WRITE_TOKEN`; local dev uses `.passage-dev/uploads/`)
 - OpenAI API (GPT-4o for content generation, DALL-E 3 for poster generation)
 - Paystack (payment processing — Ghana + Nigeria)
 - WhatsApp Business API / Meta Cloud API (Phase 2)
@@ -28,102 +29,64 @@ The founder (Eddie) is Ghanaian. He has lived through exactly what this product 
 ## Environment variables needed
 ```
 OPENAI_API_KEY=
+OCR_SERVICE_URL=
+OCR_SERVICE_KEY=
+ANTHROPIC_API_KEY=
 UPSTASH_REDIS_REST_URL=
 UPSTASH_REDIS_REST_TOKEN=
-SUPABASE_URL=
-SUPABASE_ANON_KEY=
-SUPABASE_SERVICE_ROLE_KEY=
+DATABASE_URL=
+POSTGRES_URL=
+BLOB_READ_WRITE_TOKEN=
 PAYSTACK_SECRET_KEY=
 PAYSTACK_PUBLIC_KEY=
 NEXT_PUBLIC_SITE_URL=https://passage.africa
+RESEND_API_KEY=
+RESEND_FROM_EMAIL=
+CRON_SECRET=
+# Phase 2 — WhatsApp Business API (not wired in MVP)
+# WHATSAPP_ACCESS_TOKEN=
+# WHATSAPP_PHONE_NUMBER_ID=
 ```
 
-## Database schema (Supabase)
+### OCR (document scanning)
+- `POST /api/ocr` — multipart `file` + `doc_type` (`funeral_poster`, `death_certificate`, `bank_statement`, `mobile_money`, `vendor_invoice`, `tribute_letter`).
+- `src/lib/ocr.ts` — mocr raw text + OpenAI (then Anthropic) JSON extraction; `isOcrConfigured()` gates the route.
+- UI: `PosterScanPanel` (review/apply, never auto-save), `OCRUpload` (dropzone). Create wizard step Deceased; edit portal Photos + bank reconciliation.
+- **Privacy:** scans go to configured OCR/LLM providers; not persisted by the OCR route. Family must confirm before publish.
 
-### `memorials` table
+### Recent MVP lanes (coordinator)
+- **Closure** — `memorial.closure_status` (`active`|`closed`), `closed_at`, `closure_notes`; edit portal close/reopen; `/memorial/[slug]/closure` print sheet; public closed banner hides fundraise CTA.
+- **Scheduled reminders** — `reminder_jobs` table (`003_reminder_jobs.sql`); `POST …/reminders/schedule` + Vercel Cron `GET /api/cron/reminders` with `CRON_SECRET`; email only (WhatsApp = copy buttons; WABA Phase 2).
+- **Pledge ↔ payment** — `pledge_id` in Paystack metadata; `completeContributionPayment` fulfills pledge; optional `pledge.paystack_reference`; conservative exact amount+currency match when exactly one open pledge qualifies.
+- **PIN recovery** — `004_pin_recovery_tokens.sql`; `POST …/pin/recovery-request` + `…/pin/reset`; `coordinator_recovery_email`; rate limit on blob.
+- **Bank reconciliation** — `last_bank_reconciliation` on memorial blob; edit portal match UI (no auto-link).
+- **Output template** — `output_template` (`notice`|`programme`|`banner_classic`); root CSS on public + print.
+- **OCR deceased fields** — death certificate + poster apply checkboxes for core deceased fields; PATCH via `memorial-patch-body`.
+- **Pledges** — `memorial.pledges[]` on blob; public when programme/full or fundraising active; edit portal CRUD + WhatsApp reminder copy packs.
+- **Printer pack** — `/memorial/[slug]/printer-guide`, `/print`, `/banner`, `/banner/wide` (~3×6 ft).
+- **Paystack** — prefer global webhook `POST /api/paystack/webhook` (slug from `metadata.memorial_slug`); per-slug route kept for compatibility.
+- **Email reminders** — `POST /api/memorials/[slug]/reminders/send` via Resend when `RESEND_API_KEY` set; tasks, events, pledges.
+
+## Database schema (Neon / Postgres)
+
+Migrations live in `db/migrations/`. The app uses **`@neondatabase/serverless`** from server routes (`src/lib/db.ts`) and stores one row per memorial.
+
+### `memorials` table (authoritative)
+
 ```sql
-id uuid primary key default gen_random_uuid(),
-created_at timestamptz default now(),
+id uuid primary key,
 slug text unique not null,
-status text default 'draft', -- draft | pending_review | live
-
--- Deceased info
-deceased_name text not null,
-deceased_title text,
-deceased_family_house text,
-deceased_community text,
-date_of_birth date,
-date_of_passing date not null,
-photo_url text,
-biography text,
-
--- Tradition preset
-tradition text not null default 'ghana-christian',
--- options: ghana-christian | nigeria-christian | nigeria-muslim | diaspora
-
--- Surviving family (JSON array)
-surviving_family jsonb default '[]',
--- [{title: "Wife", name: "Hon. Mrs. Cecilia...", note: "former Minister of..."}, ...]
-
--- Allied families
-allied_families text[],
-
--- Contact family (who manages this memorial)
-coordinator_name text,
-coordinator_whatsapp text,
-coordinator_email text,
-coordinator_pin text, -- hashed PIN for edit access
-
--- Generated assets
-poster_url text,
-poster_approved_at timestamptz,
-announcement_text text, -- GPT-4o generated, family-editable
-
--- Fundraising
-fundraising_goal integer,
-fundraising_currency text default 'GHS',
-fundraising_label text,
-fundraising_active boolean default false,
-fundraising_appeal text -- GPT-4o generated appeal, family-editable
+status text not null,
+created_at timestamptz not null default now(),
+updated_at timestamptz not null default now(),
+blob jsonb not null
 ```
 
-### `events` table
-```sql
-id uuid primary key default gen_random_uuid(),
-memorial_id uuid references memorials(id),
-title text not null,
-event_date timestamptz,
-location text,
-online_link text,
-notes text,
-sort_order integer default 0
-```
+- **`blob`** is the full `StoredMemorialBlob` from `src/lib/types.ts`: `{ memorial, events, tributes, contributions, coordinator_pin_hash }`. All memorial fields (including `memorial_mode`, `gallery_urls`, `stakeholders`, `remembrance`, contacts, closing copy, wind-down meetings, etc.) live inside `blob.memorial` or the sibling arrays as in the TypeScript types.
+- **`status`** duplicates `blob.memorial.status` for efficient admin listing (`WHERE status = 'pending_review'`).
+- **Local dev without `DATABASE_URL`:** same logical document is written as formatted JSON under `.passage-dev/memorials/<slug>.json`.
 
-### `contributions` table
-```sql
-id uuid primary key default gen_random_uuid(),
-memorial_id uuid references memorials(id),
-contributor_name text,
-contributor_whatsapp text,
-amount integer not null,
-currency text not null,
-message text,
-paystack_reference text unique,
-paid_at timestamptz,
-payout_status text default 'pending'
-```
-
-### `tributes` table
-```sql
-id uuid primary key default gen_random_uuid(),
-memorial_id uuid references memorials(id),
-author_name text not null,
-author_location text,
-message text,
-video_url text,
-created_at timestamptz default now(),
-approved boolean default false
-```
+Apply with: `psql "$DATABASE_URL" -f db/migrations/001_init.sql` (see `README.md`).
 
 ## Cultural presets
 
@@ -139,6 +102,18 @@ export const TRADITION_PRESETS = {
     includeAlliedFamilies: true,
     includeTraditionalTitle: true,
     includeFamilyHouse: true,
+  },
+  'ghana-muslim': {
+    label: 'Ghanaian Muslim',
+    openingLine: 'أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّٰهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّٰهِ\nWith humble hearts, the Muslim family announces the passing of',
+    dateFormat: '{dob} — {dop}',
+    photoRequired: false,
+    religiousClose: 'May Allah grant him/her Al-Jannah Firdaus. Ameen.',
+    familyOrder: ['spouse', 'children', 'parents', 'siblings'],
+    includeAlliedFamilies: true,
+    includeTraditionalTitle: true,
+    includeFamilyHouse: true,
+    urgencyNote: 'Janazah prayer and burial will follow Islamic rites; the family will announce date, time, and venue in due course.',
   },
   'nigeria-christian': {
     label: 'Nigerian Christian',
@@ -178,6 +153,21 @@ export const TRADITION_PRESETS = {
   },
 }
 ```
+
+## Memorial modes (`memorial_mode`)
+
+- **`notice`** — Public page reads like a single-scroll announcement: hero, share panel, announcement, family liaison cards (from `public_contacts` / legacy coordinator fields), fundraising if active, thank-you when set, and the “leave a message” form. Hides stakeholder directory, remembrance block, gallery, programme list, approved tribute excerpts, and wind-down meetings (coordinator-only content remains in the edit portal).
+- **`programme`** — Adds remembrance, **programme readings** (`programme_readings[]`), gallery, programme events, full key contacts (public stakeholders + liaison), tribute wall, and closing meetings when marked public.
+- **`full`** — Same public surface as `programme` for now (reserved for future deeper coordination / tasks).
+
+Default is **`notice`**. The create wizard first step sets the mode; coordinators can change it in the edit portal (`PATCH` with validated `memorial_mode`).
+
+## Programme readings
+
+- Stored on **`memorial.programme_readings`**: `{ id, type: scripture|hymn|quran|upload, title, sort_order?, visibility?, … }`.
+- Curated templates in **`src/lib/programme-reading-library.ts`** (`getSuggestedReadings`, `findHymn`, `findScripture`).
+- Programme page uploads: images API **`slot=programme`** → URL on reading `document_url`.
+- Public/print: filtered by `visibility` and gated by `memorial_mode` programme/full (see `programmeReadingsForPublicPage` in `memorial-hydrate.ts`).
 
 ## Pages to build
 
@@ -241,6 +231,7 @@ Poster: DALL-E 3 generates the visual template → sharp composites the deceased
 ## Critical rules
 - NEVER publish without family approval
 - NEVER skip traditional titles, family house, allied families for Ghana Christian preset
+- NEVER default Ghana Muslim families to `nigeria-muslim` — use `ghana-muslim` (allied families, family house, traditional title enabled)
 - NEVER make the family feel like a customer — they are a family
 - ALWAYS show the family what the AI generated and let them change it
 

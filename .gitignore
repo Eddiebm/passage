@@ -40,5 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Passage local file store (dev fallback when Supabase is not configured)
+# Passage local file store (dev fallback when DATABASE_URL is not set)
 .passage-dev/

@@ -1,0 +1,87 @@
+/* Wide outdoor banner — ~3×6 ft (915×1830mm), aspect ~1:2 landscape */
+
+@page {
+  size: 915mm 1830mm landscape;
+  margin: 20mm;
+}
+
+.memorial-banner-wide-root {
+  --banner-ink: #1a1a1a;
+  --banner-paper: #fafaf8;
+  --banner-gold: #c9a02c;
+  color: var(--banner-ink);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background: #e8e4dc;
+  min-height: 100vh;
+}
+
+.memorial-banner-wide-sheet {
+  width: min(100%, 720px);
+  margin: 0 auto 3rem;
+  padding: 1.5rem;
+  background: var(--banner-paper);
+  box-shadow: 0 8px 32px rgba(26, 26, 26, 0.12);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 1.25rem;
+  aspect-ratio: 2 / 1;
+  align-items: stretch;
+}
+
+.memorial-banner-wide-photo-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memorial-banner-wide-photo {
+  width: 100%;
+  height: 100%;
+  max-height: 280px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid rgba(61, 43, 31, 0.15);
+}
+
+.memorial-banner-wide-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.memorial-banner-wide-footer {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.memorial-banner-wide-qr img {
+  width: 100px;
+  height: 100px;
+}
+
+@media print {
+  .memorial-banner-wide-root {
+    background: #fff !important;
+  }
+
+  .memorial-banner-wide-sheet {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    aspect-ratio: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .memorial-banner-wide-sheet {
+    grid-template-columns: 1fr;
+    aspect-ratio: auto;
+  }
+}

@@ -14,6 +14,12 @@ export function SiteHeader() {
           <Link href="/memorial/bannerman-samuel-2026" className="hover:text-[#C9A02C]">
             Example
           </Link>
+          <Link href="/help" className="hover:text-[#C9A02C]">
+            Help
+          </Link>
+          <Link href="/privacy" className="hover:text-[#C9A02C]">
+            Privacy
+          </Link>
           <Link href="/admin" className="hover:text-[#C9A02C]">
             Admin
           </Link>

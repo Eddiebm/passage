@@ -13,6 +13,22 @@ export const TRADITION_PRESETS: Record<Tradition, TraditionPreset> = {
     includeTraditionalTitle: true,
     includeFamilyHouse: true,
   },
+  'ghana-muslim': {
+    label: 'Ghanaian Muslim',
+    openingLine:
+      'أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا اللَّٰهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا رَسُولُ اللَّٰهِ\nWith humble hearts, the Muslim family announces the passing of',
+    dateFormat: '{dob} — {dop}',
+    photoRequired: false,
+    photoGuidance:
+      'Photos are optional. Many Ghanaian Muslim families prefer a dignified announcement without a portrait.',
+    religiousClose: 'May Allah grant him/her Al-Jannah Firdaus. Ameen.',
+    familyOrder: ['spouse', 'children', 'parents', 'siblings'],
+    includeAlliedFamilies: true,
+    includeTraditionalTitle: true,
+    includeFamilyHouse: true,
+    urgencyNote:
+      'Janazah prayer and burial will follow Islamic rites; the family will announce date, time, and venue in due course.',
+  },
   'nigeria-christian': {
     label: 'Nigerian Christian',
     openingLine: 'The family of the late',

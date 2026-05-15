@@ -1,0 +1,176 @@
+/* Roll-up banner — logical 850×2000mm; screen preview scaled */
+
+@page {
+  size: 850mm 2000mm;
+  margin: 24mm;
+}
+
+.memorial-banner-root {
+  --banner-ink: #1a1a1a;
+  --banner-paper: #fafaf8;
+  --banner-gold: #c9a02c;
+  color: var(--banner-ink);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background: #e8e4dc;
+  min-height: 100vh;
+}
+
+.memorial-banner-toolbar {
+  max-width: 52rem;
+  margin: 0 auto;
+  padding: 1.25rem 1rem;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.memorial-banner-sheet {
+  width: min(100%, 420px);
+  margin: 0 auto 3rem;
+  padding: 1.5rem 1.25rem 2rem;
+  background: var(--banner-paper);
+  box-shadow: 0 8px 32px rgba(26, 26, 26, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  aspect-ratio: 850 / 2000;
+  min-height: 70vh;
+}
+
+.memorial-banner-photo-wrap {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.memorial-banner-photo {
+  width: 100%;
+  max-height: 38%;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 2px solid rgba(61, 43, 31, 0.15);
+}
+
+.memorial-banner-copy {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.memorial-banner-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--banner-gold);
+  margin: 0;
+}
+
+.memorial-banner-name {
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.memorial-banner-title,
+.memorial-banner-family,
+.memorial-banner-dates {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #444;
+  margin: 0;
+}
+
+.memorial-banner-announcement {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #333;
+  margin: 0.5rem 0 0;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.memorial-banner-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.memorial-banner-qr img {
+  display: block;
+  width: 140px;
+  height: 140px;
+}
+
+.memorial-banner-scan {
+  text-align: center;
+}
+
+.memorial-banner-scan-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.memorial-banner-url {
+  font-size: 0.7rem;
+  word-break: break-all;
+  color: #555;
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.memorial-banner-trim-note {
+  font-size: 0.65rem;
+  text-align: center;
+  color: #666;
+  margin: 0.5rem 0 0;
+  font-family: system-ui, sans-serif;
+}
+
+.screen-only {
+  display: block;
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .screen-only {
+    display: none !important;
+  }
+
+  .memorial-banner-root {
+    background: #fff !important;
+    min-height: auto;
+  }
+
+  .memorial-banner-sheet {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    aspect-ratio: auto;
+    min-height: auto;
+    gap: 12mm;
+  }
+
+  .memorial-banner-photo {
+    max-height: 520mm;
+  }
+
+  .memorial-banner-name {
+    font-size: 48mm;
+  }
+
+  .memorial-banner-qr img {
+    width: 80mm;
+    height: 80mm;
+  }
+}

@@ -2,17 +2,25 @@ import type {
   Contribution,
   Memorial,
   MemorialEvent,
+  MemorialMode,
   MemorialStatus,
   MemorialWithDetails,
+  ProgrammeReading,
+  Remembrance,
   StoredMemorialBlob,
   SurvivingFamilyMember,
   Tribute,
   Tradition,
 } from '@/lib/types'
 import { verifyPin } from '@/lib/crypto-pin'
-import { getExampleMemorialBlob } from '@/lib/seed-memorial'
-
-const EXAMPLE_SLUG = 'bannerman-samuel-2026'
+import { getDb, hasDatabaseEnv } from '@/lib/db'
+import { hydrateMemorial, memorialForPublicAudience } from '@/lib/memorial-hydrate'
+import { applyPledgeFulfillment, resolvePledgeIdForPayment } from '@/lib/memorial-pledge-match'
+import {
+  EXAMPLE_MEMORIAL_SLUGS,
+  getExampleMemorialBlob,
+  getGhanaMuslimExampleMemorialBlob,
+} from '@/lib/seed-memorial'
 
 function sumRaised(contributions: Contribution[]): number {
   return contributions
@@ -24,16 +32,27 @@ function toPublicMemorial(m: Memorial): Memorial {
   return { ...m }
 }
 
+function publicProgrammeEvents(events: MemorialEvent[]): MemorialEvent[] {
+  return events.filter((e) => e.visibility !== 'coordinator_only')
+}
+
 function toDetails(
   blob: StoredMemorialBlob,
-  opts?: { includeAllTributes?: boolean },
+  opts?: { includeAllTributes?: boolean; includeCoordinatorFields?: boolean },
 ): MemorialWithDetails {
   const tributes = opts?.includeAllTributes
     ? blob.tributes
     : blob.tributes.filter((t) => t.approved)
+  const hydrated = hydrateMemorial(blob.memorial)
+  const memorial =
+    opts?.includeCoordinatorFields === true
+      ? toPublicMemorial(hydrated)
+      : memorialForPublicAudience(toPublicMemorial(hydrated))
+  const sorted = [...blob.events].sort((a, b) => a.sort_order - b.sort_order)
+  const events = opts?.includeCoordinatorFields ? sorted : publicProgrammeEvents(sorted)
   return {
-    ...toPublicMemorial(blob.memorial),
-    events: [...blob.events].sort((a, b) => a.sort_order - b.sort_order),
+    ...memorial,
+    events,
     tributes,
     total_raised: sumRaised(blob.contributions),
     tribute_count: tributes.length,
@@ -79,189 +98,99 @@ async function getFileStore(): Promise<{
   }
 }
 
-function hasSupabaseEnv(): boolean {
-  return Boolean(
-    process.env.SUPABASE_URL?.trim() &&
-      process.env.SUPABASE_SERVICE_ROLE_KEY?.trim(),
-  )
+function parseStoredBlob(raw: unknown): StoredMemorialBlob | null {
+  if (!raw || typeof raw !== 'object') return null
+  const o = raw as Record<string, unknown>
+  if (!o.memorial || typeof o.memorial !== 'object') return null
+  const m = o.memorial as Record<string, unknown>
+  if (typeof m.slug !== 'string' || typeof m.id !== 'string') return null
+  return raw as StoredMemorialBlob
 }
 
-async function getSupabase() {
-  if (!hasSupabaseEnv()) return null
-  const { createClient } = await import('@supabase/supabase-js')
-  return createClient(
-    process.env.SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!,
-    { auth: { persistSession: false, autoRefreshToken: false } },
-  )
+async function readFromPostgres(slug: string): Promise<StoredMemorialBlob | null> {
+  const sql = getDb()
+  const rows = (await sql`
+    SELECT blob FROM memorials WHERE slug = ${slug} LIMIT 1
+  `) as { blob: unknown }[]
+  const row = rows[0]
+  if (!row) return null
+  return parseStoredBlob(row.blob)
 }
 
-async function readFromSupabase(slug: string): Promise<StoredMemorialBlob | null> {
-  const supabase = await getSupabase()
-  if (!supabase) return null
-  const { data: row, error } = await supabase
-    .from('memorials')
-    .select('*')
-    .eq('slug', slug)
-    .maybeSingle()
-  if (error || !row) return null
-
-  const memorial: Memorial = {
-    id: row.id,
-    created_at: row.created_at,
-    slug: row.slug,
-    status: row.status,
-    deceased_name: row.deceased_name,
-    deceased_title: row.deceased_title ?? undefined,
-    deceased_family_house: row.deceased_family_house ?? undefined,
-    deceased_community: row.deceased_community ?? undefined,
-    date_of_birth: row.date_of_birth ?? undefined,
-    date_of_passing: row.date_of_passing,
-    photo_url: row.photo_url ?? undefined,
-    biography: row.biography ?? undefined,
-    tradition: row.tradition,
-    surviving_family: (row.surviving_family as SurvivingFamilyMember[]) ?? [],
-    allied_families: row.allied_families ?? [],
-    coordinator_name: row.coordinator_name ?? undefined,
-    coordinator_whatsapp: row.coordinator_whatsapp ?? undefined,
-    coordinator_email: row.coordinator_email ?? undefined,
-    poster_url: row.poster_url ?? undefined,
-    poster_approved_at: row.poster_approved_at ?? undefined,
-    announcement_text: row.announcement_text ?? undefined,
-    fundraising_goal: row.fundraising_goal ?? undefined,
-    fundraising_currency: row.fundraising_currency ?? 'GHS',
-    fundraising_label: row.fundraising_label ?? undefined,
-    fundraising_active: row.fundraising_active ?? false,
-    fundraising_appeal: row.fundraising_appeal ?? undefined,
-  }
-
-  const [{ data: ev }, { data: tr }, { data: co }] = await Promise.all([
-    supabase.from('events').select('*').eq('memorial_id', row.id),
-    supabase.from('tributes').select('*').eq('memorial_id', row.id),
-    supabase.from('contributions').select('*').eq('memorial_id', row.id),
-  ])
-
-  return {
-    memorial,
-    events: (ev ?? []) as MemorialEvent[],
-    tributes: (tr ?? []) as Tribute[],
-    contributions: (co ?? []) as Contribution[],
-    coordinator_pin_hash: row.coordinator_pin as string,
-  }
-}
-
-async function writeToSupabase(blob: StoredMemorialBlob): Promise<void> {
-  const supabase = await getSupabase()
-  if (!supabase) throw new Error('Supabase not configured')
+async function writeToPostgres(blob: StoredMemorialBlob): Promise<void> {
+  const sql = getDb()
   const m = blob.memorial
-  const upsert = {
-    id: m.id,
-    created_at: m.created_at,
-    slug: m.slug,
-    status: m.status,
-    deceased_name: m.deceased_name,
-    deceased_title: m.deceased_title ?? null,
-    deceased_family_house: m.deceased_family_house ?? null,
-    deceased_community: m.deceased_community ?? null,
-    date_of_birth: m.date_of_birth ?? null,
-    date_of_passing: m.date_of_passing,
-    photo_url: m.photo_url ?? null,
-    biography: m.biography ?? null,
-    tradition: m.tradition,
-    surviving_family: m.surviving_family,
-    allied_families: m.allied_families,
-    coordinator_name: m.coordinator_name ?? null,
-    coordinator_whatsapp: m.coordinator_whatsapp ?? null,
-    coordinator_email: m.coordinator_email ?? null,
-    poster_url: m.poster_url ?? null,
-    poster_approved_at: m.poster_approved_at ?? null,
-    announcement_text: m.announcement_text ?? null,
-    fundraising_goal: m.fundraising_goal ?? null,
-    fundraising_currency: m.fundraising_currency,
-    fundraising_label: m.fundraising_label ?? null,
-    fundraising_active: m.fundraising_active,
-    fundraising_appeal: m.fundraising_appeal ?? null,
-    coordinator_pin: blob.coordinator_pin_hash,
-  }
-  const { error } = await supabase.from('memorials').upsert(upsert)
-  if (error) throw error
-
-  await supabase.from('events').delete().eq('memorial_id', m.id)
-  if (blob.events.length) {
-    const { error: e2 } = await supabase.from('events').insert(
-      blob.events.map((e) => ({
-        id: e.id,
-        memorial_id: m.id,
-        title: e.title,
-        event_date: e.event_date ?? null,
-        location: e.location ?? null,
-        online_link: e.online_link ?? null,
-        notes: e.notes ?? null,
-        sort_order: e.sort_order,
-      })),
+  const payload = JSON.stringify(blob)
+  await sql`
+    INSERT INTO memorials (id, slug, status, created_at, updated_at, blob)
+    VALUES (
+      ${m.id}::uuid,
+      ${m.slug},
+      ${m.status},
+      ${m.created_at}::timestamptz,
+      NOW(),
+      ${payload}::jsonb
     )
-    if (e2) throw e2
-  }
-
-  await supabase.from('tributes').delete().eq('memorial_id', m.id)
-  if (blob.tributes.length) {
-    const { error: e3 } = await supabase.from('tributes').insert(
-      blob.tributes.map((t) => ({
-        id: t.id,
-        memorial_id: m.id,
-        author_name: t.author_name,
-        author_location: t.author_location ?? null,
-        message: t.message ?? null,
-        video_url: t.video_url ?? null,
-        created_at: t.created_at,
-        approved: t.approved,
-      })),
-    )
-    if (e3) throw e3
-  }
-
-  await supabase.from('contributions').delete().eq('memorial_id', m.id)
-  if (blob.contributions.length) {
-    const { error: e4 } = await supabase.from('contributions').insert(
-      blob.contributions.map((c) => ({
-        id: c.id,
-        memorial_id: m.id,
-        contributor_name: c.contributor_name ?? null,
-        contributor_whatsapp: c.contributor_whatsapp ?? null,
-        amount: c.amount,
-        currency: c.currency,
-        message: c.message ?? null,
-        paystack_reference: c.paystack_reference ?? null,
-        paid_at: c.paid_at ?? null,
-        payout_status: c.payout_status,
-      })),
-    )
-    if (e4) throw e4
-  }
+    ON CONFLICT (slug) DO UPDATE SET
+      status = EXCLUDED.status,
+      updated_at = NOW(),
+      blob = EXCLUDED.blob
+  `
 }
 
 async function readBlob(slug: string): Promise<StoredMemorialBlob | null> {
-  if (hasSupabaseEnv()) {
-    const s = await readFromSupabase(slug)
+  if (hasDatabaseEnv()) {
+    const s = await readFromPostgres(slug)
     if (s) return s
+    return null
   }
   const fs = await getFileStore()
   return fs.read(slug)
 }
 
 async function writeBlob(blob: StoredMemorialBlob): Promise<void> {
-  if (hasSupabaseEnv()) {
-    await writeToSupabase(blob)
+  if (hasDatabaseEnv()) {
+    await writeToPostgres(blob)
+    return
   }
   const fs = await getFileStore()
   await fs.write(blob.memorial.slug, blob)
 }
 
+/** Persist full memorial document (internal / recovery flows). */
+export async function writeMemorialBlob(blob: StoredMemorialBlob): Promise<void> {
+  await writeBlob(blob)
+}
+
+export async function setCoordinatorPinHash(slug: string, pinHash: string): Promise<boolean> {
+  const blob = await readBlob(slug)
+  if (!blob) return false
+  await writeBlob({ ...blob, coordinator_pin_hash: pinHash })
+  return true
+}
+
+export async function updatePinRecoveryRateWindow(
+  slug: string,
+  window: import('@/lib/types').PinRecoveryRateWindow,
+): Promise<void> {
+  const blob = await readBlob(slug)
+  if (!blob) return
+  await writeBlob({
+    ...blob,
+    memorial: { ...blob.memorial, pin_recovery_rate: window },
+  })
+}
+
 export async function ensureExampleMemorialSeeded(): Promise<void> {
-  const existing = await readBlob(EXAMPLE_SLUG)
-  if (existing) return
-  const example = getExampleMemorialBlob()
-  await writeBlob(example)
+  const seeds: { slug: (typeof EXAMPLE_MEMORIAL_SLUGS)[number]; blob: () => StoredMemorialBlob }[] = [
+    { slug: 'bannerman-samuel-2026', blob: getExampleMemorialBlob },
+    { slug: 'ghana-muslim-example-2026', blob: getGhanaMuslimExampleMemorialBlob },
+  ]
+  for (const { slug, blob } of seeds) {
+    const existing = await readBlob(slug)
+    if (existing) continue
+    await writeBlob(blob())
+  }
 }
 
 export async function getMemorialBlob(slug: string): Promise<StoredMemorialBlob | null> {
@@ -269,9 +198,94 @@ export async function getMemorialBlob(slug: string): Promise<StoredMemorialBlob 
   return readBlob(slug)
 }
 
+/** Read persisted memorial JSON without seeding the example memorial (webhooks, idempotency). */
+export async function readMemorialBlobWithoutSeeding(slug: string): Promise<StoredMemorialBlob | null> {
+  return readBlob(slug)
+}
+
+/**
+ * Idempotently records a successful Paystack payment against a memorial blob
+ * (same rules as POST …/paystack/verify after API verification).
+ */
+export async function completeContributionPayment(
+  slug: string,
+  input: {
+    reference: string
+    amountMajor: number
+    currency: string
+    contributor_name?: string
+    contributor_whatsapp?: string
+    message?: string
+    pledge_id?: string
+  },
+): Promise<Contribution | null> {
+  const blob = await readBlob(slug)
+  if (!blob) return null
+
+  const existing = blob.contributions.find((c) => c.paystack_reference === input.reference)
+  if (existing?.paid_at) {
+    await linkPledgeAfterPayment(slug, input.reference, existing.id, input.pledge_id, {
+      amountMajor: input.amountMajor,
+      currency: input.currency,
+    })
+    return existing
+  }
+
+  if (!existing) {
+    await addContributionRecord(slug, {
+      contributor_name: input.contributor_name,
+      contributor_whatsapp: input.contributor_whatsapp,
+      amount: Number.isFinite(input.amountMajor) ? input.amountMajor : 0,
+      currency: input.currency,
+      message: input.message,
+      paystack_reference: input.reference,
+      paid_at: undefined,
+      payout_status: 'pending',
+    })
+  }
+  const paid = await markContributionPaid(slug, input.reference)
+  if (paid) {
+    await linkPledgeAfterPayment(slug, input.reference, paid.id, input.pledge_id, {
+      amountMajor: input.amountMajor,
+      currency: input.currency,
+    })
+  }
+  return paid
+}
+
+async function linkPledgeAfterPayment(
+  slug: string,
+  reference: string,
+  contributionId: string,
+  pledgeId: string | undefined,
+  payment?: { amountMajor: number; currency: string },
+): Promise<void> {
+  const blob = await readBlob(slug)
+  if (!blob) return
+  const resolved = resolvePledgeIdForPayment(blob, {
+    pledgeId,
+    paystackReference: reference,
+    amountMajor: payment?.amountMajor,
+    currency: payment?.currency,
+  })
+  const contributions = [...blob.contributions]
+  const cIdx = contributions.findIndex((c) => c.id === contributionId)
+  if (cIdx !== -1 && resolved) {
+    contributions[cIdx] = { ...contributions[cIdx], matched_pledge_id: resolved }
+  }
+  let memorial = blob.memorial
+  if (resolved && memorial.pledges?.length) {
+    memorial = {
+      ...memorial,
+      pledges: applyPledgeFulfillment(memorial.pledges, resolved, contributionId, reference),
+    }
+  }
+  await writeBlob({ ...blob, memorial, contributions })
+}
+
 export async function getMemorialWithDetails(
   slug: string,
-  opts?: { includeAllTributes?: boolean },
+  opts?: { includeAllTributes?: boolean; includeCoordinatorFields?: boolean },
 ): Promise<MemorialWithDetails | null> {
   const blob = await getMemorialBlob(slug)
   if (!blob) return null
@@ -280,46 +294,24 @@ export async function getMemorialWithDetails(
 
 export async function listMemorialsByStatus(status: MemorialStatus): Promise<Memorial[]> {
   await ensureExampleMemorialSeeded()
-  if (hasSupabaseEnv()) {
-    const supabase = await getSupabase()
-    if (!supabase) return []
-    const { data, error } = await supabase.from('memorials').select('*').eq('status', status)
-    if (error || !data) return []
-    return data.map((row) => ({
-      id: row.id,
-      created_at: row.created_at,
-      slug: row.slug,
-      status: row.status,
-      deceased_name: row.deceased_name,
-      deceased_title: row.deceased_title ?? undefined,
-      deceased_family_house: row.deceased_family_house ?? undefined,
-      deceased_community: row.deceased_community ?? undefined,
-      date_of_birth: row.date_of_birth ?? undefined,
-      date_of_passing: row.date_of_passing,
-      photo_url: row.photo_url ?? undefined,
-      biography: row.biography ?? undefined,
-      tradition: row.tradition as Tradition,
-      surviving_family: (row.surviving_family as SurvivingFamilyMember[]) ?? [],
-      allied_families: row.allied_families ?? [],
-      coordinator_name: row.coordinator_name ?? undefined,
-      coordinator_whatsapp: row.coordinator_whatsapp ?? undefined,
-      coordinator_email: row.coordinator_email ?? undefined,
-      poster_url: row.poster_url ?? undefined,
-      poster_approved_at: row.poster_approved_at ?? undefined,
-      announcement_text: row.announcement_text ?? undefined,
-      fundraising_goal: row.fundraising_goal ?? undefined,
-      fundraising_currency: row.fundraising_currency ?? 'GHS',
-      fundraising_label: row.fundraising_label ?? undefined,
-      fundraising_active: row.fundraising_active ?? false,
-      fundraising_appeal: row.fundraising_appeal ?? undefined,
-    }))
+  if (hasDatabaseEnv()) {
+    const sql = getDb()
+    const rows = await sql`
+      SELECT blob FROM memorials WHERE status = ${status}
+    `
+    const out: Memorial[] = []
+    for (const row of rows as { blob: unknown }[]) {
+      const blob = parseStoredBlob(row.blob)
+      if (blob) out.push(hydrateMemorial(blob.memorial))
+    }
+    return out
   }
   const fs = await getFileStore()
   const slugs = await fs.listSlugs()
   const out: Memorial[] = []
   for (const s of slugs) {
     const b = await fs.read(s)
-    if (b?.memorial.status === status) out.push(toPublicMemorial(b.memorial))
+    if (b?.memorial.status === status) out.push(hydrateMemorial(b.memorial))
   }
   return out
 }
@@ -333,7 +325,10 @@ export interface CreateMemorialInput {
   deceased_community?: string
   date_of_birth?: string
   date_of_passing: string
+  place_of_passing?: string
+  age?: number
   photo_url?: string
+  gallery_urls?: string[]
   biography?: string
   surviving_family: SurvivingFamilyMember[]
   allied_families: string[]
@@ -346,8 +341,11 @@ export interface CreateMemorialInput {
   coordinator_name: string
   coordinator_whatsapp: string
   coordinator_email: string
+  coordinator_recovery_email?: string
   coordinator_pin_hash: string
   announcement_text?: string
+  memorial_mode?: MemorialMode
+  output_template?: import('@/lib/types').OutputTemplate
 }
 
 export async function createMemorial(input: CreateMemorialInput): Promise<Memorial> {
@@ -366,7 +364,10 @@ export async function createMemorial(input: CreateMemorialInput): Promise<Memori
     deceased_community: input.deceased_community,
     date_of_birth: input.date_of_birth,
     date_of_passing: input.date_of_passing,
+    place_of_passing: input.place_of_passing,
+    age: input.age,
     photo_url: input.photo_url,
+    gallery_urls: input.gallery_urls?.length ? [...input.gallery_urls] : undefined,
     biography: input.biography,
     tradition: input.tradition,
     surviving_family: input.surviving_family,
@@ -375,6 +376,9 @@ export async function createMemorial(input: CreateMemorialInput): Promise<Memori
     coordinator_whatsapp: input.coordinator_whatsapp,
     coordinator_email: input.coordinator_email,
     announcement_text: input.announcement_text,
+    memorial_mode: input.memorial_mode ?? 'notice',
+    output_template: input.output_template ?? 'notice',
+    coordinator_recovery_email: input.coordinator_recovery_email,
     fundraising_goal: input.fundraising_goal,
     fundraising_currency: input.fundraising_currency || 'GHS',
     fundraising_label: input.fundraising_label,
@@ -405,31 +409,145 @@ export async function createMemorial(input: CreateMemorialInput): Promise<Memori
   return memorial
 }
 
+export type MemorialPinUpdate = Partial<
+  Pick<
+    Memorial,
+    | 'announcement_text'
+    | 'fundraising_active'
+    | 'fundraising_goal'
+    | 'fundraising_currency'
+    | 'fundraising_label'
+    | 'fundraising_appeal'
+    | 'poster_url'
+    | 'poster_approved_at'
+    | 'gallery_urls'
+    | 'stakeholders'
+    | 'public_contacts'
+    | 'internal_contacts'
+    | 'closing_thank_you'
+    | 'wind_down_meetings'
+    | 'memorial_mode'
+    | 'output_template'
+    | 'tasks'
+    | 'pledges'
+    | 'closure_status'
+    | 'closed_at'
+    | 'closure_notes'
+    | 'deceased_name'
+    | 'deceased_title'
+    | 'deceased_family_house'
+    | 'deceased_community'
+    | 'date_of_birth'
+    | 'date_of_passing'
+    | 'place_of_passing'
+    | 'age'
+    | 'coordinator_recovery_email'
+    | 'last_bank_reconciliation'
+  >
+> & {
+  photo_url?: string | null
+  events?: MemorialEvent[]
+  remembrance?: Remembrance | null
+  programme_readings?: ProgrammeReading[]
+}
+
 export async function updateMemorialWithPin(
   slug: string,
   pin: string,
-  patch: Partial<
-    Pick<
-      Memorial,
-      | 'announcement_text'
-      | 'fundraising_active'
-      | 'fundraising_goal'
-      | 'fundraising_currency'
-      | 'fundraising_label'
-      | 'fundraising_appeal'
-      | 'poster_url'
-      | 'poster_approved_at'
-    >
-  > & { events?: MemorialEvent[] },
+  patch: MemorialPinUpdate,
 ): Promise<Memorial | null> {
   const blob = await readBlob(slug)
   if (!blob) return null
   if (!verifyPin(pin, blob.coordinator_pin_hash)) return null
 
-  const { events, ...memorialFields } = patch
-  const memorial: Memorial = {
-    ...blob.memorial,
-    ...memorialFields,
+  const {
+    events,
+    stakeholders,
+    remembrance,
+    programme_readings,
+    public_contacts,
+    internal_contacts,
+    wind_down_meetings,
+    closing_thank_you,
+    tasks,
+    pledges,
+    closure_status,
+    closed_at,
+    closure_notes,
+    last_bank_reconciliation,
+    ...memorialFields
+  } = patch
+  const memorial: Memorial = { ...blob.memorial }
+  for (const [key, value] of Object.entries(memorialFields) as [keyof Memorial, unknown][]) {
+    if (value === undefined) continue
+    if (key === 'photo_url' && (value === null || value === '')) {
+      delete (memorial as { photo_url?: string }).photo_url
+      continue
+    }
+    ;(memorial as unknown as Record<string, unknown>)[key as string] = value
+  }
+  if (stakeholders !== undefined) {
+    memorial.stakeholders = stakeholders.length ? stakeholders : undefined
+  }
+  if (remembrance !== undefined) {
+    if (remembrance === null) {
+      delete memorial.remembrance
+    } else {
+      memorial.remembrance = remembrance
+    }
+  }
+  if (programme_readings !== undefined) {
+    memorial.programme_readings = programme_readings.length ? programme_readings : undefined
+  }
+  if (public_contacts !== undefined) {
+    memorial.public_contacts = public_contacts.length ? public_contacts : undefined
+    if (public_contacts.length > 0) {
+      const first = public_contacts[0]
+      memorial.coordinator_name = first.name
+      if (first.email) memorial.coordinator_email = first.email
+      if (first.whatsapp || first.phone) {
+        memorial.coordinator_whatsapp = first.whatsapp || first.phone
+      }
+    }
+  }
+  if (internal_contacts !== undefined) {
+    memorial.internal_contacts = internal_contacts.length ? internal_contacts : undefined
+  }
+  if (closing_thank_you !== undefined) {
+    const v = typeof closing_thank_you === 'string' ? closing_thank_you.trim() : ''
+    if (v) memorial.closing_thank_you = v
+    else delete memorial.closing_thank_you
+  }
+  if (wind_down_meetings !== undefined) {
+    memorial.wind_down_meetings = wind_down_meetings.length ? wind_down_meetings : undefined
+  }
+  if (tasks !== undefined) {
+    memorial.tasks = tasks.length ? tasks : undefined
+  }
+  if (pledges !== undefined) {
+    memorial.pledges = pledges.length ? pledges : undefined
+  }
+  if (closure_status !== undefined) {
+    memorial.closure_status = closure_status
+    if (closure_status === 'closed' && !memorial.closed_at) {
+      memorial.closed_at = new Date().toISOString()
+    }
+    if (closure_status === 'active') {
+      delete memorial.closed_at
+    }
+  }
+  if (closed_at !== undefined) {
+    if (closed_at) memorial.closed_at = closed_at
+    else delete memorial.closed_at
+  }
+  if (closure_notes !== undefined) {
+    const v = typeof closure_notes === 'string' ? closure_notes.trim() : ''
+    if (v) memorial.closure_notes = v
+    else delete memorial.closure_notes
+  }
+  if (last_bank_reconciliation !== undefined) {
+    if (last_bank_reconciliation) memorial.last_bank_reconciliation = last_bank_reconciliation
+    else delete memorial.last_bank_reconciliation
   }
   const nextEvents =
     events?.map((e) => ({
@@ -507,6 +625,41 @@ export async function approveTributeWithPin(
   if (idx === -1) return null
   const tributes = [...blob.tributes]
   tributes[idx] = { ...blob.tributes[idx], approved: true }
+  await writeBlob({ ...blob, tributes })
+  return tributes[idx]
+}
+
+export async function setTributeImageWithPin(
+  slug: string,
+  pin: string,
+  tributeId: string,
+  imageUrl: string,
+): Promise<Tribute | null> {
+  const blob = await readBlob(slug)
+  if (!blob) return null
+  if (!verifyPin(pin, blob.coordinator_pin_hash)) return null
+  const idx = blob.tributes.findIndex((t) => t.id === tributeId)
+  if (idx === -1) return null
+  const tributes = [...blob.tributes]
+  tributes[idx] = { ...blob.tributes[idx], image_url: imageUrl }
+  await writeBlob({ ...blob, tributes })
+  return tributes[idx]
+}
+
+export async function clearTributeImageWithPin(
+  slug: string,
+  pin: string,
+  tributeId: string,
+): Promise<Tribute | null> {
+  const blob = await readBlob(slug)
+  if (!blob) return null
+  if (!verifyPin(pin, blob.coordinator_pin_hash)) return null
+  const idx = blob.tributes.findIndex((t) => t.id === tributeId)
+  if (idx === -1) return null
+  const tributes = [...blob.tributes]
+  const current = { ...blob.tributes[idx] }
+  delete current.image_url
+  tributes[idx] = current
   await writeBlob({ ...blob, tributes })
   return tributes[idx]
 }

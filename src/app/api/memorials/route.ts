@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createMemorial, getMemorialBlob } from '@/lib/memorial-store'
 import { generateCoordinatorPin, hashPin } from '@/lib/crypto-pin'
+import { normalizeMemorialMode, normalizeOutputTemplate } from '@/lib/memorial-hydrate'
 import { buildMemorialSlug } from '@/lib/slugify'
 import { isTradition } from '@/lib/tradition-presets'
 import {
@@ -97,15 +98,22 @@ export async function POST(request: Request) {
   const pin = generateCoordinatorPin()
   const coordinator_pin_hash = hashPin(pin)
 
+  const ageRaw = body.age?.trim()
+  const ageParsed = ageRaw ? Number.parseInt(ageRaw, 10) : undefined
+
   const memorial = await createMemorial({
     slug,
     tradition: body.tradition,
+    memorial_mode: normalizeMemorialMode(body.memorial_mode),
+    output_template: normalizeOutputTemplate(body.output_template),
     deceased_name: body.deceased_name,
     deceased_title: body.deceased_title || undefined,
     deceased_family_house: body.deceased_family_house || undefined,
     deceased_community: body.deceased_community || undefined,
     date_of_birth: body.date_of_birth || undefined,
     date_of_passing: body.date_of_passing,
+    place_of_passing: body.place_of_passing?.trim() || undefined,
+    age: Number.isFinite(ageParsed) ? ageParsed : undefined,
     photo_url: body.photo_url?.trim() || undefined,
     biography: body.biography || undefined,
     surviving_family,
@@ -119,6 +127,7 @@ export async function POST(request: Request) {
     coordinator_name: body.coordinator_name || 'Family coordinator',
     coordinator_whatsapp: body.coordinator_whatsapp || '',
     coordinator_email: body.coordinator_email || '',
+    coordinator_recovery_email: body.coordinator_recovery_email?.trim() || undefined,
     coordinator_pin_hash,
     announcement_text,
   })

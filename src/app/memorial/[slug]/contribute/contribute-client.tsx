@@ -13,6 +13,7 @@ function ContributeInner({ slug }: { slug: string }) {
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<string | null>(null)
   const [devReference, setDevReference] = useState<string | null>(null)
+  const pledgeId = searchParams.get('pledge_id')?.trim() || ''
 
   useEffect(() => {
     const ref = searchParams.get('reference') || searchParams.get('trxref')
@@ -42,6 +43,7 @@ function ContributeInner({ slug }: { slug: string }) {
         amount: Number(amount),
         contributor_name: name,
         message,
+        ...(pledgeId ? { pledge_id: pledgeId } : {}),
       }),
     })
     const json = (await res.json()) as {
@@ -90,8 +92,10 @@ function ContributeInner({ slug }: { slug: string }) {
           ← Back to memorial
         </Link>
         <h1 className="text-2xl font-semibold">Contribute</h1>
-        <p className="text-sm text-[#1A1A1A]/70">
-          Support the family in a difficult season. Payments are processed with Paystack when configured.
+        <p className="text-sm leading-relaxed text-[#1A1A1A]/70">
+          Support the family in a difficult season. When Paystack is enabled, you can pay with{' '}
+          <span className="text-[#1A1A1A]/85">Mobile Money (MoMo) or card</span> on the secure
+          Paystack checkout — whichever is easiest on your phone.
         </p>
         <div className="space-y-3 rounded-lg border border-[#3D2B1F]/15 bg-white p-4">
           <Field label="Amount" value={amount} onChange={setAmount} />

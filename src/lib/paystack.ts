@@ -19,12 +19,17 @@ export type PaystackInitResult =
       message: string
     }
 
+/** Paystack checkout channels (Ghana MoMo + card). See https://paystack.com/docs/payments/payment-channels/ */
+export const PAYSTACK_GHANA_CHANNELS = ['mobile_money', 'card'] as const
+
 export async function paystackInitializeTransaction(input: {
   email: string
   amountMinorUnits: number
   currency: string
   callbackUrl: string
   metadata: Record<string, string>
+  /** When set, Paystack shows only these methods (e.g. MTN MoMo + card for GHS). */
+  channels?: readonly string[]
 }): Promise<PaystackInitResult> {
   const secret = process.env.PAYSTACK_SECRET_KEY?.trim()
   if (!secret) {
@@ -52,6 +57,7 @@ export async function paystackInitializeTransaction(input: {
       currency: input.currency,
       callback_url: input.callbackUrl,
       metadata: input.metadata,
+      ...(input.channels?.length ? { channels: [...input.channels] } : {}),
     }),
   })
   const json = (await res.json()) as {

@@ -1,0 +1,121 @@
+/* Memorial print view — A4-oriented; imported only from this route’s layout */
+
+@page {
+  size: A4;
+  margin: 14mm 16mm;
+}
+
+.memorial-print-root {
+  --print-ink: #1a1a1a;
+  --print-muted: #3d3d3d;
+  --print-rule: #ccc;
+  color: var(--print-ink);
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 11pt;
+  line-height: 1.45;
+  max-width: 180mm;
+  margin: 0 auto;
+}
+
+.memorial-print-root h1 {
+  font-size: 22pt;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.memorial-print-root h2 {
+  font-size: 12pt;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--print-muted);
+  border-bottom: 1px solid var(--print-rule);
+  padding-bottom: 0.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.65rem;
+}
+
+.memorial-print-root .print-hero-photo {
+  max-height: 42mm;
+  width: auto;
+  object-fit: cover;
+  border-radius: 2px;
+  border: 1px solid var(--print-rule);
+}
+
+.memorial-print-root .print-block {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.memorial-print-root .print-announcement {
+  white-space: pre-wrap;
+}
+
+.memorial-print-root a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.memorial-print-root ul.print-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.memorial-print-root .print-list li {
+  break-inside: avoid;
+  page-break-inside: avoid;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.memorial-print-root .print-list li:last-child {
+  border-bottom: none;
+}
+
+.memorial-print-toolbar {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0dcd4;
+}
+
+@media screen {
+  .memorial-print-root {
+    padding: 1.5rem 1rem 3rem;
+    background: #fafaf8;
+    min-height: 100vh;
+  }
+}
+
+@media print {
+  html,
+  body {
+    background: #fff !important;
+  }
+
+  .memorial-print-toolbar {
+    display: none !important;
+  }
+
+  .memorial-print-root {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    background: #fff !important;
+    print-color-adjust: economy;
+    -webkit-print-color-adjust: economy;
+  }
+
+  .memorial-print-root h2 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .memorial-print-root .print-section-major {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

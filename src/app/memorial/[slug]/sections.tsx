@@ -2,7 +2,13 @@
 
 import { useState } from 'react'
 
-export function MemorialClientSections({ slug }: { slug: string }) {
+export function MemorialClientSections({
+  slug,
+  headline,
+}: {
+  slug: string
+  headline?: string
+}) {
   const [authorName, setAuthorName] = useState('')
   const [message, setMessage] = useState('')
   const [location, setLocation] = useState('')
@@ -32,7 +38,7 @@ export function MemorialClientSections({ slug }: { slug: string }) {
 
   return (
     <section className="max-w-xl space-y-4 rounded-lg border border-[#3D2B1F]/15 bg-white p-6">
-      <h2 className="text-lg font-semibold text-[#3D2B1F]">Leave a tribute</h2>
+      <h2 className="text-lg font-semibold text-[#3D2B1F]">{headline ?? 'Leave a tribute'}</h2>
       <p className="text-sm text-[#1A1A1A]/70">
         Tributes appear after the family approves them. Video upload is planned for a later release.
       </p>
@@ -64,7 +70,7 @@ export function MemorialClientSections({ slug }: { slug: string }) {
         </div>
         <button
           type="submit"
-          className="rounded-md bg-[#C9A02C] px-4 py-2 text-sm font-medium text-[#1A1A1A] hover:bg-[#d4ae3f]"
+          className="min-h-[44px] rounded-md bg-[#C9A02C] px-4 py-2 text-sm font-medium text-[#1A1A1A] hover:bg-[#d4ae3f]"
         >
           Submit tribute
         </button>

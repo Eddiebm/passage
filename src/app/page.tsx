@@ -56,7 +56,18 @@ export default function HomePage() {
         </div>
       </main>
       <footer className="border-t border-[#3D2B1F]/30 py-6 text-center text-xs text-[#FAFAF8]/50">
-        Passage — digital infrastructure for how African communities process death.
+        <p>Passage — digital infrastructure for how African communities process death.</p>
+        <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+          <Link href="/help" className="text-[#FAFAF8]/70 underline hover:text-[#C9A02C]">
+            Help
+          </Link>
+          <span className="text-[#FAFAF8]/30" aria-hidden>
+            ·
+          </span>
+          <Link href="/privacy" className="text-[#FAFAF8]/70 underline hover:text-[#C9A02C]">
+            Privacy
+          </Link>
+        </p>
       </footer>
     </div>
   )

@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server'
-import {
-  addContributionRecord,
-  getMemorialBlob,
-  markContributionPaid,
-} from '@/lib/memorial-store'
+import { completeContributionPayment, getMemorialBlob } from '@/lib/memorial-store'
 import { paystackVerifyReference } from '@/lib/paystack'
 
 export async function POST(
@@ -22,17 +18,17 @@ export async function POST(
     return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
 
+  const alreadyPaid = blob.contributions.find((c) => c.paystack_reference === reference && c.paid_at)
+  if (alreadyPaid) {
+    return NextResponse.json({ ok: true, contribution: alreadyPaid })
+  }
+
   const verified = await paystackVerifyReference(reference)
   if (!verified.ok || !verified.paid) {
     return NextResponse.json(
       { ok: false, paid: false, detail: verified.rawMessage || 'Unpaid or unverified' },
       { status: 400 },
     )
-  }
-
-  const existing = blob.contributions.find((c) => c.paystack_reference === reference)
-  if (existing?.paid_at) {
-    return NextResponse.json({ ok: true, contribution: existing })
   }
 
   const amountMajorFromGateway =
@@ -42,18 +38,17 @@ export async function POST(
     : Number(body.amount)
   const currency = verified.currency || blob.memorial.fundraising_currency || 'GHS'
 
-  if (!existing) {
-    await addContributionRecord(slug, {
-      contributor_name: verified.metadata?.contributor_name,
-      contributor_whatsapp: verified.metadata?.contributor_whatsapp,
-      amount: Number.isFinite(amountMajor) ? amountMajor : 0,
-      currency,
-      message: verified.metadata?.message,
-      paystack_reference: reference,
-      paid_at: undefined,
-      payout_status: 'pending',
-    })
+  const paid = await completeContributionPayment(slug, {
+    reference,
+    amountMajor: Number.isFinite(amountMajor) ? amountMajor : 0,
+    currency,
+    contributor_name: verified.metadata?.contributor_name,
+    contributor_whatsapp: verified.metadata?.contributor_whatsapp,
+    message: verified.metadata?.message,
+    pledge_id: verified.metadata?.pledge_id,
+  })
+  if (!paid) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 })
   }
-  const paid = await markContributionPaid(slug, reference)
   return NextResponse.json({ ok: true, contribution: paid })
 }
