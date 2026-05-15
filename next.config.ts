@@ -16,6 +16,16 @@ const nextConfig: NextConfig = {
         destination: `/memorial/${CHRISTIAN_EXAMPLE_SLUG}/:path*`,
         permanent: true,
       },
+      {
+        source: "/examples/complete-full",
+        destination: "/examples/complete",
+        permanent: false,
+      },
+      {
+        source: "/examples/complete-full/:themeId",
+        destination: "/examples/complete/:themeId",
+        permanent: false,
+      },
     ];
   },
 };

@@ -34,6 +34,16 @@ const SHOWCASE_IMAGE_BY_THEME: Record<(typeof COMPLETE_THEME_IDS)[number], strin
   night: '/showcase/complete-night.png',
 }
 
+export function completeShowcasePreviewHref(visualTheme: VisualTheme): string {
+  return `/examples/complete/${visualTheme}`
+}
+
+export function getCompleteShowcaseEntry(
+  visualTheme: string,
+): CompleteShowcaseEntry | undefined {
+  return COMPLETE_SHOWCASE_ENTRIES.find((e) => e.visualTheme === visualTheme)
+}
+
 export const COMPLETE_SHOWCASE_ENTRIES: CompleteShowcaseEntry[] = COMPLETE_THEME_IDS.map((id) => {
   const meta = getVisualThemeMeta(id)!
   const sample = getShowcaseSampleForThemeId(id)
@@ -43,7 +53,7 @@ export const COMPLETE_SHOWCASE_ENTRIES: CompleteShowcaseEntry[] = COMPLETE_THEME
     label: meta.label,
     description: meta.description,
     exampleLabel: `Example: ${sample.deceasedName}`,
-    previewHref: `/design-lab/${id}`,
+    previewHref: completeShowcasePreviewHref(id),
     memorialHref: themeExampleHref(id, { memorialMode: COMPLETE_SHOWCASE_MEMORIAL_MODE }),
   }
 })
