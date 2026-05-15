@@ -197,7 +197,8 @@ function mergeExampleSeedImages(
   if (!builtIn) return persisted
   const m = persisted.memorial
   const needsPhoto = !m.photo_url?.trim()
-  const needsGallery = !(m.gallery_urls?.length)
+  const galleryCount = m.gallery_urls?.filter((u) => u?.trim()).length ?? 0
+  const needsGallery = galleryCount < 3
   if (!needsPhoto && !needsGallery) return persisted
   return {
     ...persisted,
