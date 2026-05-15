@@ -1,32 +1,4 @@
 {
-  "ghana-accra-elder-man.jpg": {
-    "gender": "male",
-    "deceasedName": "Alhaji Ibrahim Mensah",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Mensah family · Tamale",
-    "regionRationale": "Northern Ghana / Sahel — Muslim-presenting elder"
-  },
-  "ghana-accra-elder-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Akosua Mensah",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Mensah family · Osu, Accra",
-    "regionRationale": "Ghana — Akan woman, Accra street context"
-  },
-  "ghana-fashion-elder.jpg": {
-    "gender": "male",
-    "deceasedName": "Kwame Asante",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Asante family · Accra",
-    "regionRationale": "Ghana — contemporary urban young man"
-  },
-  "nigeria-lagos-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Ngozi Okonkwo",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Okonkwo family · Lagos",
-    "regionRationale": "Nigeria — Igbo/Yoruba woman"
-  },
   "nigeria-lagos-elder-man.jpg": {
     "gender": "male",
     "deceasedName": "Chief Adebayo Ogundimu",
@@ -41,40 +13,12 @@
     "familyLine": "Adéyẹmí family · Ila-Orangun",
     "regionRationale": "Nigeria — Yoruba elder with tribal marks"
   },
-  "senegal-dakar-elder.jpg": {
-    "gender": "female",
-    "deceasedName": "Aissatou Diop",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Diop family · Gorée, Dakar",
-    "regionRationale": "Senegal — Wolof woman, Muslim-majority West Africa"
-  },
-  "mali-bamako-man.jpg": {
-    "gender": "male",
-    "deceasedName": "Amadou Traoré",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Traoré family · Bamako",
-    "regionRationale": "Mali — Sahel, Muslim-majority"
-  },
-  "ivory-coast-abidjan-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Amoin Kouassi",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Kouassi family · Abidjan",
-    "regionRationale": "Côte d'Ivoire — Akan woman"
-  },
   "cameroon-yaounde-elder.jpg": {
     "gender": "male",
     "deceasedName": "Emmanuel Ndjock",
     "deceasedTitle": "Of blessed memory",
     "familyLine": "Ndjock family · Yaoundé",
     "regionRationale": "Cameroon — elder man"
-  },
-  "drc-kinshasa-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Mireille Mbayo",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Mbayo family · Kinshasa",
-    "regionRationale": "DRC — Kinshasa woman"
   },
   "kenya-nairobi-elder-woman.jpg": {
     "gender": "female",
@@ -83,20 +27,6 @@
     "familyLine": "Kamau family · Kisumu",
     "regionRationale": "Kenya — Kikuyu/Luo elder woman"
   },
-  "kenya-nairobi-young-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Akinyi Ochieng",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Ochieng family · Nairobi",
-    "regionRationale": "Kenya — Luo young woman"
-  },
-  "ethiopia-addis-elder-man.jpg": {
-    "gender": "male",
-    "deceasedName": "Abebe Tadesse",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Tadesse family · Addis Ababa",
-    "regionRationale": "Ethiopia — Amhara elder"
-  },
   "ethiopia-lalibela-priest.jpg": {
     "gender": "male",
     "deceasedName": "Lika Kristos",
@@ -104,40 +34,12 @@
     "familyLine": "Holy family · Lalibela",
     "regionRationale": "Ethiopia — Ethiopian Orthodox priest"
   },
-  "tanzania-dar-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Neema Mwangi",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Mwangi family · Bagamoyo",
-    "regionRationale": "Tanzania — Swahili coast woman"
-  },
   "somalia-mogadishu-woman.jpg": {
     "gender": "female",
     "deceasedName": "Halima Hassan",
     "deceasedTitle": "Of blessed memory",
     "familyLine": "Hassan family · Mogadishu",
     "regionRationale": "Somalia — Muslim woman"
-  },
-  "somalia-mogadishu-man.jpg": {
-    "gender": "male",
-    "deceasedName": "Mohamed Abdi",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Abdi family · Mogadishu",
-    "regionRationale": "Somalia — Muslim man"
-  },
-  "egypt-cairo-elder.jpg": {
-    "gender": "female",
-    "deceasedName": "Nyakim Deng",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Deng family · Juba",
-    "regionRationale": "Nilotic / South Sudanese woman (North Africa library tag)"
-  },
-  "morocco-fez-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Amina El Amrani",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "El Amrani family · Fès",
-    "regionRationale": "Morocco — Maghreb Muslim girl"
   },
   "tunisia-gabes-elder.jpg": {
     "gender": "male",
@@ -153,110 +55,12 @@
     "familyLine": "Ndlovu family · Cape Town",
     "regionRationale": "South Africa — Zulu/Xhosa elder"
   },
-  "south-africa-storyteller.jpg": {
-    "gender": "male",
-    "deceasedName": "Themba Khumalo",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Khumalo family · Johannesburg",
-    "regionRationale": "South Africa — storyteller elder"
-  },
-  "zimbabwe-harare-elder.jpg": {
-    "gender": "female",
-    "deceasedName": "Rudo Chikomba",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Chikomba family · Harare",
-    "regionRationale": "Zimbabwe — Shona woman"
-  },
-  "botswana-gaborone-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Lorato Molefe",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Molefe family · Gaborone",
-    "regionRationale": "Botswana — Tswana woman"
-  },
-  "namibia-windhoek-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Tjiposa Muharukua",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Muharukua family · Opuwo",
-    "regionRationale": "Namibia — Himba woman"
-  },
-  "angola-luanda-man.jpg": {
-    "gender": "male",
-    "deceasedName": "Domingos Lukamba",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Lukamba family · Luanda",
-    "regionRationale": "Angola — elder worker"
-  },
-  "madagascar-antananarivo-elder.jpg": {
-    "gender": "female",
-    "deceasedName": "Voahangy Rasolofo",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Rasolofo family · Antananarivo",
-    "regionRationale": "Madagascar — Malagasy woman"
-  },
-  "mauritius-port-louis-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Marie-Claire Duval",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Duval family · Port Louis",
-    "regionRationale": "Mauritius — Creole island woman"
-  },
-  "rwanda-kigali-man.jpg": {
-    "gender": "male",
-    "deceasedName": "Jean-Pierre Nkurunziza",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Nkurunziza family · Kigali",
-    "regionRationale": "Rwanda — Kinyarwanda man"
-  },
-  "rwanda-kigali-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Immaculée Mukamana",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Mukamana family · Kigali",
-    "regionRationale": "Rwanda — Kinyarwanda woman"
-  },
-  "uganda-kampala-elder.jpg": {
-    "gender": "female",
-    "deceasedName": "Nakato Nalwoga",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Nalwoga family · Kampala",
-    "regionRationale": "Uganda — Baganda woman"
-  },
-  "uganda-kampala-girl.jpg": {
-    "gender": "female",
-    "deceasedName": "Apio Akello",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Akello family · Kampala",
-    "regionRationale": "Uganda — Acholi girl in traditional dress"
-  },
-  "liberia-monrovia-elder.jpg": {
-    "gender": "female",
-    "deceasedName": "Yeama Kamara",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Kamara family · Monrovia",
-    "regionRationale": "Liberia — Kpelle/Mandingo woman"
-  },
-  "sierra-leone-freetown-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Isata Koroma",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Koroma family · Freetown",
-    "regionRationale": "Sierra Leone — Temne/Mende woman"
-  },
   "mozambique-maputo-man.jpg": {
     "gender": "male",
     "deceasedName": "Filipe Matsinhe",
     "deceasedTitle": "Of blessed memory",
     "familyLine": "Matsinhe family · Maputo",
     "regionRationale": "Mozambique — Shangaan/Makhuwa man"
-  },
-  "zambia-lusaka-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Chisanga Banda",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Banda family · Lusaka",
-    "regionRationale": "Zambia — Bemba woman"
   },
   "zambia-chief-elder.jpg": {
     "gender": "male",
@@ -271,12 +75,5 @@
     "deceasedTitle": "Of blessed memory",
     "familyLine": "Okafor family · Enugu",
     "regionRationale": "Pan-African — Igbo elder"
-  },
-  "pan-african-elder-woman.jpg": {
-    "gender": "female",
-    "deceasedName": "Adunni Adeyemi",
-    "deceasedTitle": "Of blessed memory",
-    "familyLine": "Adeyemi family · Ibadan",
-    "regionRationale": "Pan-African — Yoruba woman"
   }
 }

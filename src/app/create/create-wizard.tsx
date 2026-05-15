@@ -119,6 +119,7 @@ export function CreateWizard() {
 
   const [step, setStep] = useState(0)
   const [saving, setSaving] = useState(false)
+  const [generatingDraft, setGeneratingDraft] = useState(false)
   const [result, setResult] = useState<{
     coordinator_pin: string
     memorial_url: string
@@ -154,6 +155,41 @@ export function CreateWizard() {
       output_template: defaults.output_template,
       visual_theme: defaults.visual_theme,
     }))
+  }
+
+  async function goToStep(next: number) {
+    if (next === 7 && !form.announcement_text) {
+      setGeneratingDraft(true)
+      try {
+        const res = await fetch('/api/ai/announcement', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            memorial: {
+              deceased_name: form.deceased_name,
+              deceased_title: form.deceased_title,
+              deceased_family_house: form.deceased_family_house,
+              deceased_community: form.deceased_community,
+              date_of_birth: form.date_of_birth,
+              date_of_passing: form.date_of_passing,
+              tradition: form.tradition,
+              surviving_family: form.surviving_family.filter((m) => m.name.trim()),
+              allied_families: form.allied_families,
+              biography: form.biography,
+            },
+          }),
+        })
+        if (res.ok) {
+          const json = (await res.json()) as { text?: string }
+          if (json.text) update('announcement_text', json.text)
+        }
+      } catch {
+        // ignore — family can still edit manually
+      } finally {
+        setGeneratingDraft(false)
+      }
+    }
+    setStep(next)
   }
 
   const tradition = TRADITION_PRESETS[form.tradition]
@@ -706,27 +742,38 @@ export function CreateWizard() {
           )}
 
           {step === 7 && (
-            <div className="space-y-3 rounded-lg border border-[#3D2B1F]/15 bg-white p-4 text-sm leading-relaxed">
-              <p>
-                <strong>Public format:</strong>{' '}
-                {tierLabel(form.memorial_mode ?? 'notice')}
-              </p>
-              <p>
-                <strong>Tradition:</strong> {tradition.label}
-              </p>
-              <p>
-                <strong>Who passed away:</strong> {form.deceased_name}
-              </p>
-              <p>
-                <strong>Your contact:</strong> {form.coordinator_name} · {form.coordinator_email}
-              </p>
-              <p className="text-[#1A1A1A]/70">
-                By continuing, you confirm the family will review all generated text and programme details
-                before the memorial is submitted for internal approval.
-              </p>
+            <div className="space-y-5">
+              <div className="rounded-lg border border-[#3D2B1F]/15 bg-white p-4 text-sm space-y-2">
+                <p><strong>Public format:</strong> {tierLabel(form.memorial_mode ?? 'notice')}</p>
+                <p><strong>Tradition:</strong> {tradition.label}</p>
+                <p><strong>Who passed away:</strong> {form.deceased_name}</p>
+                <p><strong>Your contact:</strong> {form.coordinator_name} · {form.coordinator_email}</p>
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="text-sm font-medium text-[#1A1A1A]">
+                    Announcement text
+                  </label>
+                  {generatingDraft && (
+                    <span className="text-xs text-[#C9A02C]">Drafting…</span>
+                  )}
+                </div>
+                <p className="text-xs text-[#1A1A1A]/60">
+                  Read this carefully. Edit any word before saving. This is exactly what your community will see.
+                </p>
+                <textarea
+                  className="min-h-[200px] w-full rounded-lg border border-[#3D2B1F]/20 px-3 py-3 text-sm leading-relaxed focus:border-[#C9A02C] focus:outline-none"
+                  value={form.announcement_text ?? ''}
+                  onChange={(e) => update('announcement_text', e.target.value)}
+                  placeholder={generatingDraft ? 'Drafting announcement…' : 'Announcement text will appear here'}
+                  disabled={generatingDraft}
+                />
+              </div>
+
               <p className="text-xs text-[#1A1A1A]/55">
-                After publish, add scripture, hymns, and Quran readings from the family edit portal (Programme readings
-                section).
+                After saving, you can also update this text from the family edit portal.
+                Add scripture, hymns, and Quran readings there too (Programme readings section).
               </p>
               <p className="text-xs text-[#1A1A1A]/55">
                 Memorial content is stored as described in our{' '}
@@ -757,7 +804,7 @@ export function CreateWizard() {
             <button
               type="button"
               className="min-h-[44px] rounded-md border border-[#3D2B1F]/20 px-4 py-2 text-sm"
-              onClick={() => setStep((s) => Math.max(0, s - 1))}
+              onClick={() => setStep(Math.max(0, step - 1))}
             >
               Back
             </button>
@@ -765,16 +812,16 @@ export function CreateWizard() {
           {step < STEPS.length - 1 ? (
             <button
               type="button"
-              disabled={!canNext}
+              disabled={!canNext || generatingDraft}
               className="rounded-md bg-[#1A1A1A] px-4 py-2 text-sm font-medium text-[#FAFAF8] disabled:opacity-40"
-              onClick={() => setStep((s) => s + 1)}
+              onClick={() => goToStep(step + 1)}
             >
-              Continue
+              {generatingDraft ? 'Drafting…' : 'Continue'}
             </button>
           ) : (
             <button
               type="button"
-              disabled={!canNext || saving}
+              disabled={!canNext || saving || generatingDraft}
               className="rounded-md bg-[#C9A02C] px-4 py-2 text-sm font-medium text-[#1A1A1A] disabled:opacity-40"
               onClick={submit}
             >

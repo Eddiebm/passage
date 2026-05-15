@@ -79,4 +79,4 @@ export function getShowcaseSampleForThemeId(themeId: string): ShowcaseSample {
 }
 
 /** @deprecated Use `getShowcaseSampleForThemeId` — kept for imports that expect a static default. */
-export const SHOWCASE_SAMPLE_DEFAULT = getShowcaseSampleForPortraitFile('ghana-fashion-elder.jpg')
+export const SHOWCASE_SAMPLE_DEFAULT = getShowcaseSampleForPortraitFile('pan-african-elder-man.jpg')

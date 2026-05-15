@@ -84,7 +84,9 @@ export async function POST(request: Request) {
   }
 
   const [announcement_text, fundraising_appeal] = await Promise.all([
-    generateAnnouncementDraft({ memorial: memorialContext }),
+    body.announcement_text?.trim()
+      ? Promise.resolve(body.announcement_text.trim())
+      : generateAnnouncementDraft({ memorial: memorialContext }),
     body.fundraising_active
       ? generateFundraisingAppealDraft({
           memorial: {

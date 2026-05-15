@@ -332,4 +332,5 @@ export interface CreateMemorialForm {
   coordinator_whatsapp: string
   coordinator_email: string
   coordinator_recovery_email?: string
+  announcement_text?: string
 }
