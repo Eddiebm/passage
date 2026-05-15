@@ -5,6 +5,7 @@ import { ProgrammeReadingsList } from '@/components/programme-readings-display'
 import { programmeReadingsForPublicPage, STAKEHOLDER_CATEGORY_LABEL } from '@/lib/memorial-hydrate'
 import { memorialPagePath } from '@/lib/memorial-share'
 import { memorialTemplateClass, memorialThemeClass, normalizeVisualTheme } from '@/lib/memorial-hydrate'
+import { resolveExamplePreviewMode } from '@/lib/memorial-preview-mode'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialPrintToolbar } from './print-toolbar'
@@ -42,14 +43,18 @@ export async function generateMetadata({
 
 export default async function MemorialPrintPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ memorial_mode?: string; preview?: string }>
 }) {
   const { slug } = await params
+  const sp = await searchParams
   const data = await getMemorialWithDetails(slug)
   if (!data) notFound()
 
-  const mode = data.memorial_mode ?? 'notice'
+  const previewMode = resolveExamplePreviewMode(slug, sp)
+  const mode = previewMode ?? data.memorial_mode ?? 'notice'
   const showProgrammeSurface = mode === 'programme' || mode === 'full'
   const showRemembrance = showProgrammeSurface
   const showStakeholderDirectory = showProgrammeSurface

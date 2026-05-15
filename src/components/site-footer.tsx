@@ -38,6 +38,10 @@ export function SiteFooter({ className = '', showExamples = false }: SiteFooterP
             <Link href="/memorial/bannerman-samuel-2026" className="passage-text-link">
               Examples
             </Link>
+            <span aria-hidden>·</span>
+            <Link href="/design-lab" className="passage-text-link">
+              Appearances
+            </Link>
           </>
         )}
       </p>

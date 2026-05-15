@@ -14,6 +14,8 @@ export type TierExampleMemorial = {
   photoUrl: string
   /** When set, example opens with this mode (for notice demo on full seed). */
   previewMode?: MemorialMode
+  /** Optional label above the card (e.g. secondary examples). */
+  eyebrow?: string
 }
 
 export type ServiceTierExamples = {
@@ -30,6 +32,14 @@ export const SERVICE_TIER_EXAMPLES: Record<ServiceTierMode, ServiceTierExamples>
         photoUrl: BANNERMAN_SEED_PHOTO,
         previewMode: 'notice',
       },
+      {
+        slug: 'ghana-muslim-example-2026',
+        deceasedName: 'Hajia Aminata Mensah',
+        summary: 'A shorter notice layout — announcement, portrait, and contacts only.',
+        photoUrl: GHANA_MUSLIM_SEED_PHOTO,
+        previewMode: 'notice',
+        eyebrow: 'Another example',
+      },
     ],
   },
   programme: {
@@ -40,6 +50,14 @@ export const SERVICE_TIER_EXAMPLES: Record<ServiceTierMode, ServiceTierExamples>
         summary: 'Funeral programme with Janazah details, readings, and photo gallery.',
         photoUrl: GHANA_MUSLIM_SEED_PHOTO,
       },
+      {
+        slug: 'bannerman-samuel-2026',
+        deceasedName: 'Samuel Kwesi Bannerman',
+        summary: 'Christian order of service with readings, gallery, and print programme.',
+        photoUrl: BANNERMAN_SEED_PHOTO,
+        previewMode: 'programme',
+        eyebrow: 'Another example',
+      },
     ],
   },
   full: {
@@ -49,6 +67,13 @@ export const SERVICE_TIER_EXAMPLES: Record<ServiceTierMode, ServiceTierExamples>
         deceasedName: 'Samuel Kwesi Bannerman',
         summary: 'Full coordination — programme, pledges, tasks, stakeholders, and closure.',
         photoUrl: BANNERMAN_SEED_PHOTO,
+      },
+      {
+        slug: 'ghana-muslim-example-2026',
+        deceasedName: 'Hajia Aminata Mensah',
+        summary: 'Programme-first layout with Janazah details, gallery, and family contacts.',
+        photoUrl: GHANA_MUSLIM_SEED_PHOTO,
+        eyebrow: 'Another example',
       },
     ],
   },

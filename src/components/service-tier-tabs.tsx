@@ -54,7 +54,13 @@ function TierPanelBody({
         ) : null}
       </p>
       {showStartCta ? (
-        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <Link
+            href={tier.startHref}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[color-mix(in_srgb,var(--passage-rule)_35%,transparent)] bg-transparent px-5 py-2.5 text-sm font-medium text-[var(--passage-heading)] transition hover:bg-[color-mix(in_srgb,var(--passage-rule)_6%,transparent)]"
+          >
+            See examples
+          </Link>
           <Link
             href={tier.createHref}
             className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[var(--passage-heading,#1A1A1A)] px-5 py-2.5 text-sm font-medium text-[var(--passage-bg,#FAFAF8)] transition hover:opacity-90"

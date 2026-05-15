@@ -31,6 +31,9 @@ import { PosterScanPanel, type PosterScanApplyPayload } from '@/components/poste
 import { uploadMemorialImage, uploadMemorialImagesSequential } from '@/lib/memorial-image-client'
 import { validateMemorialImageFile } from '@/lib/memorial-image'
 import { GallerySizeWarning } from '@/components/gallery-size-warning'
+import { MemorialSharePanel } from '@/components/memorial-share-panel'
+import { buildMemorialShareAnnouncement, memorialWhatsAppWebShareUrl } from '@/lib/memorial-share'
+import type { Memorial } from '@/lib/types'
 
 const STEPS = [
   'What you need',
@@ -287,9 +290,24 @@ export function CreateWizard() {
   }
 
   if (result) {
+    const sharePageUrl =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}${result.memorial_url}`
+        : result.memorial_url
+    const shareStub = {
+      deceased_name: form.deceased_name.trim() || 'Memorial',
+      date_of_birth: form.date_of_birth || undefined,
+      date_of_passing: form.date_of_passing || '',
+    } as Memorial
+    const shareAnnouncement = buildMemorialShareAnnouncement(shareStub, sharePageUrl)
+    const shareWhatsappHref = memorialWhatsAppWebShareUrl(shareAnnouncement)
+    const shareEmailSubject = form.deceased_name.trim()
+      ? `${form.deceased_name.trim()} — memorial`
+      : 'Memorial on Passage'
+
     return (
       <div className="min-h-full bg-[#1A1A1A] text-[#FAFAF8]">
-        <SiteHeader />
+        <SiteHeader highlightTierMode={form.memorial_mode ?? preselectedFromUrl} />
         <div className="mx-auto max-w-xl space-y-6 px-4 py-16">
           <h1 className="text-2xl font-semibold">Your draft is saved</h1>
           <p className="text-sm text-[#FAFAF8]/80">
@@ -304,6 +322,13 @@ export function CreateWizard() {
               {uploadNotice}
             </p>
           )}
+          <MemorialSharePanel
+            variant="compact"
+            pageUrl={sharePageUrl}
+            announcementPlainText={shareAnnouncement}
+            whatsappHref={shareWhatsappHref}
+            emailSubject={shareEmailSubject}
+          />
           <div className="flex flex-col gap-3 text-sm">
             <Link className="text-[#C9A02C] underline" href={result.memorial_url}>
               View the draft page
@@ -322,7 +347,7 @@ export function CreateWizard() {
 
   return (
     <div className="min-h-full bg-[#FAFAF8] text-[#1A1A1A]">
-      <SiteHeader />
+      <SiteHeader highlightTierMode={form.memorial_mode ?? preselectedFromUrl} />
       <div className="mx-auto max-w-3xl px-4 py-10">
         <p className="text-xs uppercase tracking-[0.2em] text-[#C9A02C]">Step {step + 1} of {STEPS.length}</p>
         <h1 className="mt-2 text-3xl font-semibold">Publish a notice</h1>

@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import { Suspense } from 'react'
 import { SiteHeaderOfferingLinks } from '@/components/site-header-offering-links'
+import type { ServiceTierMode } from '@/lib/service-tier-copy'
 
 const EXAMPLE_MEMORIAL_HREF = '/memorial/bannerman-samuel-2026'
 
@@ -8,9 +8,11 @@ type SiteHeaderProps = {
   /** Public memorial: family name only, no site nav clutter. */
   variant?: 'default' | 'minimal'
   memorialName?: string
+  /** Highlights the matching tier link in the header nav. */
+  highlightTierMode?: ServiceTierMode | null
 }
 
-export function SiteHeader({ variant = 'default', memorialName }: SiteHeaderProps) {
+export function SiteHeader({ variant = 'default', memorialName, highlightTierMode = null }: SiteHeaderProps) {
   if (variant === 'minimal') {
     return (
       <header className="border-b border-[color-mix(in_srgb,var(--passage-rule)_22%,transparent)] bg-[var(--passage-header-bg)] backdrop-blur-sm">
@@ -44,11 +46,15 @@ export function SiteHeader({ variant = 'default', memorialName }: SiteHeaderProp
           </div>
 
           <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4 lg:items-end">
-            <Suspense fallback={null}>
-              <SiteHeaderOfferingLinks />
-            </Suspense>
+            <SiteHeaderOfferingLinks highlightTierMode={highlightTierMode} />
 
             <nav className="flex flex-wrap items-center gap-3 text-sm">
+              <Link
+                href="/design-lab"
+                className="text-[var(--passage-header-text)]/85 hover:text-[var(--passage-header-link)]"
+              >
+                Appearances
+              </Link>
               <Link
                 href={EXAMPLE_MEMORIAL_HREF}
                 className="text-[var(--passage-header-text)]/85 hover:text-[var(--passage-header-link)]"

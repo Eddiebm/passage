@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import Link from 'next/link'
 import type { VisualTheme } from '@/lib/visual-themes'
 import {
+  VISUAL_THEME_COUNT,
   VISUAL_THEME_GROUPS,
   VISUAL_THEME_REGISTRY,
   type VisualThemeGroup,
@@ -51,7 +52,7 @@ export function VisualThemePicker({
         <p className="text-sm text-[var(--passage-muted)]">
           Choose how the public memorial looks.{' '}
           <Link href="/design-lab" className="passage-text-link">
-            Preview themes in the design lab
+            Preview all {VISUAL_THEME_COUNT}+ appearances in the design lab
           </Link>
           .
         </p>

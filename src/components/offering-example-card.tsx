@@ -19,7 +19,14 @@ export function OfferingExampleCard({ example }: { example: TierExampleMemorial 
       </div>
       <div className="flex flex-1 flex-col gap-3 p-4 sm:p-5">
         <div>
-          <h3 className="font-[family-name:var(--passage-font-display)] text-lg font-semibold tracking-tight text-[var(--passage-heading)]">
+          {example.eyebrow ? (
+            <p className="text-xs font-medium uppercase tracking-[0.16em] text-[var(--passage-muted)]">
+              {example.eyebrow}
+            </p>
+          ) : null}
+          <h3
+            className={`font-[family-name:var(--passage-font-display)] text-lg font-semibold tracking-tight text-[var(--passage-heading)]${example.eyebrow ? ' mt-1' : ''}`}
+          >
             {example.deceasedName}
           </h3>
           <p className="mt-1 text-sm leading-relaxed text-[var(--passage-muted)]">{example.summary}</p>

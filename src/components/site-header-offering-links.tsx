@@ -1,8 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { SERVICE_TIER_COPY, SERVICE_TIER_ORDER } from '@/lib/service-tier-copy'
+import { usePathname } from 'next/navigation'
+import { SERVICE_TIER_COPY, SERVICE_TIER_ORDER, type ServiceTierMode } from '@/lib/service-tier-copy'
+import { isServiceTierMode } from '@/lib/service-tiers'
 
 const linkClass =
   'shrink-0 whitespace-nowrap rounded-md px-2.5 py-1.5 text-[var(--passage-header-text)]/85 hover:bg-[color-mix(in_srgb,var(--passage-header-text)_8%,transparent)] hover:text-[var(--passage-header-link)]'
@@ -10,16 +11,18 @@ const linkClass =
 const activeLinkClass =
   'shrink-0 whitespace-nowrap rounded-md bg-[color-mix(in_srgb,var(--passage-header-text)_12%,transparent)] px-2.5 py-1.5 font-medium text-[var(--passage-header-link)]'
 
-export function SiteHeaderOfferingLinks() {
+type SiteHeaderOfferingLinksProps = {
+  /** Server- or parent-provided active tier (avoids useSearchParams CSR bailout). */
+  highlightTierMode?: ServiceTierMode | null
+}
+
+export function SiteHeaderOfferingLinks({ highlightTierMode = null }: SiteHeaderOfferingLinksProps) {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const startMatch = pathname?.match(/^\/start\/(notice|programme|full)$/)
+  const pathMode = startMatch?.[1]
   const activeMode =
-    pathname === '/create'
-      ? searchParams.get('mode')
-      : startMatch
-        ? startMatch[1]
-        : null
+    highlightTierMode ??
+    (pathMode && isServiceTierMode(pathMode) ? pathMode : null)
 
   return (
     <div

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { OfferingAppearancePreview } from '@/components/offering-appearance-preview'
 import { OfferingExampleCard } from '@/components/offering-example-card'
 import { OfferingFeatureChecklist } from '@/components/offering-feature-checklist'
 import { SiteFooter } from '@/components/site-footer'
@@ -39,7 +40,7 @@ export default async function OfferingStartPage({ params }: PageProps) {
 
   return (
     <div className="flex min-h-full flex-col">
-      <SiteHeader />
+      <SiteHeader highlightTierMode={mode} />
       <main className="passage-memorial-main mx-auto w-full flex-1 px-4 py-10 pb-16">
         <p className="text-xs uppercase tracking-[0.22em] text-[var(--passage-muted)]">See before you start</p>
         <h1 className="mt-2 font-[family-name:var(--passage-font-display)] text-3xl font-semibold tracking-tight sm:text-4xl">
@@ -55,13 +56,20 @@ export default async function OfferingStartPage({ params }: PageProps) {
           <p className="text-sm leading-relaxed text-[var(--passage-muted)]">
             These are real layouts families use — open one in a new tab to see exactly what guests receive.
           </p>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {examples.map((example) => (
-              <OfferingExampleCard key={`${example.slug}-${example.previewMode ?? 'live'}`} example={example} />
-            ))}
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="grid gap-6 sm:grid-cols-2 lg:col-span-2">
+              {examples.map((example) => (
+                <OfferingExampleCard
+                  key={`${example.slug}-${example.previewMode ?? 'live'}-${example.eyebrow ?? 'primary'}`}
+                  example={example}
+                />
+              ))}
+            </div>
             <OfferingFeatureChecklist tier={tier} />
           </div>
         </section>
+
+        <OfferingAppearancePreview />
 
         <div className="mt-10 flex flex-col gap-4 border-t border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] pt-8 sm:flex-row sm:items-center">
           <Link

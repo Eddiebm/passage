@@ -549,6 +549,25 @@ export function themeStorageKey(slug: string): string {
   return `passage-theme-${slug}`
 }
 
+/** Curated themes for offering/start-page appearance previews (diverse groups). */
+const OFFERING_PREVIEW_THEME_IDS: VisualTheme[] = [
+  'programme',
+  'monument',
+  'kente',
+  'night',
+  'coastal-breeze',
+  'savanna-gold',
+]
+
+export function getThemesForOfferingPreview(count = 6): VisualThemeMeta[] {
+  const limit = Math.min(count, OFFERING_PREVIEW_THEME_IDS.length)
+  return OFFERING_PREVIEW_THEME_IDS.slice(0, limit)
+    .map((id) => getVisualThemeMeta(id))
+    .filter((t): t is VisualThemeMeta => Boolean(t))
+}
+
+export const VISUAL_THEME_COUNT = VISUAL_THEME_REGISTRY.length
+
 export const VISUAL_THEME_LABELS: Record<
   VisualTheme,
   { title: string; body: string }
