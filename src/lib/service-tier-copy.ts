@@ -16,6 +16,8 @@ export type ServiceTierCopy = {
   enoughIf: string
   enoughNote?: string
   ctaLabel: string
+  /** Offering page with examples before create wizard. */
+  startHref: `/start/${ServiceTierMode}`
   createHref: `/create?mode=${ServiceTierMode}`
   reassurance?: string
 }
@@ -35,6 +37,7 @@ export const SERVICE_TIER_COPY: Record<ServiceTierMode, ServiceTierCopy> = {
     enoughIf: 'your family only needs to inform people and give the date and time.',
     enoughNote: 'This is enough for many families.',
     ctaLabel: 'Start with notice only',
+    startHref: '/start/notice',
     createHref: '/create?mode=notice',
     reassurance: 'You can add programme or coordination later if needed.',
   },
@@ -55,6 +58,7 @@ export const SERVICE_TIER_COPY: Record<ServiceTierMode, ServiceTierCopy> = {
     enoughIfLabel: 'This is enough if',
     enoughIf: 'you have a clear funeral programme to share and print.',
     ctaLabel: 'Start with programme & brochure',
+    startHref: '/start/programme',
     createHref: '/create?mode=programme',
     reassurance: 'You can turn on full coordination later if the family needs it.',
   },
@@ -76,6 +80,7 @@ export const SERVICE_TIER_COPY: Record<ServiceTierMode, ServiceTierCopy> = {
     enoughIfLabel: 'This is enough if',
     enoughIf: 'your family is managing the whole funeral.',
     ctaLabel: 'Start with full coordination',
+    startHref: '/start/full',
     createHref: '/create?mode=full',
     reassurance: 'You can keep the public page calm — coordinator tools stay in the family portal.',
   },

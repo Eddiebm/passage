@@ -22,6 +22,7 @@ import {
   memorialWhatsAppWebShareUrl,
   pickMemorialOgImageUrl,
 } from '@/lib/memorial-share'
+import { resolveExamplePreviewMode } from '@/lib/memorial-preview-mode'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialClientSections } from './sections'
@@ -87,14 +88,18 @@ export async function generateMetadata({
 
 export default async function MemorialPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>
+  searchParams: Promise<{ memorial_mode?: string; preview?: string }>
 }) {
   const { slug } = await params
+  const sp = await searchParams
   const data = await getMemorialWithDetails(slug)
   if (!data) notFound()
 
-  const mode = data.memorial_mode ?? 'notice'
+  const previewMode = resolveExamplePreviewMode(slug, sp)
+  const mode = previewMode ?? data.memorial_mode ?? 'notice'
   const showProgrammeSurface = mode === 'programme' || mode === 'full'
   const showGallery = showProgrammeSurface
   const showRemembrance = showProgrammeSurface
@@ -198,6 +203,7 @@ export default async function MemorialPage({
           pageUrl={pageUrl}
           announcementPlainText={announcementPlain}
           whatsappHref={whatsappHref}
+          emailSubject={`${data.deceased_name} — memorial`}
         />
         <p className="text-center text-xs text-[var(--passage-muted)] sm:text-left">
           <Link

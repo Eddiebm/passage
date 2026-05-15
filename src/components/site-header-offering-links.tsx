@@ -13,7 +13,13 @@ const activeLinkClass =
 export function SiteHeaderOfferingLinks() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const activeMode = pathname === '/create' ? searchParams.get('mode') : null
+  const startMatch = pathname?.match(/^\/start\/(notice|programme|full)$/)
+  const activeMode =
+    pathname === '/create'
+      ? searchParams.get('mode')
+      : startMatch
+        ? startMatch[1]
+        : null
 
   return (
     <div
@@ -26,7 +32,7 @@ export function SiteHeaderOfferingLinks() {
         return (
           <Link
             key={mode}
-            href={tier.createHref}
+            href={tier.startHref}
             className={isActive ? activeLinkClass : linkClass}
             aria-current={isActive ? 'page' : undefined}
           >
