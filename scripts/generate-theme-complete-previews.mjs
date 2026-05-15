@@ -7,7 +7,6 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
 import { showcaseCopyForPortrait } from './lib/showcase-copy.mjs'
-import { THEME_PREVIEW_JPG_COPY as SAMPLE } from './lib/example-memorial-names.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const ROOT = path.join(__dirname, '..')

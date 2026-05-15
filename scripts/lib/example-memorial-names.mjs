@@ -1,4 +1,25 @@
 /** Keep in sync with src/lib/example-memorial-names.ts */
+export const GENERIC_MALE_FIRST_NAMES = [
+  'Samuel',
+  'James',
+  'David',
+  'Michael',
+  'Ibrahim',
+  'Ahmed',
+]
+
+export const GENERIC_FEMALE_FIRST_NAMES = [
+  'Mary',
+  'Grace',
+  'Sarah',
+  'Amina',
+  'Fatima',
+  'Elizabeth',
+]
+
+export const GENERIC_FAMILY_LINE = 'The family'
+export const GENERIC_MEMORIAL_TITLE = 'Of blessed memory'
+
 export const EXAMPLE_NAMES = {
   male: {
     firstName: 'Samuel',
@@ -32,4 +53,13 @@ export const THEME_PREVIEW_JPG_COPY = {
   dates: '12 March 1942 · 3 May 2026',
   line: 'Of blessed memory · The family',
   snippet: SHOWCASE_DECEASED_COPY.announcementSnippet,
+}
+
+export function genericFirstNameForPortrait(portraitKey, gender) {
+  const pool = gender === 'male' ? GENERIC_MALE_FIRST_NAMES : GENERIC_FEMALE_FIRST_NAMES
+  let h = 0
+  for (let i = 0; i < portraitKey.length; i++) {
+    h = (h * 31 + portraitKey.charCodeAt(i)) | 0
+  }
+  return pool[Math.abs(h) % pool.length]
 }

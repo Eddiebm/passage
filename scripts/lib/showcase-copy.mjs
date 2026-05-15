@@ -1,12 +1,17 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  GENERIC_FAMILY_LINE,
+  GENERIC_MEMORIAL_TITLE,
+  genericFirstNameForPortrait,
+} from './example-memorial-names.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const NAMES_PATH = path.join(__dirname, '..', '..', 'src', 'lib', 'africa-portrait-names.json')
 
-/** @type {Record<string, { gender: 'male' | 'female', deceasedName: string, deceasedTitle: string, familyLine: string }>} */
-export const AFRICA_PORTRAIT_PROFILES = JSON.parse(fs.readFileSync(NAMES_PATH, 'utf8'))
+/** @type {Record<string, { gender: 'male' | 'female' }>} */
+const AFRICA_PORTRAIT_GENDER = JSON.parse(fs.readFileSync(NAMES_PATH, 'utf8'))
 
 const SHARED_DATES = {
   datesLine: 'Sunrise: 12 March 1942 · Sunset: 3 May 2026',
@@ -27,11 +32,11 @@ const SNIPPET_BY_GENDER = {
 
 /** @param {string} portraitFile */
 export function showcaseCopyForPortrait(portraitFile) {
-  const profile = AFRICA_PORTRAIT_PROFILES[portraitFile] ?? AFRICA_PORTRAIT_PROFILES['pan-african-elder-man.jpg']
+  const profile = AFRICA_PORTRAIT_GENDER[portraitFile] ?? AFRICA_PORTRAIT_GENDER['pan-african-elder-man.jpg']
   return {
-    deceasedName: profile.deceasedName,
-    deceasedTitle: profile.deceasedTitle,
-    familyLine: profile.familyLine,
+    deceasedName: genericFirstNameForPortrait(portraitFile, profile.gender),
+    deceasedTitle: GENERIC_MEMORIAL_TITLE,
+    familyLine: GENERIC_FAMILY_LINE,
     announcementSnippet: SNIPPET_BY_GENDER[profile.gender],
     ...SHARED_DATES,
   }
