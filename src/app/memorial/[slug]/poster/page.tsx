@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import QRCode from 'qrcode'
-import { burialPosterImageUrl } from '@/lib/burial-poster'
+import { themePosterAssetUrl } from '@/lib/theme-poster-assets'
 import { memorialAbsoluteUrl, memorialPagePath } from '@/lib/memorial-share'
 import { memorialTemplateClass, memorialThemeClass, normalizeVisualTheme } from '@/lib/memorial-hydrate'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
@@ -54,7 +54,7 @@ export default async function MemorialPosterPage({
   const themeClass = memorialThemeClass(theme)
   const templateClass = memorialTemplateClass(data.output_template)
   const memorialUrl = memorialAbsoluteUrl(slug)
-  const staticPosterUrl = burialPosterImageUrl(theme)
+  const staticPosterUrl = themePosterAssetUrl(theme)
   const qrDataUrl = await QRCode.toDataURL(memorialUrl, {
     margin: 1,
     width: 320,

@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { BURIAL_POSTER_HEIGHT, BURIAL_POSTER_WIDTH, burialPosterImageUrl } from '@/lib/burial-poster'
+import { BURIAL_POSTER_HEIGHT, BURIAL_POSTER_WIDTH } from '@/lib/burial-poster'
+import { themePosterAssetUrl } from '@/lib/theme-poster-assets'
 import { getVisualThemeMeta, type VisualTheme } from '@/lib/visual-themes'
 
 /** Full-resolution burial poster JPEG (1080×1920). */
@@ -15,7 +16,7 @@ export function BurialPosterImage({
   className?: string
 }) {
   const meta = getVisualThemeMeta(themeId)
-  const src = burialPosterImageUrl(themeId)
+  const src = themePosterAssetUrl(themeId)
   const alt = meta
     ? `${meta.label} burial poster — Passage`
     : `${themeId} burial poster`

@@ -5,14 +5,16 @@ export const BURIAL_POSTER_WIDTH = 1080
 export const BURIAL_POSTER_HEIGHT = 1920
 export const BURIAL_POSTER_ASPECT = '9/16' as const
 
-const BURIAL_POSTER_DIR = '/burial-posters'
+import { themePosterAssetUrl, themePosterHiResAssetUrl } from '@/lib/theme-poster-assets'
 
+/** @deprecated Use `themePosterAssetUrl` from `@/lib/theme-poster-assets`. */
 export function burialPosterImageUrl(themeId: string): string {
-  return `${BURIAL_POSTER_DIR}/${themeId}.jpg`
+  return themePosterAssetUrl(themeId)
 }
 
+/** @deprecated Use `themePosterHiResAssetUrl` from `@/lib/theme-poster-assets`. */
 export function burialPosterHiResImageUrl(themeId: string): string {
-  return `${BURIAL_POSTER_DIR}/${themeId}@2x.jpg`
+  return themePosterHiResAssetUrl(themeId)
 }
 
 export function themeHasBurialPoster(themeId: string): boolean {

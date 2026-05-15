@@ -4,6 +4,11 @@ import { notFound } from 'next/navigation'
 import { ThemePreviewImage } from '@/components/theme-preview-image'
 import { MemorialThemeShell } from '@/components/memorial-theme-shell'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
+import {
+  designLabBurialPosterHref,
+  isFlagshipShowcaseTheme,
+  completeShowcaseThemeHref,
+} from '@/lib/theme-poster-assets'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import { getVisualThemeMeta, isVisualTheme, VISUAL_THEME_REGISTRY } from '@/lib/visual-themes'
 import type { VisualTheme } from '@/lib/visual-themes'
@@ -43,6 +48,8 @@ export default async function DesignLabThemePage({
   const theme = themeId as VisualTheme
   const liveHref = themeExampleHref(theme)
   const createHref = completeShowcaseCreateHref(theme)
+  const burialPosterHref = designLabBurialPosterHref(theme)
+  const flagshipHref = isFlagshipShowcaseTheme(theme) ? completeShowcaseThemeHref(theme) : null
 
   return (
     <MemorialThemeShell
@@ -63,7 +70,7 @@ export default async function DesignLabThemePage({
             <p className="text-xs text-[var(--passage-muted)]">{meta.description}</p>
             <p className="mt-1 text-[10px] text-[var(--passage-muted)]">{themeExampleLabel(theme)}</p>
             <p className="mt-1 text-[10px] text-[var(--passage-muted)]">
-              Programme-scale poster preview — not the minimal notice-only layout.
+              Phone-frame preview — same JPG as the design lab grid thumbnail.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -71,12 +78,26 @@ export default async function DesignLabThemePage({
               {meta.group} · {meta.id}
             </p>
             <Link
+              href={burialPosterHref}
+              className="inline-flex min-h-[36px] items-center rounded-md border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-bg)] px-3 py-1.5 text-xs font-medium text-[var(--passage-link)] hover:underline"
+            >
+              Burial poster (9:16)
+            </Link>
+            {flagshipHref ? (
+              <Link
+                href={flagshipHref}
+                className="inline-flex min-h-[36px] items-center rounded-md border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-bg)] px-3 py-1.5 text-xs font-medium text-[var(--passage-link)] hover:underline"
+              >
+                Complete poster look
+              </Link>
+            ) : null}
+            <Link
               href={liveHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex min-h-[36px] items-center rounded-md border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-bg)] px-3 py-1.5 text-xs font-medium text-[var(--passage-link)] hover:underline"
             >
-              View on live example memorial
+              Live example memorial
             </Link>
             <Link
               href={createHref}

@@ -7,6 +7,7 @@ import {
   THEME_EXAMPLE_SLUGS,
   themeExampleHref,
 } from '@/lib/theme-example-memorials'
+import { flagshipShowcaseAssetUrl } from '@/lib/theme-poster-assets'
 
 export const COMPLETE_SHOWCASE_PATH = '/examples/complete' as const
 
@@ -27,13 +28,6 @@ export type CompleteShowcaseEntry = {
 
 const COMPLETE_THEME_IDS = ['programme', 'monument', 'kente', 'night'] as const satisfies readonly VisualTheme[]
 
-const SHOWCASE_IMAGE_BY_THEME: Record<(typeof COMPLETE_THEME_IDS)[number], string> = {
-  programme: '/showcase/complete-programme.png',
-  monument: '/showcase/complete-monument.png',
-  kente: '/showcase/complete-kente.png',
-  night: '/showcase/complete-night.png',
-}
-
 export function completeShowcasePreviewHref(visualTheme: VisualTheme): string {
   return `/examples/complete/${visualTheme}`
 }
@@ -49,7 +43,7 @@ export const COMPLETE_SHOWCASE_ENTRIES: CompleteShowcaseEntry[] = COMPLETE_THEME
   const sample = getShowcaseSampleForThemeId(id)
   return {
     visualTheme: id,
-    imageSrc: SHOWCASE_IMAGE_BY_THEME[id],
+    imageSrc: flagshipShowcaseAssetUrl(id),
     label: meta.label,
     description: meta.description,
     exampleLabel: `Example: ${sample.deceasedName}`,

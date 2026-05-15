@@ -7,6 +7,7 @@ import {
 } from '@/lib/visual-themes'
 import type { VisualTheme } from '@/lib/visual-themes'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
+import { isFlagshipShowcaseTheme, themePhoneFullPreviewHref } from '@/lib/theme-poster-assets'
 
 export function OfferingAppearancePreview() {
   const themes = getThemesForOfferingPreview(6)
@@ -18,8 +19,9 @@ export function OfferingAppearancePreview() {
       </h2>
       <p className="text-sm leading-relaxed text-[var(--passage-muted)]">
         Every programme memorial can use a different visual style — calm programme, night vigil, kente
-        restraint, and dozens more. Each card is a full poster-scale phone preview; open the design lab
-        preview or see it on a live example memorial with programme layout (not notice-only).
+        restraint, and dozens more. Each card shows the canonical preview image; open full preview for
+        the same asset at full size, or see it on a live example memorial (programme layout, not
+        notice-only).
       </p>
       <AppearancePreviewGrid themes={themes} />
       <p className="text-sm">
@@ -36,7 +38,8 @@ function AppearancePreviewGrid({ themes }: { themes: VisualThemeMeta[] }) {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {themes.map((theme) => {
         const themeId = theme.id as VisualTheme
-        const detailHref = `/design-lab/${themeId}`
+        const isFlagship = isFlagshipShowcaseTheme(themeId)
+        const detailHref = themePhoneFullPreviewHref(themeId)
         const liveHref = themeExampleHref(themeId)
         return (
           <article
@@ -44,7 +47,10 @@ function AppearancePreviewGrid({ themes }: { themes: VisualThemeMeta[] }) {
             className="overflow-hidden rounded-lg border border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] bg-[var(--passage-card-bg)] shadow-sm"
           >
             <Link href={detailHref} className="block">
-              <ThemePreviewImage themeId={themeId} />
+              <ThemePreviewImage
+                themeId={themeId}
+                tier={isFlagship ? 'flagship-showcase' : 'phone-preview'}
+              />
             </Link>
             <div className="border-t border-[color-mix(in_srgb,var(--passage-rule)_15%,transparent)] px-3 py-2">
               <p className="text-sm font-medium text-[var(--passage-heading)]">{theme.label}</p>

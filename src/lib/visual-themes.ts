@@ -1,5 +1,7 @@
 /** Visual memorial themes — coordinator-selectable appearances. */
 
+import { themePreviewAssetUrl } from '@/lib/theme-poster-assets'
+
 export type VisualThemeGroup = 'light' | 'dark' | 'cultural' | 'regional'
 
 /** Second regional batch — filter as "Across Africa (25)" in design lab. */
@@ -777,7 +779,7 @@ export function themeStorageKey(slug: string): string {
 
 /** Pre-rendered full phone memorial preview (public/theme-previews). */
 export function themePreviewImageUrl(themeId: string): string {
-  return `/theme-previews/${themeId}.jpg`
+  return themePreviewAssetUrl(themeId)
 }
 
 /** Curated themes for offering/start-page appearance previews (diverse groups). */

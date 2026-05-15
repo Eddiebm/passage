@@ -5,6 +5,7 @@ import { useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { ThemePreviewImage } from '@/components/theme-preview-image'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
+import { completeShowcaseThemeHref, designLabBurialPosterHref, isFlagshipShowcaseTheme } from '@/lib/theme-poster-assets'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
 import {
   AFRICA_EXTENDED_THEME_COUNT,
@@ -115,6 +116,10 @@ export function DesignLabThemeGrid() {
           const themeId = theme.id as VisualTheme
           const liveHref = themeExampleHref(themeId)
           const detailHref = `/design-lab/${themeId}`
+          const burialPosterHref = designLabBurialPosterHref(themeId)
+          const completeHref = isFlagshipShowcaseTheme(themeId)
+            ? completeShowcaseThemeHref(themeId)
+            : null
           return (
             <article
               key={theme.id}
@@ -128,6 +133,8 @@ export function DesignLabThemeGrid() {
               <ThemeCardFooter
                 theme={theme}
                 detailHref={detailHref}
+                burialPosterHref={burialPosterHref}
+                completeHref={completeHref}
                 liveHref={liveHref}
                 createHref={completeShowcaseCreateHref(themeId)}
               />
@@ -212,11 +219,15 @@ function PaginationBar({
 function ThemeCardFooter({
   theme,
   detailHref,
+  burialPosterHref,
+  completeHref,
   liveHref,
   createHref,
 }: {
   theme: (typeof VISUAL_THEME_REGISTRY)[number]
   detailHref: string
+  burialPosterHref: string
+  completeHref: string | null
   liveHref: string
   createHref: string
 }) {
@@ -233,13 +244,21 @@ function ThemeCardFooter({
         <Link href={detailHref} className="text-[#6B1F2A] underline-offset-2 hover:underline">
           Full preview
         </Link>
+        <Link href={burialPosterHref} className="text-[#6B1F2A] underline-offset-2 hover:underline">
+          Burial poster
+        </Link>
+        {completeHref ? (
+          <Link href={completeHref} className="text-[#6B1F2A] underline-offset-2 hover:underline">
+            Complete poster look
+          </Link>
+        ) : null}
         <Link
           href={liveHref}
           target="_blank"
           rel="noopener noreferrer"
           className="text-[#6B1F2A] underline-offset-2 hover:underline"
         >
-          View on example memorial
+          Live example memorial
         </Link>
         <Link href={createHref} className="text-[#1A1A1A]/70 underline-offset-2 hover:underline">
           Use this style

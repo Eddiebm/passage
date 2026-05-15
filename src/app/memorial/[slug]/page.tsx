@@ -25,7 +25,7 @@ import {
 import { resolveExamplePreviewMode } from '@/lib/memorial-preview-mode'
 import { isThemeExampleSlug, parseVisualThemeQueryParam } from '@/lib/theme-example-memorials'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
-import { burialPosterImageUrl } from '@/lib/burial-poster'
+import { themePosterAssetUrl } from '@/lib/theme-poster-assets'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialClientSections } from './sections'
 
@@ -214,7 +214,7 @@ export default async function MemorialPage({
           announcementPlainText={announcementPlain}
           whatsappHref={whatsappHref}
           burialPosterPageUrl={`/memorial/${slug}/poster`}
-          burialPosterDownloadUrl={burialPosterImageUrl(coordinatorTheme)}
+          burialPosterDownloadUrl={themePosterAssetUrl(coordinatorTheme)}
         />
         <p className="text-center text-xs text-[var(--passage-muted)] sm:text-left">
           <Link

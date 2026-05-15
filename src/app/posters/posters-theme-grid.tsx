@@ -4,7 +4,10 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { BurialPosterImage } from '@/components/burial-poster-image'
-import { burialPosterImageUrl } from '@/lib/burial-poster'
+import {
+  themeBurialPosterFullPreviewHref,
+  themePosterAssetUrl,
+} from '@/lib/theme-poster-assets'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
 import {
   AFRICA_EXTENDED_THEME_COUNT,
@@ -109,13 +112,14 @@ export function PostersThemeGrid() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {visibleThemes.map((theme) => {
           const themeId = theme.id as VisualTheme
-          const downloadHref = burialPosterImageUrl(themeId)
+          const downloadHref = themePosterAssetUrl(themeId)
+          const fullPreviewHref = themeBurialPosterFullPreviewHref(themeId)
           return (
             <article
               key={theme.id}
               className="flex min-h-[360px] flex-col overflow-hidden rounded-lg border border-[#3D2B1F]/12 bg-white shadow-sm"
             >
-              <Link href={`/design-lab/${themeId}`} className="group flex flex-1 flex-col">
+              <Link href={fullPreviewHref} className="group flex flex-1 flex-col">
                 <div className="flex flex-1 items-center justify-center bg-[#F5F3F0] py-4">
                   <BurialPosterImage themeId={themeId} compact />
                 </div>
@@ -127,7 +131,7 @@ export function PostersThemeGrid() {
                   Burial poster · {theme.id}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm font-medium">
-                  <Link href={`/design-lab/${themeId}`} className="text-[#6B1F2A] underline-offset-2 hover:underline">
+                  <Link href={fullPreviewHref} className="text-[#6B1F2A] underline-offset-2 hover:underline">
                     Open full preview
                   </Link>
                   <a

@@ -124,7 +124,7 @@ export function getThemeCompletePreviewPath(themeId: string): string {
   return `${THEME_PREVIEW_DIR}/${themeId}.jpg`
 }
 
-/** @deprecated Use `themePreviewImageUrl` from `@/lib/visual-themes`. */
+/** @deprecated Use `themePreviewAssetUrl` from `@/lib/theme-poster-assets`. */
 export function themePreviewImageUrl(themeId: string): string {
   return getThemeCompletePreviewPath(themeId)
 }

@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
+import { ThemeAssetFullBleed } from '@/components/theme-asset-full-bleed'
 import {
   COMPLETE_SHOWCASE_ENTRIES,
   COMPLETE_SHOWCASE_PATH,
@@ -55,17 +55,8 @@ export default async function CompleteShowcaseThemePage({
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-[#1A1A1A]/70">{entry.description}</p>
         <p className="mt-2 text-xs text-[#1A1A1A]/55">{entry.exampleLabel}</p>
 
-        <div className="mt-8 overflow-hidden rounded-2xl border border-[#3D2B1F]/12 bg-[#F4F0E8] shadow-lg">
-          <div className="relative aspect-[3/2] w-full">
-            <Image
-              src={entry.imageSrc}
-              alt={`${entry.label} memorial poster — ${entry.exampleLabel}`}
-              fill
-              className="object-contain object-center"
-              sizes="(max-width: 1024px) 100vw, 1024px"
-              priority
-            />
-          </div>
+        <div className="mt-8">
+          <ThemeAssetFullBleed themeId={entry.visualTheme} tier="flagship-showcase" priority />
         </div>
 
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
