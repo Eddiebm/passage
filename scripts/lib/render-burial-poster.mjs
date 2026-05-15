@@ -10,35 +10,23 @@ import { showcaseCopyForPortrait } from './showcase-copy.mjs'
 export const FLAGSHIP_THEMES = ['programme', 'monument', 'kente', 'night']
 
 export const REGION_HINTS = [
-  { tokens: ['kente', 'adinkra', 'ashanti'], file: 'ghana-accra-elder-woman.jpg' },
-  { tokens: ['ghana', 'accra', 'cape-coast', 'volta'], file: 'ghana-fashion-elder.jpg' },
-  { tokens: ['nigeria', 'lagos', 'abuja', 'yoruba'], file: 'nigeria-lagos-woman.jpg' },
-  { tokens: ['senegal', 'dakar'], file: 'senegal-dakar-elder.jpg' },
-  { tokens: ['mali', 'bamako'], file: 'mali-bamako-man.jpg' },
-  { tokens: ['ivory', 'abidjan', 'cote', 'coral'], file: 'ivory-coast-abidjan-woman.jpg' },
+  { tokens: ['kente', 'adinkra', 'ashanti', 'ghana', 'accra', 'cape-coast', 'volta'], file: 'nigeria-lagos-elder-man.jpg' },
+  { tokens: ['nigeria', 'lagos', 'abuja', 'yoruba', 'ibadan'], file: 'nigeria-lagos-elder-man.jpg' },
+  { tokens: ['senegal', 'dakar', 'teranga', 'mali', 'bamako', 'mudcloth'], file: 'pan-african-elder-man.jpg' },
+  { tokens: ['ivory', 'abidjan', 'cote', 'coral'], file: 'pan-african-elder-man.jpg' },
   { tokens: ['cameroon'], file: 'cameroon-yaounde-elder.jpg' },
-  { tokens: ['congo', 'kinshasa', 'river'], file: 'drc-kinshasa-woman.jpg' },
-  { tokens: ['kenya', 'nairobi'], file: 'kenya-nairobi-elder-woman.jpg' },
-  { tokens: ['ethiopia', 'addis'], file: 'ethiopia-addis-elder-man.jpg' },
-  { tokens: ['tanzania', 'dar-teal', 'dar-es'], file: 'tanzania-dar-woman.jpg' },
-  { tokens: ['somalia', 'mogadishu', 'somali'], file: 'somalia-mogadishu-man.jpg' },
-  { tokens: ['egypt', 'cairo', 'nile'], file: 'egypt-cairo-elder.jpg' },
-  { tokens: ['morocco', 'fez', 'marrakech', 'sahara'], file: 'morocco-fez-woman.jpg' },
-  { tokens: ['tunisia', 'gabes'], file: 'tunisia-gabes-elder.jpg' },
-  { tokens: ['mozambique'], file: 'mozambique-maputo-man.jpg' },
-  { tokens: ['zambia', 'copper'], file: 'zambia-lusaka-woman.jpg' },
+  { tokens: ['congo', 'kinshasa', 'river'], file: 'pan-african-elder-man.jpg' },
+  { tokens: ['kenya', 'nairobi', 'highlands', 'tanzania', 'dar-teal', 'savanna'], file: 'kenya-nairobi-elder-woman.jpg' },
+  { tokens: ['ethiopia', 'addis', 'horn', 'asmara', 'orthodox'], file: 'ethiopia-lalibela-priest.jpg' },
+  { tokens: ['somalia', 'mogadishu', 'somali'], file: 'somalia-mogadishu-woman.jpg' },
+  { tokens: ['egypt', 'cairo', 'nile', 'morocco', 'fez', 'marrakech', 'sahara', 'maghreb', 'tunisia', 'gabes'], file: 'tunisia-gabes-elder.jpg' },
   { tokens: ['south-africa', 'ubuntu', 'cape-winds'], file: 'south-africa-cape-elder.jpg' },
-  { tokens: ['zimbabwe', 'harare', 'stone'], file: 'zimbabwe-harare-elder.jpg' },
-  { tokens: ['botswana', 'sand', 'windhoek'], file: 'botswana-gaborone-woman.jpg' },
-  { tokens: ['madagascar', 'rain'], file: 'madagascar-antananarivo-elder.jpg' },
-  { tokens: ['mauritius', 'azure', 'seychelles', 'reunion', 'lagoon'], file: 'mauritius-port-louis-woman.jpg' },
-  { tokens: ['rwanda', 'kigali'], file: 'rwanda-kigali-man.jpg' },
-  { tokens: ['uganda', 'kampala'], file: 'uganda-kampala-elder.jpg' },
-  { tokens: ['namibia', 'dust'], file: 'namibia-windhoek-woman.jpg' },
-  { tokens: ['angola', 'amber', 'maputo'], file: 'angola-luanda-man.jpg' },
-  { tokens: ['liberia', 'monrovia'], file: 'liberia-monrovia-elder.jpg' },
-  { tokens: ['sierra-leone', 'freetown', 'harmony', 'mist'], file: 'sierra-leone-freetown-woman.jpg' },
-  { tokens: ['pan-african', 'continental', 'ancestral', 'baobab', 'savanna', 'burkina', 'malawi'], file: 'pan-african-elder-man.jpg' },
+  { tokens: ['zimbabwe', 'harare', 'stone', 'botswana', 'sand', 'namibia', 'windhoek', 'dust', 'zambia', 'copper'], file: 'zambia-chief-elder.jpg' },
+  { tokens: ['angola', 'amber', 'maputo', 'mozambique'], file: 'mozambique-maputo-man.jpg' },
+  { tokens: ['madagascar', 'rain', 'mauritius', 'azure', 'seychelles', 'reunion', 'lagoon'], file: 'pan-african-elder-man.jpg' },
+  { tokens: ['rwanda', 'kigali', 'uganda', 'kampala', 'lake'], file: 'pan-african-elder-man.jpg' },
+  { tokens: ['liberia', 'monrovia', 'sierra-leone', 'freetown', 'harmony', 'mist'], file: 'pan-african-elder-man.jpg' },
+  { tokens: ['pan-african', 'continental', 'ancestral', 'baobab', 'burkina', 'ouagadougou', 'lome', 'malawi', 'benin', 'gambia', 'togo'], file: 'pan-african-elder-man.jpg' },
 ]
 
 const LAYOUTS = {
@@ -213,7 +201,7 @@ export async function renderBurialPosterJpeg(opts) {
   const photoH = heroH - (layoutKey === 'kente' ? Math.round(6 * scale) : 0)
 
   const photo = await sharp(portraitPath)
-    .resize(photoW, photoH, { fit: 'cover', position: 'attention' })
+    .resize(photoW, photoH, { fit: 'cover', position: 'top' })
     .toBuffer()
 
   const frameSvg = layoutSvg(W, H, layoutKey, themeLabel, sample)

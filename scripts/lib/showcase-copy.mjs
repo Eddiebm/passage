@@ -38,8 +38,8 @@ export function showcaseCopyForPortrait(portraitFile) {
   }
 }
 
-/** Default when theme id is unknown (matches ghana-fashion-elder). */
-export const SHOWCASE = showcaseCopyForPortrait('ghana-fashion-elder.jpg')
+/** Default when theme id is unknown. */
+export const SHOWCASE = showcaseCopyForPortrait('pan-african-elder-man.jpg')
 
 /**
  * @param {string} s
