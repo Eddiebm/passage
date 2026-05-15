@@ -15,6 +15,22 @@ export const EXAMPLE_MEMORIAL_SLUGS = [
   'ghana-muslim-example-2026',
 ] as const
 
+/** Committed under `public/seed/` — work offline and in production without Blob. */
+export const BANNERMAN_SEED_PHOTO = '/seed/bannerman-primary.jpg'
+export const BANNERMAN_SEED_GALLERY = [
+  '/seed/bannerman-1.jpg',
+  '/seed/bannerman-2.jpg',
+  '/seed/bannerman-3.jpg',
+  '/seed/bannerman-4.jpg',
+] as const
+
+export const GHANA_MUSLIM_SEED_PHOTO = '/seed/muslim-primary.jpg'
+export const GHANA_MUSLIM_SEED_GALLERY = [
+  '/seed/muslim-1.jpg',
+  '/seed/muslim-2.jpg',
+  '/seed/muslim-3.jpg',
+] as const
+
 const SLUG = EXAMPLE_MEMORIAL_SLUGS[0]
 
 export function getExampleMemorialBlob(): StoredMemorialBlob {
@@ -59,8 +75,8 @@ export function getExampleMemorialBlob(): StoredMemorialBlob {
     deceased_community: 'Ngleshie Alata Jamestown',
     date_of_birth: '1948-03-22',
     date_of_passing: '2026-01-08',
-    photo_url:
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80',
+    photo_url: BANNERMAN_SEED_PHOTO,
+    gallery_urls: [...BANNERMAN_SEED_GALLERY],
     biography:
       'A devoted father, uncle, and steward of the family stool. Known for his quiet strength, generosity to young people, and unwavering commitment to truth and dignity.',
     tradition: 'ghana-christian',
@@ -249,7 +265,8 @@ export function getGhanaMuslimExampleMemorialBlob(): StoredMemorialBlob {
     deceased_community: 'Nima, Accra',
     date_of_birth: '1952-08-14',
     date_of_passing: '2026-01-28',
-    photo_url: undefined,
+    photo_url: GHANA_MUSLIM_SEED_PHOTO,
+    gallery_urls: [...GHANA_MUSLIM_SEED_GALLERY],
     biography:
       'Beloved mother, aunt, and pillar of the community. Known for her hospitality at Ramadan, her counsel to young women, and her quiet generosity to neighbours in need.',
     tradition: 'ghana-muslim',

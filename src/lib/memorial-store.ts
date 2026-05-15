@@ -188,6 +188,31 @@ async function readPersistedBlob(slug: string): Promise<StoredMemorialBlob | nul
   return null
 }
 
+/** Backfill sample photos on example memorials saved before seed images shipped. */
+function mergeExampleSeedImages(
+  slug: string,
+  persisted: StoredMemorialBlob,
+): StoredMemorialBlob {
+  const builtIn = getBuiltInSeedBlob(slug)
+  if (!builtIn) return persisted
+  const m = persisted.memorial
+  const needsPhoto = !m.photo_url?.trim()
+  const needsGallery = !(m.gallery_urls?.length)
+  if (!needsPhoto && !needsGallery) return persisted
+  return {
+    ...persisted,
+    memorial: {
+      ...m,
+      ...(needsPhoto && builtIn.memorial.photo_url
+        ? { photo_url: builtIn.memorial.photo_url }
+        : {}),
+      ...(needsGallery && builtIn.memorial.gallery_urls?.length
+        ? { gallery_urls: [...builtIn.memorial.gallery_urls] }
+        : {}),
+    },
+  }
+}
+
 function resolveBlobWithBuiltIn(
   slug: string,
   persisted: StoredMemorialBlob | null,
@@ -195,7 +220,7 @@ function resolveBlobWithBuiltIn(
   const builtIn = getBuiltInSeedBlob(slug)
   if (isExampleMemorialSlug(slug) && builtIn) {
     if (!persisted || !blobHasPublicContent(persisted)) return builtIn
-    return persisted
+    return mergeExampleSeedImages(slug, persisted)
   }
   return persisted ?? builtIn
 }

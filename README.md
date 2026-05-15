@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Two example memorials seed on first access (only if each slug is missing).
+Open [http://localhost:3000](http://localhost:3000). Two example memorials seed on first access (only if each slug is missing). Each example ships with **sample portrait and gallery photos** under [`public/seed/`](public/seed/) (served as `/seed/…` — no Blob or external CDN required). Regenerate assets with `node scripts/generate-seed-images.mjs`.
 
 ### Visual themes & design lab
 
@@ -60,7 +60,9 @@ Coordinator-authenticated uploads (`POST /api/memorials/[slug]/images`) store by
 1. **Vercel Blob** — when `BLOB_READ_WRITE_TOKEN` is set (public blob URLs).
 2. **Local development** — when `NODE_ENV === 'development'`, files go to **`.passage-dev/uploads/`** (gitignored with the rest of `.passage-dev/`) and are served only via **`GET /api/uploads/...`** (that route returns 404 outside development).
 
-If neither applies (for example production without Blob), uploads return **503** with an explanatory error; memorials can still use pasted **image URLs** on `photo_url` / `gallery_urls`.
+If neither applies (for example production without Blob), uploads return **503** with an explanatory error; memorials can still use pasted **image URLs** on `photo_url` / `gallery_urls`, or paths under **`/seed/`** for built-in demo content.
+
+**Example memorial photos:** committed JPEGs in `public/seed/` (`bannerman-*.jpg`, `muslim-*.jpg`). Open Graph and Twitter cards resolve these to absolute URLs via the site origin (`pickMemorialOgImageUrl` in `src/lib/memorial-share.ts`).
 
 **Limits:** server validates **JPEG / PNG / WebP** by magic bytes and enforces **8MB** max on the **original upload** (before resize). Uploaded photos are resized server-side (max width **1920px**, WebP quality ~85; PNG kept only when transparency is detected). Very small serverless body limits on some hosts may require raising platform limits separately.
 
