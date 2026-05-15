@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { MemorialPinUpdate } from '@/lib/memorial-store'
 import { isStakeholderCategory } from '@/lib/memorial-hydrate'
+import { VISUAL_THEMES } from '@/lib/visual-themes'
 import type {
   BankReconciliationTransaction,
   ContactCard,
@@ -11,6 +12,7 @@ import type {
   MemorialPledgeStatus,
   MemorialTask,
   OutputTemplate,
+  VisualTheme,
   ProgrammeReading,
   ProgrammeReadingType,
   Remembrance,
@@ -169,6 +171,17 @@ function parseOutputTemplatePatch(raw: unknown): { ok: true; value: OutputTempla
   return { ok: true, value: raw as OutputTemplate }
 }
 
+function parseVisualThemePatch(raw: unknown): { ok: true; value: VisualTheme } | { ok: false; error: string } {
+  if (typeof raw !== 'string') return { ok: false, error: 'visual_theme must be a string' }
+  if (!VISUAL_THEMES.includes(raw as VisualTheme)) {
+    return {
+      ok: false,
+      error: `visual_theme must be a known theme id (received "${raw}")`,
+    }
+  }
+  return { ok: true, value: raw as VisualTheme }
+}
+
 function parseIsoDateField(raw: unknown): string | undefined | null {
   if (raw === null || raw === '') return null
   const t = trimStr(raw)
@@ -312,6 +325,12 @@ export function parseStructuredMemorialPatch(
     const parsed = parseOutputTemplatePatch(b.output_template)
     if (!parsed.ok) return parsed
     patch.output_template = parsed.value
+  }
+
+  if (b.visual_theme !== undefined) {
+    const parsed = parseVisualThemePatch(b.visual_theme)
+    if (!parsed.ok) return parsed
+    patch.visual_theme = parsed.value
   }
 
   if (b.deceased_name !== undefined) {

@@ -1,3 +1,6 @@
+import type { VisualTheme } from '@/lib/visual-themes'
+export type { VisualTheme }
+
 export type Tradition =
   | 'ghana-christian'
   | 'ghana-muslim'
@@ -151,6 +154,8 @@ export interface Memorial {
   memorial_mode?: MemorialMode
   /** Print / public typography variant — independent of `memorial_mode`. */
   output_template?: OutputTemplate
+  /** Visual theme for public memorial — default printed programme. */
+  visual_theme?: VisualTheme
 
   // Deceased
   deceased_name: string
@@ -302,6 +307,7 @@ export interface StoredMemorialBlob {
 export interface CreateMemorialForm {
   memorial_mode: MemorialMode
   output_template?: OutputTemplate
+  visual_theme?: VisualTheme
   tradition: Tradition
   deceased_name: string
   deceased_title: string

@@ -37,45 +37,48 @@ export function MemorialClientSections({
   }
 
   return (
-    <section className="max-w-xl space-y-4 rounded-lg border border-[#3D2B1F]/15 bg-white p-6">
-      <h2 className="text-lg font-semibold text-[#3D2B1F]">{headline ?? 'Leave a tribute'}</h2>
-      <p className="text-sm text-[#1A1A1A]/70">
+    <section className="passage-rule-block max-w-xl space-y-4 p-0 pt-6">
+      <h2 className="passage-section-title border-0 pb-0">{headline ?? 'Leave a tribute'}</h2>
+      <p className="text-sm text-[var(--passage-muted)]">
         Tributes appear after the family approves them. Video upload is planned for a later release.
       </p>
       <form className="space-y-3" onSubmit={submitTribute}>
         <div>
-          <label className="text-xs font-medium text-[#1A1A1A]/70">Your name</label>
+          <label className="text-xs font-medium text-[var(--passage-muted)]">Your name</label>
           <input
-            className="mt-1 w-full rounded border border-[#3D2B1F]/20 px-3 py-2 text-sm"
+            className="mt-1 w-full border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-surface)] px-3 py-2 text-sm text-[var(--passage-text)]"
+            style={{ borderRadius: 'var(--passage-radius)' }}
             value={authorName}
             onChange={(e) => setAuthorName(e.target.value)}
             required
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-[#1A1A1A]/70">Location (optional)</label>
+          <label className="text-xs font-medium text-[var(--passage-muted)]">Location (optional)</label>
           <input
-            className="mt-1 w-full rounded border border-[#3D2B1F]/20 px-3 py-2 text-sm"
+            className="mt-1 w-full border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-surface)] px-3 py-2 text-sm text-[var(--passage-text)]"
+            style={{ borderRadius: 'var(--passage-radius)' }}
             value={location}
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
         <div>
-          <label className="text-xs font-medium text-[#1A1A1A]/70">Message</label>
+          <label className="text-xs font-medium text-[var(--passage-muted)]">Message</label>
           <textarea
-            className="mt-1 min-h-[120px] w-full rounded border border-[#3D2B1F]/20 px-3 py-2 text-sm"
+            className="mt-1 min-h-[120px] w-full border border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] bg-[var(--passage-surface)] px-3 py-2 text-sm text-[var(--passage-text)]"
+            style={{ borderRadius: 'var(--passage-radius)' }}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
           />
         </div>
         <button
           type="submit"
-          className="min-h-[44px] rounded-md bg-[#C9A02C] px-4 py-2 text-sm font-medium text-[#1A1A1A] hover:bg-[#d4ae3f]"
+          className="min-h-[44px] border border-[color-mix(in_srgb,var(--passage-rule)_35%,transparent)] bg-transparent px-4 py-2 text-sm font-medium text-[var(--passage-link)] underline-offset-4 hover:underline"
         >
           Submit tribute
         </button>
       </form>
-      {status && <p className="text-sm text-[#3D2B1F]">{status}</p>}
+      {status && <p className="text-sm text-[var(--passage-heading)]">{status}</p>}
     </section>
   )
 }

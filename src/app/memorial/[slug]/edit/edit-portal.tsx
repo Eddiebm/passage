@@ -14,13 +14,20 @@ import type {
   MemorialTask,
   MemorialWithDetails,
   OutputTemplate,
+  VisualTheme,
   Remembrance,
   Stakeholder,
   StakeholderCategory,
   Tribute,
   WindDownMeeting,
 } from '@/lib/types'
-import { STAKEHOLDER_CATEGORY_LABEL, normalizeMemorialMode, normalizeOutputTemplate } from '@/lib/memorial-hydrate'
+import {
+  STAKEHOLDER_CATEGORY_LABEL,
+  normalizeMemorialMode,
+  normalizeOutputTemplate,
+  normalizeVisualTheme,
+} from '@/lib/memorial-hydrate'
+import { VisualThemePicker } from '@/components/visual-theme-picker'
 import { memorialAbsoluteUrl } from '@/lib/memorial-share'
 import { formatPledgeAmountMinor } from '@/lib/memorial-pledges'
 import {
@@ -156,6 +163,7 @@ export function EditPortal({ slug }: { slug: string }) {
   const [galleryUrlDraft, setGalleryUrlDraft] = useState('')
   const [tributeUploadingId, setTributeUploadingId] = useState<string | null>(null)
   const [outputTemplateDraft, setOutputTemplateDraft] = useState<OutputTemplate>('notice')
+  const [visualThemeDraft, setVisualThemeDraft] = useState<VisualTheme>('programme')
   const [bankReconciliation, setBankReconciliation] = useState<LastBankReconciliation | undefined>()
   const [deceasedDraft, setDeceasedDraft] = useState({
     deceased_name: '',
@@ -209,6 +217,7 @@ export function EditPortal({ slug }: { slug: string }) {
     setPrimaryUrlDraft(m.photo_url ?? '')
     setGalleryUrlDraft('')
     setOutputTemplateDraft(normalizeOutputTemplate(m.output_template))
+    setVisualThemeDraft(normalizeVisualTheme(m.visual_theme))
     setBankReconciliation(m.last_bank_reconciliation)
     setDeceasedDraft({
       deceased_name: m.deceased_name,
@@ -827,6 +836,21 @@ export function EditPortal({ slug }: { slug: string }) {
                 onClick={() => void patchMemorialFields({ memorial_mode: memorialModeDraft })}
               >
                 Save format
+              </button>
+            </section>
+
+            <section className="space-y-4 rounded-lg border border-[#3D2B1F]/10 bg-white p-4">
+              <h2 className="font-semibold">Appearance</h2>
+              <p className="text-sm text-[#1A1A1A]/70">
+                Colour and typography for the public memorial — separate from how much content is shown.
+              </p>
+              <VisualThemePicker value={visualThemeDraft} onChange={setVisualThemeDraft} />
+              <button
+                type="button"
+                className="rounded-md bg-[#C9A02C] px-4 py-2 text-sm font-medium text-[#1A1A1A]"
+                onClick={() => void patchMemorialFields({ visual_theme: visualThemeDraft })}
+              >
+                Save appearance
               </button>
             </section>
 

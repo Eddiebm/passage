@@ -1,22 +1,127 @@
 @import "tailwindcss";
-
-:root {
-  --background: #fafaf8;
-  --foreground: #1a1a1a;
-  --gold: #c9a02c;
-  --brown: #3d2b1f;
-}
+@import "../styles/themes.css";
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-sans: var(--passage-font-body);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family: var(--passage-font-body);
+}
+
+/* Memorial layout tokens */
+.passage-memorial-root {
+  background: var(--passage-bg);
+  color: var(--passage-text);
+  font-family: var(--passage-font-body);
+  min-height: 100%;
+}
+
+.passage-memorial-root::before,
+.passage-memorial-root::after {
+  content: '';
+  display: block;
+  height: 3px;
+  background: var(--passage-kente-band);
+}
+
+.passage-memorial-root[data-theme='kente']::before,
+.passage-memorial-root[data-theme='kente']::after,
+.passage-memorial-root[data-theme='adinkra-minimal']::before,
+.passage-memorial-root[data-theme='adinkra-minimal']::after,
+.passage-memorial-root[data-theme='earth-clay']::before,
+.passage-memorial-root[data-theme='earth-clay']::after {
+  display: block;
+}
+
+.passage-memorial-root:not([data-theme='kente']):not([data-theme='adinkra-minimal']):not(
+    [data-theme='earth-clay']
+  )::before,
+.passage-memorial-root:not([data-theme='kente']):not([data-theme='adinkra-minimal']):not(
+    [data-theme='earth-clay']
+  )::after {
+  display: none;
+}
+
+.passage-memorial-main {
+  max-width: var(--passage-content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.passage-memorial-root h1,
+.passage-memorial-root .passage-display-name {
+  font-family: var(--passage-font-display);
+  color: var(--passage-hero-text);
+}
+
+[data-theme='monument'] .passage-memorial-root .passage-display-name {
+  font-size: clamp(2.75rem, 9vw, 4.75rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+[data-theme='programme'] .passage-memorial-root .passage-display-name {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.passage-section-title {
+  font-family: var(--passage-font-display);
+  color: var(--passage-heading);
+  font-size: 1.125rem;
+  font-weight: 600;
+  border-bottom: 1px solid color-mix(in srgb, var(--passage-rule) 35%, transparent);
+  padding-bottom: 0.35rem;
+}
+
+.passage-panel {
+  background: var(--passage-surface);
+  border: 1px solid color-mix(in srgb, var(--passage-rule) 22%, transparent);
+  border-radius: var(--passage-radius);
+  box-shadow: var(--passage-shadow);
+}
+
+.passage-rule-block {
+  border: none;
+  border-top: 1px solid color-mix(in srgb, var(--passage-rule) 40%, transparent);
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.passage-text-link {
+  color: var(--passage-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.passage-text-link:hover {
+  opacity: 0.85;
+}
+
+.passage-accent-line {
+  height: 2px;
+  width: 3rem;
+  background: var(--passage-accent);
+  margin: 0.75rem 0;
+}
+
+[data-theme='kente'] .passage-accent-line,
+[data-theme='adinkra-minimal'] .passage-accent-line,
+[data-theme='gold-letter'] .passage-accent-line,
+[data-theme='earth-clay'] .passage-accent-line {
+  display: block;
+}
+
+.passage-accent-line {
+  display: none;
 }
 
 /* Output template variants (`memorial.output_template`) */
@@ -46,4 +151,22 @@ body {
 
 .memorial-print-root.passage-template-notice {
   font-size: 11pt;
+}
+
+/* Print: dark themes force light paper */
+@media print {
+  .memorial-print-root[data-theme='night'],
+  .memorial-print-root[data-theme='burgundy-mass'],
+  .memorial-print-root[data-theme='candlelight'],
+  .memorial-print-root[data-theme='midnight-blue'],
+  html[data-theme='night'] .memorial-print-root,
+  html[data-theme='burgundy-mass'] .memorial-print-root,
+  html[data-theme='candlelight'] .memorial-print-root,
+  html[data-theme='midnight-blue'] .memorial-print-root {
+    --print-ink: #1a1a1a;
+    --print-muted: #3d3d3d;
+    --print-rule: #ccc;
+    background: #fff !important;
+    color: var(--print-ink) !important;
+  }
 }

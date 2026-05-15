@@ -242,6 +242,7 @@ export function getGhanaMuslimExampleMemorialBlob(): StoredMemorialBlob {
     status: 'live',
     memorial_mode: 'programme',
     output_template: 'programme',
+    visual_theme: 'programme',
     deceased_name: 'Hajia Aminata Mensah (née Yakubu)',
     deceased_title: 'Matriarch of the Mensah family of Nima',
     deceased_family_house: 'Mensah family of Nima',

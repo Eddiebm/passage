@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { createMemorial, getMemorialBlob } from '@/lib/memorial-store'
 import { generateCoordinatorPin, hashPin } from '@/lib/crypto-pin'
-import { normalizeMemorialMode, normalizeOutputTemplate } from '@/lib/memorial-hydrate'
+import {
+  normalizeMemorialMode,
+  normalizeOutputTemplate,
+  normalizeVisualTheme,
+} from '@/lib/memorial-hydrate'
 import { buildMemorialSlug } from '@/lib/slugify'
 import { isTradition } from '@/lib/tradition-presets'
 import {
@@ -106,6 +110,7 @@ export async function POST(request: Request) {
     tradition: body.tradition,
     memorial_mode: normalizeMemorialMode(body.memorial_mode),
     output_template: normalizeOutputTemplate(body.output_template),
+    visual_theme: normalizeVisualTheme(body.visual_theme),
     deceased_name: body.deceased_name,
     deceased_title: body.deceased_title || undefined,
     deceased_family_house: body.deceased_family_house || undefined,

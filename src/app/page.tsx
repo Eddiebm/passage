@@ -3,68 +3,52 @@ import { SiteHeader } from '@/components/site-header'
 
 export default function HomePage() {
   return (
-    <div className="flex min-h-full flex-col bg-[#1A1A1A] text-[#FAFAF8]">
+    <div className="flex min-h-full flex-col">
       <SiteHeader />
-      <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center gap-12 px-4 py-20">
-        <div className="max-w-2xl space-y-6">
-          <p className="text-sm uppercase tracking-[0.2em] text-[#C9A02C]">Powered by IdeaByLunch</p>
-          <h1 className="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+      <main className="passage-memorial-main mx-auto flex w-full flex-1 flex-col justify-center gap-10 px-4 py-16">
+        <div className="space-y-5">
+          <p className="text-xs uppercase tracking-[0.22em] text-[var(--passage-muted)]">Coordinator desk</p>
+          <h1 className="font-[family-name:var(--passage-font-display)] text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
             Every life deserves to be remembered.
           </h1>
-          <p className="text-lg leading-relaxed text-[#FAFAF8]/80">
-            The platform that holds your family together from the moment someone passes — through burial,
-            remembrance, and the years beyond. Built with cultural precision for Ghana and Nigeria first,
-            with love for the whole diaspora.
+          <p className="max-w-xl text-base leading-relaxed text-[var(--passage-muted)]">
+            Passage helps families publish announcements, programmes, and contribution links in one calm place —
+            edited by the family, shared on WhatsApp.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Link
-              href="/create"
-              className="inline-flex items-center justify-center rounded-md bg-[#C9A02C] px-6 py-3 text-base font-medium text-[#1A1A1A] transition hover:bg-[#d4ae3f]"
-            >
-              Create a memorial
+            <Link href="/create" className="passage-text-link text-base font-medium">
+              Create a memorial →
             </Link>
             <Link
               href="/memorial/bannerman-samuel-2026"
-              className="inline-flex items-center justify-center rounded-md border border-[#FAFAF8]/25 px-6 py-3 text-base font-medium text-[#FAFAF8] transition hover:border-[#C9A02C] hover:text-[#C9A02C]"
+              className="text-base text-[var(--passage-muted)] hover:text-[var(--passage-text)]"
             >
               See an example
             </Link>
           </div>
         </div>
-        <div className="grid gap-6 border-t border-[#3D2B1F]/40 pt-10 sm:grid-cols-3">
-          <div>
-            <h2 className="text-sm font-semibold text-[#C9A02C]">Family edits final</h2>
-            <p className="mt-2 text-sm text-[#FAFAF8]/70">
-              Nothing publishes without the family seeing and approving it. The drafts serve the family —
-              not the other way around.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-sm font-semibold text-[#C9A02C]">Meet people where they are</h2>
-            <p className="mt-2 text-sm text-[#FAFAF8]/70">
-              Warm, dignified language. Traditional titles, family houses, and allied families honoured as
-              first-class details.
-            </p>
-          </div>
-          <div>
-            <h2 className="text-sm font-semibold text-[#C9A02C]">One coordinator, lighter load</h2>
-            <p className="mt-2 text-sm text-[#FAFAF8]/70">
-              Programmes, appeals, tributes, and contributions in one calm place — so grief is not
-              competing with admin.
-            </p>
-          </div>
-        </div>
+        <ul className="max-w-xl space-y-4 border-t border-[color-mix(in_srgb,var(--passage-rule)_25%,transparent)] pt-8 text-sm leading-relaxed text-[var(--passage-muted)]">
+          <li>
+            <span className="text-[var(--passage-heading)]">Family edits final.</span> Nothing publishes without
+            approval.
+          </li>
+          <li>
+            <span className="text-[var(--passage-heading)]">One link.</span> Programme, appeal, and tributes together.
+          </li>
+          <li>
+            <span className="text-[var(--passage-heading)]">Built for Ghana &amp; Nigeria first.</span> Titles, family
+            houses, and traditions as first-class fields.
+          </li>
+        </ul>
       </main>
-      <footer className="border-t border-[#3D2B1F]/30 py-6 text-center text-xs text-[#FAFAF8]/50">
+      <footer className="border-t border-[color-mix(in_srgb,var(--passage-rule)_20%,transparent)] py-6 text-center text-xs text-[var(--passage-muted)]">
         <p>Passage — digital infrastructure for how African communities process death.</p>
         <p className="mt-2 flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-          <Link href="/help" className="text-[#FAFAF8]/70 underline hover:text-[#C9A02C]">
+          <Link href="/help" className="passage-text-link">
             Help
           </Link>
-          <span className="text-[#FAFAF8]/30" aria-hidden>
-            ·
-          </span>
-          <Link href="/privacy" className="text-[#FAFAF8]/70 underline hover:text-[#C9A02C]">
+          <span aria-hidden>·</span>
+          <Link href="/privacy" className="passage-text-link">
             Privacy
           </Link>
         </p>

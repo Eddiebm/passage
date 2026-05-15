@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation'
 import { ProgrammeReadingsList } from '@/components/programme-readings-display'
 import { programmeReadingsForPublicPage, STAKEHOLDER_CATEGORY_LABEL } from '@/lib/memorial-hydrate'
 import { memorialPagePath } from '@/lib/memorial-share'
-import { memorialTemplateClass } from '@/lib/memorial-hydrate'
+import { memorialTemplateClass, memorialThemeClass, normalizeVisualTheme } from '@/lib/memorial-hydrate'
 import { getMemorialWithDetails } from '@/lib/memorial-store'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialPrintToolbar } from './print-toolbar'
@@ -63,9 +63,11 @@ export default async function MemorialPrintPage({
   const programmeReadings = programmeReadingsForPublicPage(data)
 
   const templateClass = memorialTemplateClass(data.output_template)
+  const theme = normalizeVisualTheme(data.visual_theme)
+  const themeClass = memorialThemeClass(theme)
 
   return (
-    <div className={`memorial-print-root ${templateClass}`}>
+    <div className={`memorial-print-root ${templateClass} ${themeClass}`} data-theme={theme}>
       <MemorialPrintToolbar />
 
       <header className="print-block print-section-major">

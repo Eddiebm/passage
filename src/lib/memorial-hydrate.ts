@@ -6,7 +6,9 @@ import type {
   OutputTemplate,
   ProgrammeReading,
   StakeholderCategory,
+  VisualTheme,
 } from '@/lib/types'
+import { VISUAL_THEMES } from '@/lib/visual-themes'
 import { publicPledgesForMemorial } from '@/lib/memorial-pledges'
 import { publicProgrammeReadings } from '@/lib/programme-readings'
 
@@ -32,6 +34,17 @@ export function memorialTemplateClass(template?: OutputTemplate): string {
   return `passage-template-${normalizeOutputTemplate(template)}`
 }
 
+export function normalizeVisualTheme(raw: unknown): VisualTheme {
+  if (typeof raw === 'string' && VISUAL_THEMES.includes(raw as VisualTheme)) {
+    return raw as VisualTheme
+  }
+  return 'programme'
+}
+
+export function memorialThemeClass(theme?: VisualTheme): string {
+  return `passage-theme-${normalizeVisualTheme(theme)}`
+}
+
 const STAKEHOLDER_CATEGORIES: StakeholderCategory[] = [
   'family_protocol',
   'faith',
@@ -53,6 +66,7 @@ export function hydrateMemorial(memorial: Memorial): Memorial {
     ...memorial,
     memorial_mode: normalizeMemorialMode(memorial.memorial_mode),
     output_template: normalizeOutputTemplate(memorial.output_template),
+    visual_theme: normalizeVisualTheme(memorial.visual_theme),
   }
 
   const hasPublic = (withMode.public_contacts?.length ?? 0) > 0

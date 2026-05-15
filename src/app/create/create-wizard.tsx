@@ -4,7 +4,14 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { TRADITION_PRESETS } from '@/lib/tradition-presets'
-import type { CreateMemorialForm, MemorialMode, OutputTemplate, SurvivingFamilyMember } from '@/lib/types'
+import type {
+  CreateMemorialForm,
+  MemorialMode,
+  OutputTemplate,
+  SurvivingFamilyMember,
+} from '@/lib/types'
+import type { VisualTheme } from '@/lib/types'
+import { VisualThemePicker } from '@/components/visual-theme-picker'
 import type { Tradition } from '@/lib/types'
 import { SiteHeader } from '@/components/site-header'
 import { MemorialImageFileInput } from '@/components/memorial-image-file-input'
@@ -86,6 +93,7 @@ export function CreateWizard() {
   const [form, setForm] = useState<CreateMemorialForm>({
     memorial_mode: 'notice',
     output_template: 'notice',
+    visual_theme: 'programme',
     tradition: 'ghana-christian',
     deceased_name: '',
     deceased_title: '',
@@ -333,7 +341,12 @@ export function CreateWizard() {
                   </button>
                 ))}
               </div>
-              <p className="text-sm font-medium text-[#1A1A1A]/80 pt-2">Print &amp; page template</p>
+              <p className="text-sm font-medium text-[#1A1A1A]/80 pt-2">Visual theme</p>
+              <VisualThemePicker
+                value={(form.visual_theme ?? 'programme') as VisualTheme}
+                onChange={(theme) => update('visual_theme', theme)}
+              />
+              <p className="text-sm font-medium text-[var(--passage-muted)] pt-2">Print &amp; page template</p>
               <div className="grid gap-3 sm:grid-cols-3">
                 {OUTPUT_TEMPLATE_CHOICES.map((t) => (
                   <button

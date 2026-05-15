@@ -1,6 +1,6 @@
 # Passage
 
-Digital memorial infrastructure — programmes, family-edited announcements, tributes, and contributions (Paystack) for Ghana, Nigeria, and the diaspora.
+Digital memorial infrastructure — programmes, family-edited announcements, tributes, and contributions (Paystack) for Ghana, Nigeria, and the diaspora. Each memorial can use one of **73 visual themes** (colour and typography) set in the create wizard or edit portal under **Appearance**. Browse them all at [`/design-lab`](http://localhost:3000/design-lab) (no login).
 
 ## Run locally
 
@@ -9,7 +9,14 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Two example memorials seed on first access (only if each slug is missing):
+Open [http://localhost:3000](http://localhost:3000). Two example memorials seed on first access (only if each slug is missing).
+
+### Visual themes & design lab
+
+- **Registry:** `src/lib/visual-themes.ts` — 73 funeral-appropriate themes (`programme`, `monument`, `kente`, `night`, plus regional palettes across Africa such as `cairo-ivory`, `senegal-teranga`, `south-africa-ubuntu`, …). Groups: Light, Dark, Cultural, Across Africa.
+- **CSS:** `src/styles/themes.css` — `[data-theme="…"]` blocks set `--passage-bg`, `--passage-text`, `--passage-muted`, `--passage-accent`, `--passage-rule`, `--passage-card-bg`, `--passage-font-display`, `--passage-font-body` (and related layout tokens).
+- **Preview:** [http://localhost:3000/design-lab](http://localhost:3000/design-lab) — grid of mini memorial samples; each card links to `/design-lab/<themeId>` for a full-page sample shell.
+- **Fonts:** Root layout loads **four** Google families shared across themes: DM Sans, Libre Baskerville, Cormorant Garamond, Source Serif 4.
 
 | Example | URL |
 |---------|-----|
@@ -151,6 +158,7 @@ Do not commit secrets; use `.env.local` (gitignored).
    | `/memorial/bannerman-samuel-2026` | Seeded Christian example (after first hit) |
    | `/memorial/ghana-muslim-example-2026` | Seeded Ghana Muslim programme example |
    | `/privacy` | Privacy policy |
+   | `/design-lab` | All 73 memorial visual themes |
    | `/memorial/<slug>/contribute` | Paystack redirect or dev placeholder |
    | `/memorial/<slug>/print` | Print layout renders |
 

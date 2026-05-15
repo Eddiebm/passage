@@ -346,6 +346,7 @@ export interface CreateMemorialInput {
   announcement_text?: string
   memorial_mode?: MemorialMode
   output_template?: import('@/lib/types').OutputTemplate
+  visual_theme?: import('@/lib/types').VisualTheme
 }
 
 export async function createMemorial(input: CreateMemorialInput): Promise<Memorial> {
@@ -378,6 +379,7 @@ export async function createMemorial(input: CreateMemorialInput): Promise<Memori
     announcement_text: input.announcement_text,
     memorial_mode: input.memorial_mode ?? 'notice',
     output_template: input.output_template ?? 'notice',
+    visual_theme: input.visual_theme ?? 'programme',
     coordinator_recovery_email: input.coordinator_recovery_email,
     fundraising_goal: input.fundraising_goal,
     fundraising_currency: input.fundraising_currency || 'GHS',
@@ -428,6 +430,7 @@ export type MemorialPinUpdate = Partial<
     | 'wind_down_meetings'
     | 'memorial_mode'
     | 'output_template'
+    | 'visual_theme'
     | 'tasks'
     | 'pledges'
     | 'closure_status'

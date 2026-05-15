@@ -61,6 +61,7 @@ CRON_SECRET=
 - **PIN recovery** — `004_pin_recovery_tokens.sql`; `POST …/pin/recovery-request` + `…/pin/reset`; `coordinator_recovery_email`; rate limit on blob.
 - **Bank reconciliation** — `last_bank_reconciliation` on memorial blob; edit portal match UI (no auto-link).
 - **Output template** — `output_template` (`notice`|`programme`|`banner_classic`); root CSS on public + print.
+- **Visual themes** — `visual_theme` on `blob.memorial` (73 ids in `src/lib/visual-themes.ts`); CSS in `src/styles/themes.css`; coordinators pick in create wizard + edit portal **Appearance** (searchable picker); public page uses saved theme only; footer links to `/design-lab` for inspiration. Preview all themes at `/design-lab` and `/design-lab/[themeId]`. Groups: Light, Dark, Cultural, Across Africa (regional).
 - **OCR deceased fields** — death certificate + poster apply checkboxes for core deceased fields; PATCH via `memorial-patch-body`.
 - **Pledges** — `memorial.pledges[]` on blob; public when programme/full or fundraising active; edit portal CRUD + WhatsApp reminder copy packs.
 - **Printer pack** — `/memorial/[slug]/printer-guide`, `/print`, `/banner`, `/banner/wide` (~3×6 ft).
