@@ -19,19 +19,19 @@ export const EXAMPLE_MEMORIAL_SLUGS = [
 ] as const
 
 /** Real portraits under `public/photos/africa/` (see scripts/download-africa-photos.mjs). */
-export const CHRISTIAN_EXAMPLE_SEED_PHOTO = '/photos/africa/ghana-accra-elder-man.jpg'
+export const CHRISTIAN_EXAMPLE_SEED_PHOTO = '/photos/africa/nigeria-lagos-elder-man.jpg'
 export const CHRISTIAN_EXAMPLE_SEED_GALLERY = [
-  '/photos/africa/mali-bamako-man.jpg',
-  '/photos/africa/ethiopia-addis-elder-man.jpg',
-  '/photos/africa/angola-luanda-man.jpg',
-  '/photos/africa/rwanda-kigali-man.jpg',
+  '/photos/africa/nigeria-tribal-marks-elder.jpg',
+  '/photos/africa/ethiopia-lalibela-priest.jpg',
+  '/photos/africa/zambia-chief-elder.jpg',
+  '/photos/africa/pan-african-elder-man.jpg',
 ] as const
 
-export const GHANA_MUSLIM_SEED_PHOTO = '/photos/africa/nigeria-lagos-woman.jpg'
+export const GHANA_MUSLIM_SEED_PHOTO = '/photos/africa/somalia-mogadishu-woman.jpg'
 export const GHANA_MUSLIM_SEED_GALLERY = [
-  '/photos/africa/morocco-fez-woman.jpg',
-  '/photos/africa/ivory-coast-abidjan-woman.jpg',
+  '/photos/africa/tunisia-gabes-elder.jpg',
   '/photos/africa/kenya-nairobi-elder-woman.jpg',
+  '/photos/africa/pan-african-elder-man.jpg',
 ] as const
 
 const SLUG = EXAMPLE_MEMORIAL_SLUGS[0]
