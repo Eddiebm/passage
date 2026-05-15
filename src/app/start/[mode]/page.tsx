@@ -70,8 +70,8 @@ export default async function OfferingStartPage({ params }: PageProps) {
           </div>
         </section>
 
-        <CompleteShowcasePromo className="mt-10" />
-        <OfferingAppearancePreview />
+        <CompleteShowcasePromo className="mt-10" tierMode={mode} />
+        {mode !== 'notice' ? <OfferingAppearancePreview /> : null}
 
         <div className="mt-10 flex flex-col gap-4 border-t border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] pt-8 sm:flex-row sm:items-center">
           <Link

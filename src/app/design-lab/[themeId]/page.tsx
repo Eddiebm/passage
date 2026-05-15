@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { MemorialThemePreview } from '@/components/memorial-theme-preview'
+import { ThemePreviewImage } from '@/components/theme-preview-image'
 import { MemorialThemeShell } from '@/components/memorial-theme-shell'
 import { completeShowcaseCreateHref } from '@/lib/complete-showcase'
 import { themeExampleHref, themeExampleLabel } from '@/lib/theme-example-memorials'
@@ -62,6 +62,9 @@ export default async function DesignLabThemePage({
             <p className="mt-1 font-medium text-[var(--passage-text)]">{meta.label}</p>
             <p className="text-xs text-[var(--passage-muted)]">{meta.description}</p>
             <p className="mt-1 text-[10px] text-[var(--passage-muted)]">{themeExampleLabel(theme)}</p>
+            <p className="mt-1 text-[10px] text-[var(--passage-muted)]">
+              Programme-scale poster preview — not the minimal notice-only layout.
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             <p className="text-[10px] uppercase tracking-wider text-[var(--passage-muted)]">
@@ -84,7 +87,9 @@ export default async function DesignLabThemePage({
           </div>
         </div>
       </div>
-      <MemorialThemePreview themeId={theme} embedded />
+      <div className="flex justify-center px-4 py-10">
+        <ThemePreviewImage themeId={theme} large priority />
+      </div>
     </MemorialThemeShell>
   )
 }

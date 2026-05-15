@@ -1,5 +1,6 @@
 import { getShowcaseSampleForThemeId } from '@/lib/africa-portrait-names'
 import { EXAMPLE_NAMES } from '@/lib/example-memorial-names'
+import type { MemorialMode } from '@/lib/types'
 import {
   CHRISTIAN_EXAMPLE_SEED_PHOTO,
   CHRISTIAN_EXAMPLE_SLUG,
@@ -48,10 +49,19 @@ export function exampleMemorialPhotoUrl(slug: (typeof THEME_EXAMPLE_SLUGS)[numbe
   return EXAMPLE_PHOTOS[slug]
 }
 
+/** Default mode for theme / poster previews — never the minimal notice-only layout. */
+export const THEME_EXAMPLE_MEMORIAL_MODE: MemorialMode = 'programme'
+
 /** Public memorial URL with non-persisted theme override (example slugs only). */
-export function themeExampleHref(themeId: VisualTheme | string): string {
+export function themeExampleHref(
+  themeId: VisualTheme | string,
+  options?: { memorialMode?: MemorialMode },
+): string {
   const slug = exampleSlugForTheme(themeId)
-  return `/memorial/${slug}?visual_theme=${encodeURIComponent(themeId)}`
+  const params = new URLSearchParams({ visual_theme: themeId })
+  const mode = options?.memorialMode ?? THEME_EXAMPLE_MEMORIAL_MODE
+  params.set('memorial_mode', mode)
+  return `/memorial/${slug}?${params.toString()}`
 }
 
 export function themeExampleLabel(themeId: VisualTheme | string): string {
