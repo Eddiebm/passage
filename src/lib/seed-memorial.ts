@@ -78,7 +78,7 @@ export function getExampleMemorialBlob(): StoredMemorialBlob {
     photo_url: BANNERMAN_SEED_PHOTO,
     gallery_urls: [...BANNERMAN_SEED_GALLERY],
     biography:
-      'A devoted father, uncle, and steward of the family stool. Known for his quiet strength, generosity to young people, and unwavering commitment to truth and dignity.',
+      'A devoted father, grandfather, and steward of the family stool. Known for his quiet strength, generosity to young people, and unwavering commitment to truth and dignity in Jamestown.',
     tradition: 'ghana-christian',
     surviving_family: [
       {
@@ -268,7 +268,7 @@ export function getGhanaMuslimExampleMemorialBlob(): StoredMemorialBlob {
     photo_url: GHANA_MUSLIM_SEED_PHOTO,
     gallery_urls: [...GHANA_MUSLIM_SEED_GALLERY],
     biography:
-      'Beloved mother, aunt, and pillar of the community. Known for her hospitality at Ramadan, her counsel to young women, and her quiet generosity to neighbours in need.',
+      'Beloved mother, grandmother, and pillar of Nima. Known for her hospitality at Ramadan, her counsel to young women, and her quiet generosity to neighbours in need — always with grace and modesty.',
     tradition: 'ghana-muslim',
     surviving_family: [
       {
