@@ -53,20 +53,21 @@ body {
   margin-right: auto;
 }
 
-.passage-memorial-root h1,
-.passage-memorial-root .passage-display-name {
+.passage-memorial-root .passage-hero .passage-display-name {
   font-family: var(--passage-font-display);
   color: var(--passage-hero-text);
 }
 
-[data-theme='monument'] .passage-memorial-root .passage-display-name {
+[data-theme='monument'] .passage-memorial-root .passage-hero .passage-display-name,
+.passage-memorial-root[data-theme='monument'] .passage-hero .passage-display-name {
   font-size: clamp(2.75rem, 9vw, 4.75rem);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
 
-[data-theme='programme'] .passage-memorial-root .passage-display-name {
+[data-theme='programme'] .passage-memorial-root .passage-hero .passage-display-name,
+.passage-memorial-root[data-theme='programme'] .passage-hero .passage-display-name {
   font-size: clamp(1.75rem, 5vw, 2.5rem);
   font-weight: 600;
   letter-spacing: 0.01em;

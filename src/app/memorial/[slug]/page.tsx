@@ -26,6 +26,8 @@ import { getMemorialWithDetails } from '@/lib/memorial-store'
 import { getSiteOrigin } from '@/lib/site-url'
 import { MemorialClientSections } from './sections'
 
+export const dynamic = 'force-dynamic'
+
 function formatAccra(iso?: string) {
   if (!iso) return '—'
   const d = new Date(iso)
@@ -135,7 +137,7 @@ export default async function MemorialPage({
           )}
         </div>
       )}
-      <div className="border-b border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] bg-[var(--passage-hero-bg)] text-[var(--passage-hero-text)]">
+      <div className="passage-hero border-b border-[color-mix(in_srgb,var(--passage-rule)_18%,transparent)] bg-[var(--passage-hero-bg)] text-[var(--passage-hero-text)]">
         <div className="passage-memorial-main mx-auto flex min-w-0 flex-col gap-8 px-4 py-12 sm:max-w-5xl sm:flex-row sm:items-center">
           <div
             className="relative h-48 w-full overflow-hidden bg-[color-mix(in_srgb,var(--passage-rule)_12%,transparent)] sm:h-56 sm:w-44 sm:shrink-0"

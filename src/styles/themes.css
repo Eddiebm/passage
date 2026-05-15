@@ -1,7 +1,7 @@
 /* Visual memorial themes — 73 appearances via CSS variables */
 
 :root,
-html[data-theme='programme'] {
+html[data-theme='programme'], .passage-memorial-root[data-theme='programme'] {
   --background: #f4f0e8;
   --foreground: #1a1a1a;
   --passage-bg: #f4f0e8;
@@ -27,7 +27,7 @@ html[data-theme='programme'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='monument'] {
+html[data-theme='monument'], .passage-memorial-root[data-theme='monument'] {
   --background: #f7f7f5;
   --foreground: #2c2c2c;
   --passage-bg: #f7f7f5;
@@ -53,7 +53,7 @@ html[data-theme='monument'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='kente'] {
+html[data-theme='kente'], .passage-memorial-root[data-theme='kente'] {
   --background: #faf6ee;
   --foreground: #1f1c18;
   --passage-bg: #faf6ee;
@@ -88,7 +88,7 @@ html[data-theme='kente'] {
   );
 }
 
-html[data-theme='night'] {
+html[data-theme='night'], .passage-memorial-root[data-theme='night'] {
   --background: #121110;
   --foreground: #ede9e3;
   --passage-bg: #121110;
@@ -114,7 +114,7 @@ html[data-theme='night'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ivory-letter'] {
+html[data-theme='ivory-letter'], .passage-memorial-root[data-theme='ivory-letter'] {
   --background: #f8f4ec;
   --foreground: #3a3228;
   --passage-bg: #f8f4ec;
@@ -140,7 +140,7 @@ html[data-theme='ivory-letter'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='forest-rest'] {
+html[data-theme='forest-rest'], .passage-memorial-root[data-theme='forest-rest'] {
   --background: #f2f6f3;
   --foreground: #1a2e22;
   --passage-bg: #f2f6f3;
@@ -166,7 +166,7 @@ html[data-theme='forest-rest'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='burgundy-mass'] {
+html[data-theme='burgundy-mass'], .passage-memorial-root[data-theme='burgundy-mass'] {
   --background: #2a1218;
   --foreground: #f5ebe8;
   --passage-bg: #2a1218;
@@ -192,7 +192,7 @@ html[data-theme='burgundy-mass'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='coastal-breeze'] {
+html[data-theme='coastal-breeze'], .passage-memorial-root[data-theme='coastal-breeze'] {
   --background: #f4f8fa;
   --foreground: #1a3040;
   --passage-bg: #f4f8fa;
@@ -218,7 +218,7 @@ html[data-theme='coastal-breeze'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='adinkra-minimal'] {
+html[data-theme='adinkra-minimal'], .passage-memorial-root[data-theme='adinkra-minimal'] {
   --background: #fafaf8;
   --foreground: #121210;
   --passage-bg: #fafaf8;
@@ -244,7 +244,7 @@ html[data-theme='adinkra-minimal'] {
   --passage-kente-band: linear-gradient(90deg, #121210 0%, #c9a02c 50%, #121210 100%);
 }
 
-html[data-theme='scripture-scroll'] {
+html[data-theme='scripture-scroll'], .passage-memorial-root[data-theme='scripture-scroll'] {
   --background: #f0e8d8;
   --foreground: #3d3020;
   --passage-bg: #f0e8d8;
@@ -270,7 +270,7 @@ html[data-theme='scripture-scroll'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='candlelight'] {
+html[data-theme='candlelight'], .passage-memorial-root[data-theme='candlelight'] {
   --background: #1c1814;
   --foreground: #f0e6d8;
   --passage-bg: #1c1814;
@@ -296,7 +296,7 @@ html[data-theme='candlelight'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='high-contrast'] {
+html[data-theme='high-contrast'], .passage-memorial-root[data-theme='high-contrast'] {
   --background: #ffffff;
   --foreground: #000000;
   --passage-bg: #ffffff;
@@ -322,7 +322,7 @@ html[data-theme='high-contrast'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='newspaper'] {
+html[data-theme='newspaper'], .passage-memorial-root[data-theme='newspaper'] {
   --background: #e8e6e2;
   --foreground: #1a1a1a;
   --passage-bg: #e8e6e2;
@@ -348,7 +348,7 @@ html[data-theme='newspaper'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='rose-remembered'] {
+html[data-theme='rose-remembered'], .passage-memorial-root[data-theme='rose-remembered'] {
   --background: #faf4f4;
   --foreground: #3a2828;
   --passage-bg: #faf4f4;
@@ -374,7 +374,7 @@ html[data-theme='rose-remembered'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='earth-clay'] {
+html[data-theme='earth-clay'], .passage-memorial-root[data-theme='earth-clay'] {
   --background: #f4ebe0;
   --foreground: #3a2818;
   --passage-bg: #f4ebe0;
@@ -400,7 +400,7 @@ html[data-theme='earth-clay'] {
   --passage-kente-band: linear-gradient(90deg, #5a3820 0%, #b86a28 33%, #1a5c38 66%, #b86a28 100%);
 }
 
-html[data-theme='midnight-blue'] {
+html[data-theme='midnight-blue'], .passage-memorial-root[data-theme='midnight-blue'] {
   --background: #0e1628;
   --foreground: #e8ecf4;
   --passage-bg: #0e1628;
@@ -426,7 +426,7 @@ html[data-theme='midnight-blue'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='linen-simple'] {
+html[data-theme='linen-simple'], .passage-memorial-root[data-theme='linen-simple'] {
   --background: #f6f4f0;
   --foreground: #404040;
   --passage-bg: #f6f4f0;
@@ -452,7 +452,7 @@ html[data-theme='linen-simple'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='gold-letter'] {
+html[data-theme='gold-letter'], .passage-memorial-root[data-theme='gold-letter'] {
   --background: #faf6ec;
   --foreground: #2a2418;
   --passage-bg: #faf6ec;
@@ -478,7 +478,7 @@ html[data-theme='gold-letter'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='zongo-green'] {
+html[data-theme='zongo-green'], .passage-memorial-root[data-theme='zongo-green'] {
   --background: #ffffff;
   --foreground: #1a2818;
   --passage-bg: #ffffff;
@@ -504,7 +504,7 @@ html[data-theme='zongo-green'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='episcopal'] {
+html[data-theme='episcopal'], .passage-memorial-root[data-theme='episcopal'] {
   --background: #f8f6fa;
   --foreground: #2a2438;
   --passage-bg: #f8f6fa;
@@ -530,7 +530,7 @@ html[data-theme='episcopal'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='methodist-blue'] {
+html[data-theme='methodist-blue'], .passage-memorial-root[data-theme='methodist-blue'] {
   --background: #f4f6fa;
   --foreground: #1a2840;
   --passage-bg: #f4f6fa;
@@ -556,7 +556,7 @@ html[data-theme='methodist-blue'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='photo-ledger'] {
+html[data-theme='photo-ledger'], .passage-memorial-root[data-theme='photo-ledger'] {
   --background: #ececea;
   --foreground: #2a2a28;
   --passage-bg: #ececea;
@@ -582,7 +582,7 @@ html[data-theme='photo-ledger'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='whatsapp-plain'] {
+html[data-theme='whatsapp-plain'], .passage-memorial-root[data-theme='whatsapp-plain'] {
   --background: #ffffff;
   --foreground: #111b21;
   --passage-bg: #ffffff;
@@ -608,7 +608,7 @@ html[data-theme='whatsapp-plain'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='closure-grey'] {
+html[data-theme='closure-grey'], .passage-memorial-root[data-theme='closure-grey'] {
   --background: #e8e8e6;
   --foreground: #484846;
   --passage-bg: #e8e8e6;
@@ -634,7 +634,7 @@ html[data-theme='closure-grey'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='palm-frond'] {
+html[data-theme='palm-frond'], .passage-memorial-root[data-theme='palm-frond'] {
   --background: #f2f6ef;
   --foreground: #1a2e1a;
   --passage-bg: #f2f6ef;
@@ -660,7 +660,7 @@ html[data-theme='palm-frond'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='laterite-red'] {
+html[data-theme='laterite-red'], .passage-memorial-root[data-theme='laterite-red'] {
   --background: #f6ebe4;
   --foreground: #3a1810;
   --passage-bg: #f6ebe4;
@@ -686,7 +686,7 @@ html[data-theme='laterite-red'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='harmattan-dust'] {
+html[data-theme='harmattan-dust'], .passage-memorial-root[data-theme='harmattan-dust'] {
   --background: #ebe6dc;
   --foreground: #3a3830;
   --passage-bg: #ebe6dc;
@@ -712,7 +712,7 @@ html[data-theme='harmattan-dust'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='volta-blue'] {
+html[data-theme='volta-blue'], .passage-memorial-root[data-theme='volta-blue'] {
   --background: #eef4f4;
   --foreground: #142a30;
   --passage-bg: #eef4f4;
@@ -738,7 +738,7 @@ html[data-theme='volta-blue'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ashanti-gold'] {
+html[data-theme='ashanti-gold'], .passage-memorial-root[data-theme='ashanti-gold'] {
   --background: #f8f2e8;
   --foreground: #2a1810;
   --passage-bg: #f8f2e8;
@@ -764,7 +764,7 @@ html[data-theme='ashanti-gold'] {
   --passage-kente-band: linear-gradient(90deg, #3d2818 0%, #d4a82a 50%, #3d2818 100%);
 }
 
-html[data-theme='mourning-lilac'] {
+html[data-theme='mourning-lilac'], .passage-memorial-root[data-theme='mourning-lilac'] {
   --background: #f4f0f6;
   --foreground: #382a40;
   --passage-bg: #f4f0f6;
@@ -790,7 +790,7 @@ html[data-theme='mourning-lilac'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='chapel-stone'] {
+html[data-theme='chapel-stone'], .passage-memorial-root[data-theme='chapel-stone'] {
   --background: #ececea;
   --foreground: #2a2c30;
   --passage-bg: #ececea;
@@ -816,7 +816,7 @@ html[data-theme='chapel-stone'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='incense-smoke'] {
+html[data-theme='incense-smoke'], .passage-memorial-root[data-theme='incense-smoke'] {
   --background: #1a1a1c;
   --foreground: #e4e4e8;
   --passage-bg: #1a1a1c;
@@ -842,7 +842,7 @@ html[data-theme='incense-smoke'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='parchment-fold'] {
+html[data-theme='parchment-fold'], .passage-memorial-root[data-theme='parchment-fold'] {
   --background: #f6f0e4;
   --foreground: #3a3020;
   --passage-bg: #f6f0e4;
@@ -868,7 +868,7 @@ html[data-theme='parchment-fold'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='telegram-notice'] {
+html[data-theme='telegram-notice'], .passage-memorial-root[data-theme='telegram-notice'] {
   --background: #f0e8c8;
   --foreground: #1a1a18;
   --passage-bg: #f0e8c8;
@@ -894,7 +894,7 @@ html[data-theme='telegram-notice'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='river-mist'] {
+html[data-theme='river-mist'], .passage-memorial-root[data-theme='river-mist'] {
   --background: #e8eef0;
   --foreground: #283840;
   --passage-bg: #e8eef0;
@@ -920,7 +920,7 @@ html[data-theme='river-mist'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='sahara-sand'] {
+html[data-theme='sahara-sand'], .passage-memorial-root[data-theme='sahara-sand'] {
   --background: #f8f0e0;
   --foreground: #4a3820;
   --passage-bg: #f8f0e0;
@@ -946,7 +946,7 @@ html[data-theme='sahara-sand'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ibadan-indigo'] {
+html[data-theme='ibadan-indigo'], .passage-memorial-root[data-theme='ibadan-indigo'] {
   --background: #141830;
   --foreground: #e8ecf8;
   --passage-bg: #141830;
@@ -972,7 +972,7 @@ html[data-theme='ibadan-indigo'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='lagos-rain'] {
+html[data-theme='lagos-rain'], .passage-memorial-root[data-theme='lagos-rain'] {
   --background: #e8ecea;
   --foreground: #1a3028;
   --passage-bg: #e8ecea;
@@ -998,7 +998,7 @@ html[data-theme='lagos-rain'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='tamale-earth'] {
+html[data-theme='tamale-earth'], .passage-memorial-root[data-theme='tamale-earth'] {
   --background: #f4e8d4;
   --foreground: #3a2818;
   --passage-bg: #f4e8d4;
@@ -1024,7 +1024,7 @@ html[data-theme='tamale-earth'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='accra-noon'] {
+html[data-theme='accra-noon'], .passage-memorial-root[data-theme='accra-noon'] {
   --background: #fafcfa;
   --foreground: #1a2830;
   --passage-bg: #fafcfa;
@@ -1050,7 +1050,7 @@ html[data-theme='accra-noon'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='diaspora-rose'] {
+html[data-theme='diaspora-rose'], .passage-memorial-root[data-theme='diaspora-rose'] {
   --background: #f6f0f2;
   --foreground: #3a2830;
   --passage-bg: #f6f0f2;
@@ -1076,7 +1076,7 @@ html[data-theme='diaspora-rose'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ancestor-white'] {
+html[data-theme='ancestor-white'], .passage-memorial-root[data-theme='ancestor-white'] {
   --background: #fafafa;
   --foreground: #121210;
   --passage-bg: #fafafa;
@@ -1102,7 +1102,7 @@ html[data-theme='ancestor-white'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='drumbeat'] {
+html[data-theme='drumbeat'], .passage-memorial-root[data-theme='drumbeat'] {
   --background: #1c140c;
   --foreground: #f0e8d8;
   --passage-bg: #1c140c;
@@ -1128,7 +1128,7 @@ html[data-theme='drumbeat'] {
   --passage-kente-band: linear-gradient(90deg, #d4a030 0%, #6b1f2a 50%, #d4a030 100%);
 }
 
-html[data-theme='farewell-green'] {
+html[data-theme='farewell-green'], .passage-memorial-root[data-theme='farewell-green'] {
   --background: #f0f4ee;
   --foreground: #283028;
   --passage-bg: #f0f4ee;
@@ -1154,7 +1154,7 @@ html[data-theme='farewell-green'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='cairo-ivory'] {
+html[data-theme='cairo-ivory'], .passage-memorial-root[data-theme='cairo-ivory'] {
   --background: #f6f4f0;
   --foreground: #1e2830;
   --passage-bg: #f6f4f0;
@@ -1180,7 +1180,7 @@ html[data-theme='cairo-ivory'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='marrakech-terracotta'] {
+html[data-theme='marrakech-terracotta'], .passage-memorial-root[data-theme='marrakech-terracotta'] {
   --background: #f8ece4;
   --foreground: #3a2018;
   --passage-bg: #f8ece4;
@@ -1206,7 +1206,7 @@ html[data-theme='marrakech-terracotta'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='sahara-dusk'] {
+html[data-theme='sahara-dusk'], .passage-memorial-root[data-theme='sahara-dusk'] {
   --background: #f0e4d8;
   --foreground: #3a2838;
   --passage-bg: #f0e4d8;
@@ -1232,7 +1232,7 @@ html[data-theme='sahara-dusk'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='nile-mist'] {
+html[data-theme='nile-mist'], .passage-memorial-root[data-theme='nile-mist'] {
   --background: #eef4f0;
   --foreground: #1a3028;
   --passage-bg: #eef4f0;
@@ -1258,7 +1258,7 @@ html[data-theme='nile-mist'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ethiopian-orthodox'] {
+html[data-theme='ethiopian-orthodox'], .passage-memorial-root[data-theme='ethiopian-orthodox'] {
   --background: #faf6ee;
   --foreground: #1a1410;
   --passage-bg: #faf6ee;
@@ -1284,7 +1284,7 @@ html[data-theme='ethiopian-orthodox'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='kenya-highlands'] {
+html[data-theme='kenya-highlands'], .passage-memorial-root[data-theme='kenya-highlands'] {
   --background: #f2f6f0;
   --foreground: #1a3020;
   --passage-bg: #f2f6f0;
@@ -1310,7 +1310,7 @@ html[data-theme='kenya-highlands'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='somali-plains'] {
+html[data-theme='somali-plains'], .passage-memorial-root[data-theme='somali-plains'] {
   --background: #f6f4ee;
   --foreground: #283848;
   --passage-bg: #f6f4ee;
@@ -1336,7 +1336,7 @@ html[data-theme='somali-plains'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='tanzania-savanna'] {
+html[data-theme='tanzania-savanna'], .passage-memorial-root[data-theme='tanzania-savanna'] {
   --background: #f8f2e0;
   --foreground: #3a3018;
   --passage-bg: #f8f2e0;
@@ -1362,7 +1362,7 @@ html[data-theme='tanzania-savanna'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='uganda-lake'] {
+html[data-theme='uganda-lake'], .passage-memorial-root[data-theme='uganda-lake'] {
   --background: #eef6f8;
   --foreground: #1a3840;
   --passage-bg: #eef6f8;
@@ -1388,7 +1388,7 @@ html[data-theme='uganda-lake'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='senegal-teranga'] {
+html[data-theme='senegal-teranga'], .passage-memorial-root[data-theme='senegal-teranga'] {
   --background: #faf8f0;
   --foreground: #1a2830;
   --passage-bg: #faf8f0;
@@ -1414,7 +1414,7 @@ html[data-theme='senegal-teranga'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='mali-mudcloth'] {
+html[data-theme='mali-mudcloth'], .passage-memorial-root[data-theme='mali-mudcloth'] {
   --background: #f4f0e8;
   --foreground: #1a2030;
   --passage-bg: #f4f0e8;
@@ -1440,7 +1440,7 @@ html[data-theme='mali-mudcloth'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ivory-coast-lace'] {
+html[data-theme='ivory-coast-lace'], .passage-memorial-root[data-theme='ivory-coast-lace'] {
   --background: #faf8f6;
   --foreground: #3a2820;
   --passage-bg: #faf8f6;
@@ -1466,7 +1466,7 @@ html[data-theme='ivory-coast-lace'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='benin-bronze'] {
+html[data-theme='benin-bronze'], .passage-memorial-root[data-theme='benin-bronze'] {
   --background: #f4f0e8;
   --foreground: #2a2018;
   --passage-bg: #f4f0e8;
@@ -1492,7 +1492,7 @@ html[data-theme='benin-bronze'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='burkina-laterite'] {
+html[data-theme='burkina-laterite'], .passage-memorial-root[data-theme='burkina-laterite'] {
   --background: #f0e0d0;
   --foreground: #4a2818;
   --passage-bg: #f0e0d0;
@@ -1518,7 +1518,7 @@ html[data-theme='burkina-laterite'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='sierra-leone-harmony'] {
+html[data-theme='sierra-leone-harmony'], .passage-memorial-root[data-theme='sierra-leone-harmony'] {
   --background: #f6faf6;
   --foreground: #1a3020;
   --passage-bg: #f6faf6;
@@ -1544,7 +1544,7 @@ html[data-theme='sierra-leone-harmony'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='congo-river'] {
+html[data-theme='congo-river'], .passage-memorial-root[data-theme='congo-river'] {
   --background: #eef2ee;
   --foreground: #142818;
   --passage-bg: #eef2ee;
@@ -1570,7 +1570,7 @@ html[data-theme='congo-river'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='cameroon-green'] {
+html[data-theme='cameroon-green'], .passage-memorial-root[data-theme='cameroon-green'] {
   --background: #fafcf8;
   --foreground: #1a2818;
   --passage-bg: #fafcf8;
@@ -1596,7 +1596,7 @@ html[data-theme='cameroon-green'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='angola-amber'] {
+html[data-theme='angola-amber'], .passage-memorial-root[data-theme='angola-amber'] {
   --background: #f8f0e4;
   --foreground: #3a2818;
   --passage-bg: #f8f0e4;
@@ -1622,7 +1622,7 @@ html[data-theme='angola-amber'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='south-africa-ubuntu'] {
+html[data-theme='south-africa-ubuntu'], .passage-memorial-root[data-theme='south-africa-ubuntu'] {
   --background: #f4f0ea;
   --foreground: #2a2418;
   --passage-bg: #f4f0ea;
@@ -1648,7 +1648,7 @@ html[data-theme='south-africa-ubuntu'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='zimbabwe-stone'] {
+html[data-theme='zimbabwe-stone'], .passage-memorial-root[data-theme='zimbabwe-stone'] {
   --background: #ececea;
   --foreground: #2a3028;
   --passage-bg: #ececea;
@@ -1674,7 +1674,7 @@ html[data-theme='zimbabwe-stone'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='zambia-copper'] {
+html[data-theme='zambia-copper'], .passage-memorial-root[data-theme='zambia-copper'] {
   --background: #f6f0e8;
   --foreground: #3a2818;
   --passage-bg: #f6f0e8;
@@ -1700,7 +1700,7 @@ html[data-theme='zambia-copper'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='botswana-sand'] {
+html[data-theme='botswana-sand'], .passage-memorial-root[data-theme='botswana-sand'] {
   --background: #f4f0e6;
   --foreground: #3a3428;
   --passage-bg: #f4f0e6;
@@ -1726,7 +1726,7 @@ html[data-theme='botswana-sand'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='madagascar-rain'] {
+html[data-theme='madagascar-rain'], .passage-memorial-root[data-theme='madagascar-rain'] {
   --background: #eef6f0;
   --foreground: #1a3028;
   --passage-bg: #eef6f0;
@@ -1752,7 +1752,7 @@ html[data-theme='madagascar-rain'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='mauritius-azure'] {
+html[data-theme='mauritius-azure'], .passage-memorial-root[data-theme='mauritius-azure'] {
   --background: #f0f8fc;
   --foreground: #1a3848;
   --passage-bg: #f0f8fc;
@@ -1778,7 +1778,7 @@ html[data-theme='mauritius-azure'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='cape-coast-castle'] {
+html[data-theme='cape-coast-castle'], .passage-memorial-root[data-theme='cape-coast-castle'] {
   --background: #ececea;
   --foreground: #2a2a28;
   --passage-bg: #ececea;
@@ -1804,7 +1804,7 @@ html[data-theme='cape-coast-castle'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='pan-african-slate'] {
+html[data-theme='pan-african-slate'], .passage-memorial-root[data-theme='pan-african-slate'] {
   --background: #e8eaec;
   --foreground: #1a1a18;
   --passage-bg: #e8eaec;
@@ -1830,7 +1830,7 @@ html[data-theme='pan-african-slate'] {
   --passage-kente-band: linear-gradient(90deg, #8b2028 0%, #1a5c38 50%, #d4a830 100%);
 }
 
-html[data-theme='baobab-shade'] {
+html[data-theme='baobab-shade'], .passage-memorial-root[data-theme='baobab-shade'] {
   --background: #f0ece4;
   --foreground: #2a2018;
   --passage-bg: #f0ece4;
@@ -1856,7 +1856,7 @@ html[data-theme='baobab-shade'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='savanna-gold'] {
+html[data-theme='savanna-gold'], .passage-memorial-root[data-theme='savanna-gold'] {
   --background: #faf6e8;
   --foreground: #3a3018;
   --passage-bg: #faf6e8;
@@ -1882,7 +1882,7 @@ html[data-theme='savanna-gold'] {
   --passage-kente-band: none;
 }
 
-html[data-theme='ancestral-earth'] {
+html[data-theme='ancestral-earth'], .passage-memorial-root[data-theme='ancestral-earth'] {
   --background: #f4ece4;
   --foreground: #1a1008;
   --passage-bg: #f4ece4;

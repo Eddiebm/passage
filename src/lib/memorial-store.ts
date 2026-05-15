@@ -159,7 +159,16 @@ async function writeToPostgres(blob: StoredMemorialBlob): Promise<void> {
   `
 }
 
-async function readBlob(slug: string): Promise<StoredMemorialBlob | null> {
+function isExampleMemorialSlug(slug: string): slug is (typeof EXAMPLE_MEMORIAL_SLUGS)[number] {
+  return (EXAMPLE_MEMORIAL_SLUGS as readonly string[]).includes(slug)
+}
+
+/** True when a blob can drive the public memorial page (name at minimum). */
+function blobHasPublicContent(blob: StoredMemorialBlob): boolean {
+  return Boolean(blob.memorial.deceased_name?.trim())
+}
+
+async function readPersistedBlob(slug: string): Promise<StoredMemorialBlob | null> {
   if (hasDatabaseEnv()) {
     try {
       const fromDb = await readFromPostgres(slug)
@@ -176,7 +185,24 @@ async function readBlob(slug: string): Promise<StoredMemorialBlob | null> {
     console.error('[passage] File store read failed; trying built-in seeds', { slug, err })
   }
 
-  return getBuiltInSeedBlob(slug)
+  return null
+}
+
+function resolveBlobWithBuiltIn(
+  slug: string,
+  persisted: StoredMemorialBlob | null,
+): StoredMemorialBlob | null {
+  const builtIn = getBuiltInSeedBlob(slug)
+  if (isExampleMemorialSlug(slug) && builtIn) {
+    if (!persisted || !blobHasPublicContent(persisted)) return builtIn
+    return persisted
+  }
+  return persisted ?? builtIn
+}
+
+async function readBlob(slug: string): Promise<StoredMemorialBlob | null> {
+  const persisted = await readPersistedBlob(slug)
+  return resolveBlobWithBuiltIn(slug, persisted)
 }
 
 async function writeBlob(blob: StoredMemorialBlob): Promise<void> {
@@ -219,8 +245,8 @@ export async function ensureExampleMemorialSeeded(): Promise<void> {
   ]
   for (const { slug, blob } of seeds) {
     try {
-      const existing = await readBlob(slug)
-      if (existing) continue
+      const existing = await readPersistedBlob(slug)
+      if (existing && blobHasPublicContent(existing)) continue
       if (!hasDatabaseEnv()) {
         await writeBlob(blob())
         continue
