@@ -1,0 +1,651 @@
+/* Africa extended batch — 25 themes (generated) */
+
+html[data-theme='sahara-gold'], .passage-memorial-root[data-theme='sahara-gold'] {
+  --background: #faf4e4;
+  --foreground: #2a2418;
+  --passage-bg: #faf4e4;
+  --passage-surface: #fffaf0;
+  --passage-card-bg: #fffaf0;
+  --passage-text: #2a2418;
+  --passage-muted: #6a5c40;
+  --passage-heading: #4a3818;
+  --passage-accent: #c9a020;
+  --passage-rule: #c9a02044;
+  --passage-link: #8a6010;
+  --passage-hero-bg: #4a3818;
+  --passage-hero-text: #fffaf0;
+  --passage-hero-muted: #e8d8a8;
+  --passage-header-bg: #4a3818;
+  --passage-header-text: #fffaf0;
+  --passage-header-link: #f0e090;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='nairobi-green'], .passage-memorial-root[data-theme='nairobi-green'] {
+  --background: #f2f6f2;
+  --foreground: #1a2820;
+  --passage-bg: #f2f6f2;
+  --passage-surface: #f8fcf8;
+  --passage-card-bg: #f8fcf8;
+  --passage-text: #1a2820;
+  --passage-muted: #4a5c50;
+  --passage-heading: #1a4030;
+  --passage-accent: #2a7858;
+  --passage-rule: #2a785844;
+  --passage-link: #1a5840;
+  --passage-hero-bg: #1a4030;
+  --passage-hero-text: #f8fcf8;
+  --passage-hero-muted: #a8d0b8;
+  --passage-header-bg: #1a4030;
+  --passage-header-text: #f8fcf8;
+  --passage-header-link: #c8f0d8;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='cape-winds'], .passage-memorial-root[data-theme='cape-winds'] {
+  --background: #eef2f6;
+  --foreground: #1a2838;
+  --passage-bg: #eef2f6;
+  --passage-surface: #f6f8fc;
+  --passage-card-bg: #f6f8fc;
+  --passage-text: #1a2838;
+  --passage-muted: #4a5a68;
+  --passage-heading: #2a3848;
+  --passage-accent: #4a88b8;
+  --passage-rule: #4a88b844;
+  --passage-link: #2a6888;
+  --passage-hero-bg: #2a3848;
+  --passage-hero-text: #f6f8fc;
+  --passage-hero-muted: #a8c8e0;
+  --passage-header-bg: #2a3848;
+  --passage-header-text: #f6f8fc;
+  --passage-header-link: #d0f0ff;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 40rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='tunis-pearl'], .passage-memorial-root[data-theme='tunis-pearl'] {
+  --background: #f8f6f2;
+  --foreground: #2a2824;
+  --passage-bg: #f8f6f2;
+  --passage-surface: #fffcfa;
+  --passage-card-bg: #fffcfa;
+  --passage-text: #2a2824;
+  --passage-muted: #6a6860;
+  --passage-heading: #3a3830;
+  --passage-accent: #8a8878;
+  --passage-rule: #8a887844;
+  --passage-link: #5a5848;
+  --passage-hero-bg: #3a3830;
+  --passage-hero-text: #fffcfa;
+  --passage-hero-muted: #d8d4c8;
+  --passage-header-bg: #3a3830;
+  --passage-header-text: #fffcfa;
+  --passage-header-link: #f0ece0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='fez-indigo'], .passage-memorial-root[data-theme='fez-indigo'] {
+  --background: #eceef4;
+  --foreground: #1a1830;
+  --passage-bg: #eceef4;
+  --passage-surface: #f4f6fc;
+  --passage-card-bg: #f4f6fc;
+  --passage-text: #1a1830;
+  --passage-muted: #4a4868;
+  --passage-heading: #2a2850;
+  --passage-accent: #4a3888;
+  --passage-rule: #4a388844;
+  --passage-link: #3a2878;
+  --passage-hero-bg: #2a2850;
+  --passage-hero-text: #f4f6fc;
+  --passage-hero-muted: #b8b0d8;
+  --passage-header-bg: #2a2850;
+  --passage-header-text: #f4f6fc;
+  --passage-header-link: #d8d0f8;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 40rem;
+  --passage-radius: 0;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='dakar-sunset'], .passage-memorial-root[data-theme='dakar-sunset'] {
+  --background: #faf0e8;
+  --foreground: #2a2018;
+  --passage-bg: #faf0e8;
+  --passage-surface: #fff6ee;
+  --passage-card-bg: #fff6ee;
+  --passage-text: #2a2018;
+  --passage-muted: #6a5848;
+  --passage-heading: #4a3020;
+  --passage-accent: #d87838;
+  --passage-rule: #d8783844;
+  --passage-link: #a85828;
+  --passage-hero-bg: #4a3020;
+  --passage-hero-text: #fff6ee;
+  --passage-hero-muted: #f0c8a8;
+  --passage-header-bg: #4a3020;
+  --passage-header-text: #fff6ee;
+  --passage-header-link: #ffd8b8;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 44rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='bamako-ochre'], .passage-memorial-root[data-theme='bamako-ochre'] {
+  --background: #f6f0e0;
+  --foreground: #2a2010;
+  --passage-bg: #f6f0e0;
+  --passage-surface: #fcf6ea;
+  --passage-card-bg: #fcf6ea;
+  --passage-text: #2a2010;
+  --passage-muted: #6a5840;
+  --passage-heading: #3a2810;
+  --passage-accent: #b88828;
+  --passage-rule: #b8882844;
+  --passage-link: #886818;
+  --passage-hero-bg: #3a2810;
+  --passage-hero-text: #fcf6ea;
+  --passage-hero-muted: #e0c890;
+  --passage-header-bg: #3a2810;
+  --passage-header-text: #fcf6ea;
+  --passage-header-link: #f8e8b0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='ouagadougou-red'], .passage-memorial-root[data-theme='ouagadougou-red'] {
+  --background: #f4ece8;
+  --foreground: #2a1810;
+  --passage-bg: #f4ece8;
+  --passage-surface: #faf4f0;
+  --passage-card-bg: #faf4f0;
+  --passage-text: #2a1810;
+  --passage-muted: #6a4840;
+  --passage-heading: #4a2018;
+  --passage-accent: #a83828;
+  --passage-rule: #a8382844;
+  --passage-link: #882818;
+  --passage-hero-bg: #4a2018;
+  --passage-hero-text: #faf4f0;
+  --passage-hero-muted: #e0b8a8;
+  --passage-header-bg: #4a2018;
+  --passage-header-text: #faf4f0;
+  --passage-header-link: #f8d0c0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='lome-azure'], .passage-memorial-root[data-theme='lome-azure'] {
+  --background: #eef6f8;
+  --foreground: #1a2830;
+  --passage-bg: #eef6f8;
+  --passage-surface: #f4fcfe;
+  --passage-card-bg: #f4fcfe;
+  --passage-text: #1a2830;
+  --passage-muted: #4a5a60;
+  --passage-heading: #1a4858;
+  --passage-accent: #2a98b8;
+  --passage-rule: #2a98b844;
+  --passage-link: #1a7898;
+  --passage-hero-bg: #1a4858;
+  --passage-hero-text: #f4fcfe;
+  --passage-hero-muted: #a8d8e8;
+  --passage-header-bg: #1a4858;
+  --passage-header-text: #f4fcfe;
+  --passage-header-link: #c8f0ff;
+  --passage-font-display: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='abidjan-coral'], .passage-memorial-root[data-theme='abidjan-coral'] {
+  --background: #faf4f0;
+  --foreground: #2a2018;
+  --passage-bg: #faf4f0;
+  --passage-surface: #fff8f4;
+  --passage-card-bg: #fff8f4;
+  --passage-text: #2a2018;
+  --passage-muted: #6a5850;
+  --passage-heading: #4a3028;
+  --passage-accent: #d87868;
+  --passage-rule: #d8786844;
+  --passage-link: #a85848;
+  --passage-hero-bg: #4a3028;
+  --passage-hero-text: #fff8f4;
+  --passage-hero-muted: #f0c8c0;
+  --passage-header-bg: #4a3028;
+  --passage-header-text: #fff8f4;
+  --passage-header-link: #ffe0d8;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='freetown-mist'], .passage-memorial-root[data-theme='freetown-mist'] {
+  --background: #eef0f2;
+  --foreground: #1a2830;
+  --passage-bg: #eef0f2;
+  --passage-surface: #f4f6f8;
+  --passage-card-bg: #f4f6f8;
+  --passage-text: #1a2830;
+  --passage-muted: #4a5860;
+  --passage-heading: #2a3840;
+  --passage-accent: #5a7888;
+  --passage-rule: #5a788844;
+  --passage-link: #3a5868;
+  --passage-hero-bg: #2a3840;
+  --passage-hero-text: #f4f6f8;
+  --passage-hero-muted: #b8c8d0;
+  --passage-header-bg: #2a3840;
+  --passage-header-text: #f4f6f8;
+  --passage-header-link: #e0f0f8;
+  --passage-font-display: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='monrovia-green'], .passage-memorial-root[data-theme='monrovia-green'] {
+  --background: #f0f4f0;
+  --foreground: #1a2818;
+  --passage-bg: #f0f4f0;
+  --passage-surface: #f6faf6;
+  --passage-card-bg: #f6faf6;
+  --passage-text: #1a2818;
+  --passage-muted: #4a5848;
+  --passage-heading: #1a4830;
+  --passage-accent: #2a8858;
+  --passage-rule: #2a885844;
+  --passage-link: #1a6840;
+  --passage-hero-bg: #1a4830;
+  --passage-hero-text: #f6faf6;
+  --passage-hero-muted: #a8d0b0;
+  --passage-header-bg: #1a4830;
+  --passage-header-text: #f6faf6;
+  --passage-header-link: #c8f0d0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='addis-gold'], .passage-memorial-root[data-theme='addis-gold'] {
+  --background: #faf6ee;
+  --foreground: #2a2010;
+  --passage-bg: #faf6ee;
+  --passage-surface: #fffcf4;
+  --passage-card-bg: #fffcf4;
+  --passage-text: #2a2010;
+  --passage-muted: #6a5840;
+  --passage-heading: #4a3818;
+  --passage-accent: #d4a830;
+  --passage-rule: #8b202044;
+  --passage-link: #8b3020;
+  --passage-hero-bg: #4a3818;
+  --passage-hero-text: #fffcf4;
+  --passage-hero-muted: #e8d8a0;
+  --passage-header-bg: #4a3818;
+  --passage-header-text: #fffcf4;
+  --passage-header-link: #f8e8b0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: linear-gradient(90deg, #8b2028 0%, #1a5c38 50%, #d4a830 100%);
+}
+
+html[data-theme='djibouti-pearl'], .passage-memorial-root[data-theme='djibouti-pearl'] {
+  --background: #f4f2ee;
+  --foreground: #2a2824;
+  --passage-bg: #f4f2ee;
+  --passage-surface: #faf8f4;
+  --passage-card-bg: #faf8f4;
+  --passage-text: #2a2824;
+  --passage-muted: #6a6860;
+  --passage-heading: #3a3830;
+  --passage-accent: #7a8878;
+  --passage-rule: #7a887844;
+  --passage-link: #5a6860;
+  --passage-hero-bg: #3a4848;
+  --passage-hero-text: #faf8f4;
+  --passage-hero-muted: #c8d0c8;
+  --passage-header-bg: #3a4848;
+  --passage-header-text: #faf8f4;
+  --passage-header-link: #e8f0e8;
+  --passage-font-display: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 40rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='asmara-stone'], .passage-memorial-root[data-theme='asmara-stone'] {
+  --background: #ececea;
+  --foreground: #2a2a28;
+  --passage-bg: #ececea;
+  --passage-surface: #f4f4f2;
+  --passage-card-bg: #f4f4f2;
+  --passage-text: #2a2a28;
+  --passage-muted: #5a5a58;
+  --passage-heading: #3a3a38;
+  --passage-accent: #6a6a68;
+  --passage-rule: #6a6a6844;
+  --passage-link: #4a4a48;
+  --passage-hero-bg: #3a3a38;
+  --passage-hero-text: #f4f4f2;
+  --passage-hero-muted: #b8b8b6;
+  --passage-header-bg: #3a3a38;
+  --passage-header-text: #f4f4f2;
+  --passage-header-link: #e8e8e6;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 40rem;
+  --passage-radius: 0;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='mogadishu-blue'], .passage-memorial-root[data-theme='mogadishu-blue'] {
+  --background: #eef4f8;
+  --foreground: #1a2838;
+  --passage-bg: #eef4f8;
+  --passage-surface: #f4f8fc;
+  --passage-card-bg: #f4f8fc;
+  --passage-text: #1a2838;
+  --passage-muted: #4a5868;
+  --passage-heading: #2a4868;
+  --passage-accent: #4a88c8;
+  --passage-rule: #4a88c844;
+  --passage-link: #2a6898;
+  --passage-hero-bg: #2a4868;
+  --passage-hero-text: #f4f8fc;
+  --passage-hero-muted: #a8c8e8;
+  --passage-header-bg: #2a4868;
+  --passage-header-text: #f4f8fc;
+  --passage-header-link: #d0f0ff;
+  --passage-font-display: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='kigali-hills'], .passage-memorial-root[data-theme='kigali-hills'] {
+  --background: #f0f4ee;
+  --foreground: #1a2818;
+  --passage-bg: #f0f4ee;
+  --passage-surface: #f6faf4;
+  --passage-card-bg: #f6faf4;
+  --passage-text: #1a2818;
+  --passage-muted: #4a5848;
+  --passage-heading: #2a4830;
+  --passage-accent: #4a8860;
+  --passage-rule: #4a886044;
+  --passage-link: #2a6848;
+  --passage-hero-bg: #2a4830;
+  --passage-hero-text: #f6faf4;
+  --passage-hero-muted: #b8d8c0;
+  --passage-header-bg: #2a4830;
+  --passage-header-text: #f6faf4;
+  --passage-header-link: #d8f8e0;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='kampala-morning'], .passage-memorial-root[data-theme='kampala-morning'] {
+  --background: #f4f6f0;
+  --foreground: #1a2818;
+  --passage-bg: #f4f6f0;
+  --passage-surface: #fafcf6;
+  --passage-card-bg: #fafcf6;
+  --passage-text: #1a2818;
+  --passage-muted: #4a5848;
+  --passage-heading: #3a4830;
+  --passage-accent: #6a9850;
+  --passage-rule: #6a985044;
+  --passage-link: #4a7840;
+  --passage-hero-bg: #3a4830;
+  --passage-hero-text: #fafcf6;
+  --passage-hero-muted: #c8d8b0;
+  --passage-header-bg: #3a4830;
+  --passage-header-text: #fafcf6;
+  --passage-header-link: #e8f8d0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='dar-teal'], .passage-memorial-root[data-theme='dar-teal'] {
+  --background: #eef6f4;
+  --foreground: #1a2828;
+  --passage-bg: #eef6f4;
+  --passage-surface: #f4fcfa;
+  --passage-card-bg: #f4fcfa;
+  --passage-text: #1a2828;
+  --passage-muted: #4a5858;
+  --passage-heading: #1a4848;
+  --passage-accent: #2a9888;
+  --passage-rule: #2a988844;
+  --passage-link: #1a7870;
+  --passage-hero-bg: #1a4848;
+  --passage-hero-text: #f4fcfa;
+  --passage-hero-muted: #a8e0d8;
+  --passage-header-bg: #1a4848;
+  --passage-header-text: #f4fcfa;
+  --passage-header-link: #c8fff8;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 44rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='maputo-coral'], .passage-memorial-root[data-theme='maputo-coral'] {
+  --background: #faf2ee;
+  --foreground: #2a2018;
+  --passage-bg: #faf2ee;
+  --passage-surface: #fff6f2;
+  --passage-card-bg: #fff6f2;
+  --passage-text: #2a2018;
+  --passage-muted: #6a5850;
+  --passage-heading: #4a3028;
+  --passage-accent: #e07858;
+  --passage-rule: #e0785844;
+  --passage-link: #a85840;
+  --passage-hero-bg: #4a3028;
+  --passage-hero-text: #fff6f2;
+  --passage-hero-muted: #f0c0b0;
+  --passage-header-bg: #4a3028;
+  --passage-header-text: #fff6f2;
+  --passage-header-link: #ffe0d0;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='windhoek-dust'], .passage-memorial-root[data-theme='windhoek-dust'] {
+  --background: #f2eee8;
+  --foreground: #2a2820;
+  --passage-bg: #f2eee8;
+  --passage-surface: #f8f4ee;
+  --passage-card-bg: #f8f4ee;
+  --passage-text: #2a2820;
+  --passage-muted: #6a6458;
+  --passage-heading: #4a4438;
+  --passage-accent: #a89878;
+  --passage-rule: #a8987844;
+  --passage-link: #7a7058;
+  --passage-hero-bg: #4a4438;
+  --passage-hero-text: #f8f4ee;
+  --passage-hero-muted: #d8d0c0;
+  --passage-header-bg: #4a4438;
+  --passage-header-text: #f8f4ee;
+  --passage-header-link: #f0e8d8;
+  --passage-font-display: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='harare-iron'], .passage-memorial-root[data-theme='harare-iron'] {
+  --background: #ececea;
+  --foreground: #1a1a18;
+  --passage-bg: #ececea;
+  --passage-surface: #f2f2f0;
+  --passage-card-bg: #f2f2f0;
+  --passage-text: #1a1a18;
+  --passage-muted: #5a5a58;
+  --passage-heading: #2a2a28;
+  --passage-accent: #6a6860;
+  --passage-rule: #6a686044;
+  --passage-link: #4a4840;
+  --passage-hero-bg: #2a2a28;
+  --passage-hero-text: #f2f2f0;
+  --passage-hero-muted: #b8b8b4;
+  --passage-header-bg: #2a2a28;
+  --passage-header-text: #f2f2f0;
+  --passage-header-link: #e8e8e4;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 40rem;
+  --passage-radius: 0;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='seychelles-lagoon'], .passage-memorial-root[data-theme='seychelles-lagoon'] {
+  --background: #eef8f6;
+  --foreground: #1a3030;
+  --passage-bg: #eef8f6;
+  --passage-surface: #f4fcfa;
+  --passage-card-bg: #f4fcfa;
+  --passage-text: #1a3030;
+  --passage-muted: #4a6060;
+  --passage-heading: #1a5858;
+  --passage-accent: #3ab8a8;
+  --passage-rule: #3ab8a844;
+  --passage-link: #2a9890;
+  --passage-hero-bg: #1a5858;
+  --passage-hero-text: #f4fcfa;
+  --passage-hero-muted: #a8e8e0;
+  --passage-header-bg: #1a5858;
+  --passage-header-text: #f4fcfa;
+  --passage-header-link: #d0fff8;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 4px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='reunion-volcano'], .passage-memorial-root[data-theme='reunion-volcano'] {
+  --background: #f4f0ee;
+  --foreground: #2a2018;
+  --passage-bg: #f4f0ee;
+  --passage-surface: #faf6f4;
+  --passage-card-bg: #faf6f4;
+  --passage-text: #2a2018;
+  --passage-muted: #6a5850;
+  --passage-heading: #4a2820;
+  --passage-accent: #a84838;
+  --passage-rule: #a8483844;
+  --passage-link: #883028;
+  --passage-hero-bg: #4a2820;
+  --passage-hero-text: #faf6f4;
+  --passage-hero-muted: #e0b8a8;
+  --passage-header-bg: #4a2820;
+  --passage-header-text: #faf6f4;
+  --passage-header-link: #f8d0c0;
+  --passage-font-display: var(--font-cormorant), Georgia, serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: none;
+}
+
+html[data-theme='continental-dawn'], .passage-memorial-root[data-theme='continental-dawn'] {
+  --background: #f0ece8;
+  --foreground: #1a1818;
+  --passage-bg: #f0ece8;
+  --passage-surface: #f6f2ee;
+  --passage-card-bg: #f6f2ee;
+  --passage-text: #1a1818;
+  --passage-muted: #4a4848;
+  --passage-heading: #1a1818;
+  --passage-accent: #8b2028;
+  --passage-rule: #1a5c3844;
+  --passage-link: #6b1f2a;
+  --passage-hero-bg: #2a2828;
+  --passage-hero-text: #f6f2ee;
+  --passage-hero-muted: #b8b4b0;
+  --passage-header-bg: #2a2828;
+  --passage-header-text: #f6f2ee;
+  --passage-header-link: #d4a830;
+  --passage-font-display: var(--font-libre-baskerville), Georgia, 'Times New Roman', serif;
+  --passage-font-body: var(--font-dm-sans), system-ui, sans-serif;
+  --passage-content-max: 42rem;
+  --passage-radius: 2px;
+  --passage-shadow: none;
+  --passage-kente-band: linear-gradient(90deg, #8b2028 0%, #1a5c38 50%, #d4a830 100%);
+}

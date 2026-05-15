@@ -1,6 +1,9 @@
-/** Visual memorial themes — 73 coordinator-selectable appearances. */
+/** Visual memorial themes — coordinator-selectable appearances. */
 
 export type VisualThemeGroup = 'light' | 'dark' | 'cultural' | 'regional'
+
+/** Second regional batch — filter as "Across Africa (25)" in design lab. */
+export type VisualThemeBatch = 'africa-extended'
 
 export type VisualThemeMeta = {
   id: string
@@ -8,6 +11,7 @@ export type VisualThemeMeta = {
   description: string
   group: VisualThemeGroup
   fontPair?: string
+  batch?: VisualThemeBatch
 }
 
 export const VISUAL_THEME_REGISTRY: VisualThemeMeta[] = [
@@ -522,6 +526,206 @@ export const VISUAL_THEME_REGISTRY: VisualThemeMeta[] = [
     group: 'regional',
     fontPair: 'Libre Baskerville + DM Sans',
   },
+  {
+    id: 'sahara-gold',
+    label: 'Sahara gold',
+    description: 'Desert dawn cream and burnished gold — Maghreb-Sahara warmth.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'nairobi-green',
+    label: 'Nairobi green',
+    description: 'Highland tea green on mist white — East African capital clarity.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'cape-winds',
+    label: 'Cape winds',
+    description: 'Atlantic grey-blue and cool silver — southern cape memorial air.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'tunis-pearl',
+    label: 'Tunis pearl',
+    description: 'Pearl limestone and soft taupe — North African restraint.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'fez-indigo',
+    label: 'Fez indigo',
+    description: 'Moroccan indigo night with silver type — medina solemnity.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'dakar-sunset',
+    label: 'Dakar sunset',
+    description: 'Teranga orange horizon on warm sand — Senegalese evening.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'bamako-ochre',
+    label: 'Bamako ochre',
+    description: 'Sahel millet gold on ochre ground — Malian earth tones.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'ouagadougou-red',
+    label: 'Ouagadougou red',
+    description: 'Laterite red and millet cream — Burkina Faso high plain.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'lome-azure',
+    label: 'Lomé azure',
+    description: 'Gulf of Guinea teal on bright white — Togolese coastal calm.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'DM Sans + DM Sans',
+  },
+  {
+    id: 'abidjan-coral',
+    label: 'Abidjan coral',
+    description: 'Lagoon coral and cocoa trim — Côte d’Ivoire elegance.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'freetown-mist',
+    label: 'Freetown mist',
+    description: 'Atlantic mist grey and forest shadow — Sierra Leone peninsula.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'DM Sans + DM Sans',
+  },
+  {
+    id: 'monrovia-green',
+    label: 'Monrovia green',
+    description: 'Liberian forest green on bright paper — coastal republic order.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'addis-gold',
+    label: 'Addis gold',
+    description: 'Ethiopian liturgy ivory with gold thread — Horn capital dignity.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'djibouti-pearl',
+    label: 'Djibouti pearl',
+    description: 'Gulf pearl grey and salt air white — Horn gateway stillness.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'DM Sans + DM Sans',
+  },
+  {
+    id: 'asmara-stone',
+    label: 'Asmara stone',
+    description: 'Art deco stone grey and cool slate — Eritrean modernist calm.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'mogadishu-blue',
+    label: 'Mogadishu blue',
+    description: 'Indian Ocean azure on pearl sand — coastal Horn openness.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'DM Sans + DM Sans',
+  },
+  {
+    id: 'kigali-hills',
+    label: 'Kigali hills',
+    description: 'Thousand-hills green and cloud white — Rwandan morning service.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'kampala-morning',
+    label: 'Kampala morning',
+    description: 'Lake morning sage and bright linen — Ugandan highland light.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'dar-teal',
+    label: 'Dar es Salaam teal',
+    description: 'Swahili coast teal and coral white — Tanzanian harbour calm.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'maputo-coral',
+    label: 'Maputo coral',
+    description: 'Mozambique Channel coral on warm sand — southern coast remembrance.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'windhoek-dust',
+    label: 'Windhoek dust',
+    description: 'Namib dust beige and iron sky — desert capital hush.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'DM Sans + DM Sans',
+  },
+  {
+    id: 'harare-iron',
+    label: 'Harare iron',
+    description: 'Granite iron grey and soapstone green — Zimbabwean stillness.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
+  {
+    id: 'seychelles-lagoon',
+    label: 'Seychelles lagoon',
+    description: 'Turquoise lagoon and palm cream — island memorial light.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'reunion-volcano',
+    label: 'Réunion volcano',
+    description: 'Basalt rust and reunion mist — Indian Ocean volcanic grace.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Cormorant + DM Sans',
+  },
+  {
+    id: 'continental-dawn',
+    label: 'Continental dawn',
+    description: 'Pan-African slate at first light — red, gold, and green thread.',
+    group: 'regional',
+    batch: 'africa-extended',
+    fontPair: 'Libre Baskerville + DM Sans',
+  },
 ]
 
 export const VISUAL_THEME_IDS = VISUAL_THEME_REGISTRY.map((t) => t.id)
@@ -529,6 +733,12 @@ export const VISUAL_THEME_IDS = VISUAL_THEME_REGISTRY.map((t) => t.id)
 export type VisualTheme = (typeof VISUAL_THEME_REGISTRY)[number]['id']
 
 export const VISUAL_THEMES: VisualTheme[] = VISUAL_THEME_IDS as VisualTheme[]
+
+export const AFRICA_EXTENDED_THEME_IDS = VISUAL_THEME_REGISTRY.filter(
+  (t) => t.batch === 'africa-extended',
+).map((t) => t.id) as VisualTheme[]
+
+export const AFRICA_EXTENDED_THEME_COUNT = AFRICA_EXTENDED_THEME_IDS.length
 
 export const VISUAL_THEME_GROUPS: { id: VisualThemeGroup; label: string }[] = [
   { id: 'light', label: 'Light' },

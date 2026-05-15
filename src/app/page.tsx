@@ -38,7 +38,7 @@ export default function HomePage() {
           className="block max-w-xl rounded-lg border border-[color-mix(in_srgb,var(--passage-rule)_22%,transparent)] bg-[var(--passage-card-bg)] p-5 shadow-sm transition hover:border-[color-mix(in_srgb,var(--passage-accent)_35%,transparent)] hover:shadow-md"
         >
           <p className="text-xs uppercase tracking-[0.2em] text-[var(--passage-muted)]">
-            All appearance styles ({VISUAL_THEME_COUNT}+)
+            All appearance styles ({VISUAL_THEME_COUNT})
           </p>
           <p className="mt-2 font-[family-name:var(--passage-font-display)] text-xl font-semibold text-[var(--passage-heading)]">
             Browse every colour and typography option

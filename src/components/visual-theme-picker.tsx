@@ -52,7 +52,7 @@ export function VisualThemePicker({
         <p className="text-sm text-[var(--passage-muted)]">
           Choose how the public memorial looks.{' '}
           <Link href="/design-lab" className="passage-text-link">
-            Preview all {VISUAL_THEME_COUNT}+ appearances in the design lab
+            Preview all {VISUAL_THEME_COUNT} appearances in the design lab
           </Link>
           .
         </p>

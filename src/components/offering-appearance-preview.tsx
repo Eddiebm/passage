@@ -23,7 +23,7 @@ export function OfferingAppearancePreview() {
       <AppearancePreviewGrid themes={themes} />
       <p className="text-sm">
         <Link href="/design-lab" className="passage-text-link font-medium">
-          See all appearance examples ({VISUAL_THEME_COUNT}+) →
+          See all appearance examples ({VISUAL_THEME_COUNT}) →
         </Link>
       </p>
     </section>

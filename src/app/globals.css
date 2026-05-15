@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../styles/themes.css";
+@import "../styles/themes-africa-extended.css";
 
 @theme inline {
   --color-background: var(--background);

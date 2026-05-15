@@ -110,16 +110,26 @@ export function DesignLabThemeGrid() {
       )}
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {visibleThemes.map((theme) => (
-          <Link
-            key={theme.id}
-            href={`/design-lab/${theme.id}`}
-            className="group overflow-hidden rounded-lg border border-[#3D2B1F]/12 bg-white shadow-sm transition hover:border-[#C9A02C]/60 hover:shadow-md"
-          >
-            <MemorialThemePreview themeId={theme.id as VisualTheme} compact />
-            <ThemeCardFooter theme={theme} />
-          </Link>
-        ))}
+        {visibleThemes.map((theme) => {
+          const themeId = theme.id as VisualTheme
+          const liveHref = themeExampleHref(themeId)
+          return (
+            <article
+              key={theme.id}
+              className="flex flex-col overflow-hidden rounded-lg border border-[#3D2B1F]/12 bg-white shadow-sm"
+            >
+              <Link
+                href={liveHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
+              >
+                <MemorialThemePreview themeId={themeId} compact />
+              </Link>
+              <ThemeCardFooter theme={theme} liveHref={liveHref} />
+            </article>
+          )
+        })}
       </div>
 
       {visibleThemes.length === 0 && (
@@ -195,10 +205,16 @@ function PaginationBar({
   )
 }
 
-function ThemeCardFooter({ theme }: { theme: (typeof VISUAL_THEME_REGISTRY)[number] }) {
+function ThemeCardFooter({
+  theme,
+  liveHref,
+}: {
+  theme: (typeof VISUAL_THEME_REGISTRY)[number]
+  liveHref: string
+}) {
   return (
     <div className="border-t border-[#3D2B1F]/10 px-4 py-3">
-      <p className="text-sm font-medium group-hover:text-[#6B1F2A]">{theme.label}</p>
+      <p className="text-sm font-medium text-[#1A1A1A]">{theme.label}</p>
       <p className="mt-1 text-xs text-[#1A1A1A]/60">{theme.description}</p>
       <p className="mt-2 text-[10px] uppercase tracking-wider text-[#1A1A1A]/40">
         {theme.group}
@@ -206,11 +222,12 @@ function ThemeCardFooter({ theme }: { theme: (typeof VISUAL_THEME_REGISTRY)[numb
       </p>
       <p className="mt-2 text-[11px] text-[#6B1F2A]/80">{themeExampleLabel(theme.id)}</p>
       <Link
-        href={themeExampleHref(theme.id)}
-        className="mt-1 inline-block text-[11px] font-medium text-[#6B1F2A] underline-offset-2 hover:underline"
-        onClick={(e) => e.stopPropagation()}
+        href={liveHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-2 inline-block text-sm font-medium text-[#6B1F2A] underline-offset-2 hover:underline"
       >
-        View live example →
+        View full example
       </Link>
     </div>
   )
