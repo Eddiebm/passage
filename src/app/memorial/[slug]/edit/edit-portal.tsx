@@ -42,6 +42,7 @@ import { SiteHeader } from '@/components/site-header'
 import { GallerySizeWarning } from '@/components/gallery-size-warning'
 import { MemorialImageFileInput } from '@/components/memorial-image-file-input'
 import { BankReconciliationPanel } from '@/components/bank-reconciliation-panel'
+import { ObituaryWordsPanel } from '@/components/obituary-words-panel'
 import {
   DeathCertificateScanPanel,
   type DeathCertificateApplyPayload,
@@ -2508,6 +2509,16 @@ export function EditPortal({ slug }: { slug: string }) {
                 Save changes
               </button>
             </section>
+
+            {data && (
+              <ObituaryWordsPanel
+                memorial={data}
+                slug={slug}
+                pin={pin}
+                onSaved={() => void load()}
+                onMessage={setMsg}
+              />
+            )}
 
             <section className="space-y-3">
               <h2 className="font-semibold">Reconcile contributions</h2>
