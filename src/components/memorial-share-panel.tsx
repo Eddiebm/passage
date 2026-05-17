@@ -115,7 +115,7 @@ export function MemorialSharePanel({
         Share this memorial
       </h2>
       <p className="mt-1 text-xs text-[#1A1A1A]/60">
-        Share the memorial page with family and friends near and far.
+        Let family and friends near and far know. Share the link however feels right for your family.
       </p>
 
       {/* Primary actions */}

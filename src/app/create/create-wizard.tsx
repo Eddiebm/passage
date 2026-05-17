@@ -37,14 +37,14 @@ import { buildMemorialShareAnnouncement, memorialWhatsAppWebShareUrl } from '@/l
 import type { Memorial } from '@/lib/types'
 
 const STEPS = [
-  'What you need',
+  'What your family needs',
   'Faith & tradition',
-  'Who passed away',
-  'Family & survivors',
-  'Services & meetings',
+  'About the person who passed',
+  'Family & those left behind',
+  'Funeral services',
   'Contributions (optional)',
   'Your contact details',
-  'Check everything',
+  'Read and save',
 ] as const
 
 const OUTPUT_TEMPLATE_CHOICES: { value: OutputTemplate; title: string; body: string }[] = [
@@ -222,7 +222,7 @@ export function CreateWizard() {
     if (payload.date_of_passing) update('date_of_passing', payload.date_of_passing)
     if (payload.place_of_passing) update('place_of_passing', payload.place_of_passing)
     if (payload.age != null) update('age', String(payload.age))
-    setUploadNotice('Applied certificate suggestions — please review every field.')
+    setUploadNotice('We filled in what we could from the certificate. Please check every detail carefully before continuing.')
   }
 
   function applyPosterScan(payload: PosterScanApplyPayload) {
@@ -236,7 +236,7 @@ export function CreateWizard() {
     if (payload.events?.length) {
       update('events', payload.events)
     }
-    setUploadNotice('Applied scan suggestions — please review every field before continuing.')
+    setUploadNotice('We filled in what we could from the scan. Please check every field carefully before moving on.')
   }
 
   function stagePrimaryFile(file: File | null) {
@@ -351,12 +351,12 @@ export function CreateWizard() {
       <div className="min-h-full bg-[#1A1A1A] text-[#FAFAF8]">
         <SiteHeader highlightTierMode={form.memorial_mode ?? preselectedFromUrl} />
         <div className="mx-auto max-w-xl space-y-6 px-4 py-16">
-          <h1 className="text-2xl font-semibold">Your draft is saved</h1>
+          <h1 className="text-2xl font-semibold">The memorial has been created</h1>
           <p className="text-sm text-[#FAFAF8]/80">
-            Write down your PIN somewhere safe. We do not email it in this version.
+            Save this PIN — it is how you and your family can come back to edit the memorial. Keep it somewhere safe.
           </p>
           <div className="rounded-lg border border-[#C9A02C]/40 bg-[#3D2B1F]/40 p-4">
-            <p className="text-xs uppercase tracking-wider text-[#C9A02C]">Your PIN</p>
+            <p className="text-xs uppercase tracking-wider text-[#C9A02C]">Your family PIN</p>
             <p className="mt-2 text-3xl font-mono font-semibold tracking-widest">{result.coordinator_pin}</p>
           </div>
           {uploadNotice && (
@@ -371,13 +371,13 @@ export function CreateWizard() {
           />
           <div className="flex flex-col gap-3 text-sm">
             <Link className="text-[#C9A02C] underline" href={result.memorial_url}>
-              View the draft page
+              Open the memorial page
             </Link>
             <Link className="text-[#C9A02C] underline" href={result.edit_url}>
-              Edit as family
+              Go to the family edit portal
             </Link>
             <Link className="text-[#FAFAF8]/70 underline" href="/">
-              Back home
+              Return to the home page
             </Link>
           </div>
         </div>
@@ -390,14 +390,14 @@ export function CreateWizard() {
       <SiteHeader highlightTierMode={form.memorial_mode ?? preselectedFromUrl} />
       <div className="mx-auto max-w-3xl px-4 py-10">
         <p className="text-xs uppercase tracking-[0.2em] text-[#C9A02C]">Step {step + 1} of {STEPS.length}</p>
-        <h1 className="mt-2 text-3xl font-semibold">Publish a notice</h1>
+        <h1 className="mt-2 text-3xl font-semibold">Create a memorial</h1>
         <p className="mt-2 text-sm text-[#1A1A1A]/70">{STEPS[step]}</p>
 
         <div className="mt-8 space-y-6">
           {step === 0 && (
             <div className="space-y-4">
               <p className="text-sm text-[#1A1A1A]/70">
-                Pick what family and friends will see on the page. You can change this later when you edit as family.
+                Choose how you would like to remember them. You can adjust the look and content at any time from the family portal.
               </p>
               {preselectedFromUrl ? (
                 <p className="rounded-md border border-[#C9A02C]/35 bg-[#C9A02C]/8 px-3 py-2 text-sm text-[#1A1A1A]/80">
@@ -571,7 +571,7 @@ export function CreateWizard() {
 
           {step === 3 && (
             <div className="space-y-4">
-              <p className="text-sm text-[#1A1A1A]/70">Surviving family</p>
+              <p className="text-sm text-[#1A1A1A]/70">Those left behind — add each person the family wishes to name.</p>
               {form.surviving_family.map((m, i) => (
                 <div key={i} className="space-y-2 rounded border border-[#3D2B1F]/15 bg-white p-3">
                   <Field
@@ -692,7 +692,7 @@ export function CreateWizard() {
                   checked={form.fundraising_active}
                   onChange={(e) => update('fundraising_active', e.target.checked)}
                 />
-                Enable fundraising on this memorial
+                Allow family and friends to contribute to funeral expenses
               </label>
               {form.fundraising_active && (
                 <>
@@ -712,7 +712,7 @@ export function CreateWizard() {
                   </div>
                   <Field label="Label (e.g. Funeral expenses)" value={form.fundraising_label} onChange={(v) => update('fundraising_label', v)} />
                   <div>
-                    <label className="text-xs font-medium text-[#1A1A1A]/70">Appeal (optional — AI can expand)</label>
+                    <label className="text-xs font-medium text-[#1A1A1A]/70">A few words about what the contributions are for (optional)</label>
                     <textarea
                       className="mt-1 min-h-[80px] w-full rounded border border-[#3D2B1F]/20 px-3 py-2 text-sm"
                       value={form.fundraising_appeal}
@@ -760,20 +760,20 @@ export function CreateWizard() {
                   )}
                 </div>
                 <p className="text-xs text-[#1A1A1A]/60">
-                  Read this carefully. Edit any word before saving. This is exactly what your community will see.
+                  Please read this carefully. Change any word before you save — this is exactly what family and friends will see.
                 </p>
                 <textarea
                   className="min-h-[200px] w-full rounded-lg border border-[#3D2B1F]/20 px-3 py-3 text-sm leading-relaxed focus:border-[#C9A02C] focus:outline-none"
                   value={form.announcement_text ?? ''}
                   onChange={(e) => update('announcement_text', e.target.value)}
-                  placeholder={generatingDraft ? 'Drafting announcement…' : 'Announcement text will appear here'}
+                  placeholder={generatingDraft ? 'Writing the announcement…' : 'The announcement will appear here'}
                   disabled={generatingDraft}
                 />
               </div>
 
               <p className="text-xs text-[#1A1A1A]/55">
-                After saving, you can also update this text from the family edit portal.
-                Add scripture, hymns, and Quran readings there too (Programme readings section).
+                You can return to update this text at any time from the family portal.
+                Scripture, hymns, and Quran readings can be added there too, under Programme readings.
               </p>
               <p className="text-xs text-[#1A1A1A]/55">
                 Memorial content is stored as described in our{' '}
