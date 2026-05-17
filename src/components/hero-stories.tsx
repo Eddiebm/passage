@@ -13,45 +13,45 @@ type Story = {
 const STORIES: Story[] = [
   {
     name: 'Adjoa',
-    location: 'London',
-    situation: 'Father passed in Kumasi. Seven WhatsApp threads. No date agreed.',
-    line: 'She is the most organised person in the family. No one has said so out loud, but everyone is calling her.',
+    location: 'Croydon → Kumasi',
+    situation: 'Ghana · Akan · The one-week observation is Saturday.',
+    line: 'Her uncle wants the body released from Komfo Anokye mortuary this week. Her brother in Accra wants three weeks so the London relatives can travel. Nobody has agreed. The canopy hire is still unbooked.',
   },
   {
     name: 'Kojo',
-    location: 'Accra',
-    situation: 'Mother died Monday. The funeral is Saturday. Four days.',
-    line: 'The canopy hire wants 50% upfront. The uncle is travelling from Tamale. The diaspora wants a livestream. His phone has not stopped.',
-  },
-  {
-    name: 'Usman',
-    location: 'Kano',
-    situation: 'Father died at 2:17am. Janazah before Maghrib.',
-    line: 'His sister is calling from Manchester. She just found out. She will miss the burial entirely.',
-  },
-  {
-    name: 'Chinwe',
-    location: 'Toronto',
-    situation: 'Planning the Ikwa Ozu. 600 people. Six weeks.',
-    line: 'She is doing this from a living room in Canada, across a seven-hour time difference, with family members who are equally adamant and rarely agree.',
-  },
-  {
-    name: 'Emeka',
-    location: 'Lagos',
-    situation: 'Brother died suddenly at 36. No warning. Parents broken.',
-    line: 'He is the younger one. He did not ask for this. But someone has to.',
+    location: 'East Legon, Accra',
+    situation: 'Ghana · Akan · Mother died Monday. The funeral is Saturday.',
+    line: 'Four days. The nsawa collectors need a list. The women from the church are already sewing the cloth. The sound system company wants a deposit. His phone has not stopped since Monday afternoon.',
   },
   {
     name: 'Grace',
     location: 'Birmingham',
-    situation: 'Mother died in Tema. Grace cannot go back.',
-    line: 'She is choosing the fabric from photos sent on WhatsApp. The shame of not being there sits heavily on her.',
+    situation: 'Ghana · Her visa means she cannot leave the UK.',
+    line: 'Her mother is being buried in Tema this Saturday. Grace will not be there. She is sending money via MoMo and choosing the aso ntoma from photos on WhatsApp, trying to be present in a funeral she cannot attend.',
+  },
+  {
+    name: 'Usman',
+    location: 'Kano',
+    situation: 'Nigeria · Hausa Muslim · Father died at 2:17am.',
+    line: 'Islam is clear: buried before Maghrib if possible. The Imam has been called. The grave must be dug before sunrise. His sister is calling from Manchester — she just found out, she cannot get a flight in time, she will miss the Janazah entirely.',
+  },
+  {
+    name: 'Chinwe',
+    location: 'Scarborough, Toronto',
+    situation: 'Nigeria · Igbo · The Ikwa Ozu is in six weeks. 600 people.',
+    line: 'The first burial was quiet, as is custom. The real funeral — the masquerade, the palm wine, the three nights of music — takes planning from a living room in Canada, across a seven-hour time difference, with uncles who publicly pledged on WhatsApp and have not paid.',
+  },
+  {
+    name: 'Emeka',
+    location: 'Lagos',
+    situation: 'Nigeria · Igbo · Brother died suddenly at 36.',
+    line: 'An unexpected death in Igbo custom carries a different weight — no celebration of a long life, no dancing, no highlife. There are whispers. The parents cannot function. Emeka is the younger one. He did not ask for this.',
   },
   {
     name: 'Fatima',
     location: 'Abuja',
-    situation: '47 names in a notebook. 17 have not pledged.',
-    line: 'She cannot chase them openly. But if the money does not come in, the family takes a loan — and the shame of a smaller funeral is worse.',
+    situation: 'Nigeria · Yoruba · The aso ebi has been chosen. The live band is booked.',
+    line: 'She is the unofficial treasurer. Forty-seven names. Seventeen have pledged nothing. She cannot chase them — that would cause a scene. But if the money does not come in before the band deposit is due, the family takes a loan.',
   },
 ]
 
