@@ -42,6 +42,19 @@ function formatAccra(iso?: string) {
   }).format(d)
 }
 
+/** Formats a YYYY-MM-DD date string as "22 March 1948" without timezone drift. */
+function formatDateOnly(iso?: string): string {
+  if (!iso) return ''
+  const parts = iso.split('-').map(Number)
+  const [year, month, day] = parts
+  if (!year || !month || !day) return iso
+  return new Intl.DateTimeFormat('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  }).format(new Date(year, month - 1, day))
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -192,9 +205,9 @@ export default async function MemorialPage({
                 (data.deceased_community || '')}
             </p>
             <p className="text-sm text-[var(--passage-hero-muted)]">
-              {data.date_of_birth ? `Sunrise: ${data.date_of_birth}` : ''}
+              {data.date_of_birth ? `Sunrise: ${formatDateOnly(data.date_of_birth)}` : ''}
               {data.date_of_birth && data.date_of_passing ? ' · ' : ''}
-              {data.date_of_passing ? `Sunset: ${data.date_of_passing}` : ''}
+              {data.date_of_passing ? `Sunset: ${formatDateOnly(data.date_of_passing)}` : ''}
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Link

@@ -11,7 +11,7 @@ export default function HomePage() {
       <SiteHeader />
       <main className="passage-memorial-main mx-auto flex w-full flex-1 flex-col gap-14 px-4 py-16">
         <div className="space-y-5">
-          <p className="text-xs uppercase tracking-[0.22em] text-[var(--passage-muted)]">Coordinator desk</p>
+          <p className="text-xs uppercase tracking-[0.22em] text-[var(--passage-muted)]">For families</p>
           <h1 className="font-[family-name:var(--passage-font-display)] text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
             Every life deserves to be remembered.
           </h1>
