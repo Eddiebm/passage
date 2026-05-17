@@ -2,12 +2,18 @@ import type { VisualTheme } from '@/lib/visual-themes'
 
 export type ThemeAssetTier = 'phone-preview' | 'burial-poster' | 'flagship-showcase'
 
-/** Four flagship programme poster looks (landscape showcase PNGs). */
+/** Flagship programme poster looks (landscape showcase PNGs). */
 export const FLAGSHIP_SHOWCASE_THEME_IDS = [
   'programme',
   'monument',
   'kente',
   'night',
+  'adinkra-minimal',
+  'earth-clay',
+  'ivory-letter',
+  'burgundy-mass',
+  'candlelight',
+  'newspaper',
 ] as const satisfies readonly VisualTheme[]
 
 export type FlagshipShowcaseThemeId = (typeof FLAGSHIP_SHOWCASE_THEME_IDS)[number]

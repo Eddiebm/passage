@@ -26,7 +26,18 @@ export type CompleteShowcaseEntry = {
   memorialHref: string
 }
 
-const COMPLETE_THEME_IDS = ['programme', 'monument', 'kente', 'night'] as const satisfies readonly VisualTheme[]
+const COMPLETE_THEME_IDS = [
+  'programme',
+  'monument',
+  'kente',
+  'night',
+  'adinkra-minimal',
+  'earth-clay',
+  'ivory-letter',
+  'burgundy-mass',
+  'candlelight',
+  'newspaper',
+] as const satisfies readonly VisualTheme[]
 
 export function completeShowcasePreviewHref(visualTheme: VisualTheme): string {
   return `/examples/complete/${visualTheme}`
